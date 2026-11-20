@@ -489,6 +489,21 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 @media (max-width:380px){.prow{grid-template-columns:46px minmax(0,1fr) 58px 58px}.rate{grid-template-columns:minmax(0,1fr) 70px 56px}.mini{font-size:18px}}
 @media (max-height:700px){.hero{--ch:clamp(240px,calc(100dvh - 440px),470px)}.swh{display:none}}
+
+.acc{border:2px solid var(--line);border-radius:18px;background:var(--card);margin-bottom:10px;overflow:hidden}
+.acc.open{border-color:var(--c)}
+.acch{display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border:0;background:none;color:inherit;text-align:left;cursor:pointer;font-family:inherit}
+.acch .ae{flex:none;width:42px;height:42px;border-radius:12px;background:color-mix(in srgb,var(--c) 16%,transparent);display:grid;place-items:center;font-size:24px}
+.acch .ae img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.acch .an{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.acch .an b{font:800 16px Outfit,system-ui,sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acch .an small{font:600 12.5px Outfit,system-ui,sans-serif;color:var(--mut)}
+.acch .chev{flex:none;transition:transform .25s}
+.acc.open .chev{transform:rotate(180deg)}
+.accb{padding:4px 12px 14px;animation:fade .25s both}
+.accb .prow{margin-bottom:12px}
+.accb .btn{width:100%;margin-top:2px}
+.catbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
 </style>
 </head>
 <body>
@@ -646,7 +661,7 @@ all_m:["Tous les moments", "All meals", "Todos los momentos", "Alle Mahlzeiten",
 all_p:["Tous les lieux", "All places", "Todos los lugares", "Alle Orte", "Tutti i locali", "Todos os locais", "Все места", "كل الأماكن", "全部店铺", "全てのお店"],
 ex_note:["Les aliments « exemple » ont des prix indicatifs. Corrige-les ou vide-les dans Réglages.", "“Example” items have rough prices. Fix them or clear them in Settings.", "Los artículos «ejemplo» tienen precios orientativos. Corrígelos o bórralos en Ajustes.", "„Beispiel“-Einträge haben grobe Preise. Korrigiere oder lösche sie in den Einstellungen.", "Gli articoli «esempio» hanno prezzi indicativi. Correggili o cancellali nelle Impostazioni.", "Os artigos «exemplo» têm preços indicativos. Corrige-os ou apaga-os nas Definições.", "У «примеров» цены примерные. Исправь их или удали в Настройках.", "أسعار عناصر «مثال» تقريبية. صحّحها أو احذفها من الإعدادات.", "“示例”项目的价格仅供参考，可在设置中修改或清除。", "「例」のメニューは参考価格です。設定で修正・削除できます。"],
 no_item:["Aucun aliment ici pour ce moment.", "No item here for this meal.", "Nada aquí para este momento.", "Hier nichts für diese Mahlzeit.", "Niente qui per questo pasto.", "Nada aqui para esta refeição.", "Здесь пока пусто.", "لا شيء هنا لهذه الوجبة.", "这一餐这里没有东西。", "この時間帯のメニューなし。"],
-no_place:["Aucun établissement pour ce moment. Coche-le sur un lieu dans Réglages.", "No place for this meal. Tick it on a place in Settings.", "Ningún lugar para este momento. Márcalo en Ajustes.", "Kein Ort für diese Mahlzeit. In den Einstellungen anhaken.", "Nessun locale per questo pasto. Spuntalo nelle Impostazioni.", "Nenhum local para esta refeição. Marca-o nas Definições.", "Нет мест для этого времени. Отметь в Настройках.", "لا يوجد مكان لهذه الوجبة. فعّله في الإعدادات.", "这一餐没有店铺，请在设置中勾选。", "この時間帯のお店なし。設定でチェックしてください。"],
+no_place:["Aucun établissement pour ce moment. Coche-le sur un lieu dans Catalogue.", "No place for this meal. Tick it on a place in Catalogue.", "Ningún lugar para este momento. Márcalo en Ajustes.", "Kein Ort für diese Mahlzeit. In den Einstellungen anhaken.", "Nessun locale per questo pasto. Spuntalo nelle Impostazioni.", "Nenhum local para esta refeição. Marca-o nas Definições.", "Нет мест для этого времени. Отметь в Настройках.", "لا يوجد مكان لهذه الوجبة. فعّله في الإعدادات.", "这一餐没有店铺，请在设置中勾选。", "この時間帯のお店なし。設定でチェックしてください。"],
 example:["exemple", "example", "ejemplo", "Beispiel", "esempio", "exemplo", "пример", "مثال", "示例", "例"],
 ai_check:["IA · à vérifier", "AI · double-check", "IA · por verificar", "KI · prüfen", "IA · da verificare", "IA · a verificar", "ИИ · проверь", "ذكاء اصطناعي · للتحقق", "AI · 待核实", "AI・要確認"],
 new_item:["Nouvel aliment", "New item", "Nuevo artículo", "Neuer Eintrag", "Nuovo articolo", "Novo artigo", "Новая позиция", "عنصر جديد", "新项目", "新しいメニュー"],
@@ -897,6 +912,7 @@ w37_2:["🏆 11 nouveaux succès à débloquer", "🏆 11 new achievements to un
 w37_3:["🛒 Boutique : Boost XP, Étincelle et cadres d’avatar", "🛒 Shop: XP boost, Spark and avatar frames", "🛒 Tienda: impulso XP, Chispa y marcos de avatar", "🛒 Shop: XP-Boost, Funke und Avatar-Rahmen", "🛒 Negozio: boost XP, Scintilla e cornici avatar", "🛒 Loja: boost XP, Faísca e molduras de avatar", "🛒 Магазин: буст опыта, Искра и рамки аватара", "🛒 المتجر: تعزيز XP وشرارة وإطارات للصورة", "🛒 商店：经验加成、火花和头像边框", "🛒 ショップ：XPブースト、スパーク、アバターフレーム"],
 w37_4:["🍔 Tu ajoutes tes articles, les établissements sont désormais fixes", "🍔 Add your own items; places are now fixed", "🍔 Añade tus artículos; los locales ahora son fijos", "🍔 Eigene Artikel hinzufügen; Orte sind jetzt fest", "🍔 Aggiungi i tuoi articoli; i locali ora sono fissi", "🍔 Adiciona os teus artigos; os locais agora são fixos", "🍔 Добавляй свои блюда; заведения теперь фиксированы", "🍔 أضف أصنافك؛ الأماكن أصبحت ثابتة", "🍔 可添加自己的菜品；店铺现已固定", "🍔 アイテムは追加OK、お店は固定になりました"],
 w37_5:["🏷️ Version et date affichées en bas de l’intro", "🏷️ Version and date shown at the bottom of the intro", "🏷️ Versión y fecha al pie de la intro", "🏷️ Version und Datum unten im Intro", "🏷️ Versione e data in fondo all’intro", "🏷️ Versão e data no fundo da intro", "🏷️ Версия и дата внизу интро", "🏷️ الإصدار والتاريخ أسفل المقدمة", "🏷️ 开场底部显示版本和日期", "🏷️ イントロ下部にバージョンと日付"],
+n_items:["{n} article(s)", "{n} item(s)", "{n} artículo(s)", "{n} Artikel", "{n} articoli", "{n} artigo(s)", "{n} поз.", "{n} صنف", "{n} 项", "{n}品"],
 };
 
 const LS='gachamidi_v1',APP_V='3.7',V_NAME='Pain au chocolat',V_DATE='2026-11-20';
@@ -1277,15 +1293,18 @@ function catalog(){
   const mchips=[['all',t('all_m')],...MO.map(m=>[m,MODES[m].e+' '+mL(m)])].map(([k,l])=>`<button class="${catMode==k?'on':''}" data-act="cmode" data-v="${k}">${esc(l)}</button>`).join('');
   const PL=S.places.filter(p=>catMode=='all'||inMode(p,catMode));
   if(catFilter!='all'&&!PL.some(p=>p.id==catFilter))catFilter='all';
-  const chips=[['all',t('all_p')],...PL.map(p=>[p.id,p.emoji+' '+p.name])].map(([k,l])=>`<button class="${catFilter==k?'on':''}" data-act="filter" data-v="${k}">${esc(l)}</button>`).join('');
-  return `<div class="vh"><h1>${t('tab_cat')}</h1><button class="btn sm" data-act="add">${t('add')}</button></div><input class="srch" type="search" data-f="q" value="${esc(catQ)}" placeholder="🔎 ${t('search_ph')}"><div class="chips">${mchips}</div><div class="chips">${chips}</div>${S.items.some(i=>i.ex)?`<p class="note">${t('ex_note')}</p>`:''}<div id="catlist">${catList()}</div>`;
+  return `<div class="vh"><h1>${t('tab_cat')}</h1></div><div class="catbtns"><button class="btn ghost sm" data-act="addplace">${t('s_addplace')}</button><button class="btn sm" data-act="add">${t('add')}</button></div><input class="srch" type="search" data-f="q" value="${esc(catQ)}" placeholder="🔎 ${t('search_ph')}"><div class="chips">${mchips}</div>${S.items.some(i=>i.ex)?`<p class="note">${t('ex_note')}</p>`:''}<div id="catlist">${catList()}</div>`;
 }
 const norm=x=>String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const catOpen={};
+function placeEditor(p){return `<div class="prow"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8"><input data-f="p:${p.id}:name" value="${esc(p.name)}"><select data-f="p:${p.id}:rank">${RL.map(r=>`<option ${p.rank==r?'selected':''}>${r}</option>`).join('')}</select><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}"><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div>`}
 function catList(){const order=k=>CK.indexOf(k),q=norm(catQ.trim());
-  const PL=S.places.filter(p=>(catMode=='all'||inMode(p,catMode))&&(catFilter=='all'||catFilter==p.id));
-  const html=PL.map(p=>{const its=S.items.filter(i=>i.placeId==p.id&&(catMode=='all'||inMode(i,catMode))&&(!q||norm(i.name).includes(q)||norm(p.name).includes(q))).sort((a,b)=>order(a.cat)-order(b.cat)||rv[b.rank]-rv[a.rank]);
+  const PL=S.places.filter(p=>catMode=='all'||inMode(p,catMode));
+  const html=PL.map(p=>{const all=S.items.filter(i=>i.placeId==p.id),its=all.filter(i=>(catMode=='all'||inMode(i,catMode))&&(!q||norm(i.name).includes(q)||norm(p.name).includes(q))).sort((a,b)=>order(a.cat)-order(b.cat)||rv[b.rank]-rv[a.rank]);
     if(q&&!its.length)return '';
-    return `<h3 class="grp">${esc(p.emoji)} ${esc(p.name)}${p.ia?' <span class="aib">IA</span>':''} <span class="rb" style="--c:${RK[p.rank].c}">${p.rank}</span><em>${modeTags(p)} · ${its.length}</em></h3>${its.length?its.map(rowHTML).join(''):`<p class="empty">${t('no_item')}</p>`}`}).join('');
+    const open=!!q||catOpen[p.id];
+    return `<section class="acc ${open?'open':''}" style="--c:${RK[p.rank].c}"><button class="acch" data-act="tog" data-id="${p.id}" aria-expanded="${open}"><span class="ae">${icon(p.emoji)}</span><span class="an"><b>${esc(p.name)}</b><small>${modeTags(p)} · ${t('n_items',{n:all.length})}</small></span><span class="rb" style="--c:${RK[p.rank].c}">${p.rank}</span><svg class="chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+    ${open?`<div class="accb">${q?'':placeEditor(p)}${its.length?its.map(rowHTML).join(''):`<p class="empty">${t('no_item')}</p>`}${q?'':`<button class="btn ghost sm" data-act="addin" data-id="${p.id}">${t('add')}</button>`}</div>`:''}</section>`}).join('');
   return html||`<p class="empty">${q?t('no_result'):t('no_place')}</p>`}
 const fdate=x=>new Date(x).toLocaleDateString(loc(),{weekday:'short',day:'numeric',month:'short'});
 function hist(){
@@ -1311,8 +1330,6 @@ function settings(){
   <label class="fld">${t('s_vol')}<input type="range" min="0" max="100" step="5" data-f="volume" value="${s.volume}"></label>
   <label class="sw"><span>${t('s_vib')}${'vibrate' in navigator?'':`<small>${t('s_vib_no')}</small>`}</span><input type="checkbox" data-f="vibe" ${s.vibe?'checked':''}><i></i></label>
   <button class="btn ghost sm" data-act="testsfx">${t('s_test')}</button></section>
-  <section class="box"><h2>${t('s_places')}</h2><p class="hint2">${t('s_places_h')}</p>
-  ${S.places.map(p=>`<div class="prow"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8"><input data-f="p:${p.id}:name" value="${esc(p.name)}"><select data-f="p:${p.id}:rank">${RL.map(r=>`<option ${p.rank==r?'selected':''}>${r}</option>`).join('')}</select><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}"><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div>`).join('')}</section>
   <section class="box"><h2>${t('s_rates')}</h2><p class="hint2">${t('s_rates_h')}</p><div class="rates">${RL.map(r=>`<label class="rate" style="--c:${RK[r].c}"><span>${t('rank',{r})} ${stars(RK[r].stars)}</span><input type="number" min="0" inputmode="decimal" data-f="rate:${r}" value="${s.rates[r]}"><b data-pct="r:${r}">${pct(s.rates[r],tr)}</b></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_pity')}</h2><div class="two"><label class="fld">${t('s_pityA')}<input type="number" min="1" max="50" inputmode="numeric" data-f="pityA" value="${s.pityA}"></label><label class="fld">${t('s_pityS')}<input type="number" min="1" max="99" inputmode="numeric" data-f="pityS" value="${s.pityS}"></label></div><p class="hint2">${t('s_pity_h')}</p></section>
   <section class="box"><h2>${t('s_data')}</h2><p class="hint2">${t('s_data_h')}</p><div class="btns"><button class="btn sm" data-act="export">${t('s_copy')}</button>${window.claude?'':`<button class="btn ghost sm" data-act="exportfile">${t('s_dl')}</button>`}<label class="btn ghost sm file">${t('s_impf')}<input type="file" id="fImp" accept=".json,.txt,application/json,text/plain" hidden></label></div><textarea id="imp" rows="3" placeholder="${t('s_paste')}"></textarea><div class="btns"><button class="btn ghost sm" data-act="import">${t('s_imp')}</button>${S.items.some(i=>i.ex)?`<button class="btn ghost sm" data-act="clearex">${t('s_clearex')}</button>`:''}<button class="btn ghost sm" data-act="clearhist">${t('s_clearhist')}</button><button class="btn danger sm" data-act="reset">${pendReset?t('s_reset_s'):t('s_reset')}</button></div><p class="pc" style="margin:14px 0 0" translate="no">Tarpaing Faim · ${vName()}</p></section>`;
@@ -1565,6 +1582,9 @@ const A={
     const p=S.places.find(x=>x.id==d.placeId),added=p?d.modes.filter(m=>!inMode(p,m)):[];if(p&&added.length)p.modes=MO.filter(m=>inMode(p,m)||added.includes(m));
     if(d.id){const i=S.items.findIndex(x=>x.id==d.id);d.ex=false;d.ia=false;S.items[i]=d}else S.items.push({...d,id:uid(),ex:false});
     save();closeSheet();render();SFX.yes();toast(added.length?t('t_padded',{p:p.name,m:added.map(mL).join(', ')}):t('t_saved'))},
+  addplace:()=>{const id=uid();S.places.push({id,name:t('new_place'),emoji:'📍',rank:'A',weight:10,modes:[curMode()]});catOpen[id]=true;catQ='';save();render();SFX.soft();setTimeout(()=>{const el=document.querySelector(`[data-f="p:${id}:name"]`);if(el){el.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});el.focus();el.select()}},120)},
+  tog:b=>{const id=b.dataset.id;catOpen[id]=!catOpen[id];SFX.soft();const y=scrollY;const l=$('#catlist');if(l)l.innerHTML=catList();else render()},
+  addin:b=>{catFilter=b.dataset.id;openItem(null);catFilter='all'},
   pmode:b=>{const p=S.places.find(x=>x.id==b.dataset.id);if(!p)return;const v=b.dataset.v,ms=MO.filter(m=>inMode(p,m));p.modes=ms.includes(v)?ms.filter(m=>m!=v):MO.filter(m=>ms.includes(m)||m==v);SFX.soft();save();render()},
   delplace:b=>{const id=b.dataset.id;if(pendDel!=id){armDel(id);render();const n=S.items.filter(i=>i.placeId==id).length;if(n)toast(t('t_delplace',{n}));return}S.places=S.places.filter(p=>p.id!=id);S.items=S.items.filter(i=>i.placeId!=id);if(catFilter==id)catFilter='all';pendDel=null;save();render()},
   noav:()=>{S.settings.avatarImg=null;save();render()},
