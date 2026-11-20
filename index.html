@@ -386,8 +386,8 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .ifan i span{flex:1;display:grid;place-items:center;font-size:38px}
 .ilogo{font:900 58px/.88 'Big Shoulders Display',Impact,sans-serif;color:var(--gInk);text-align:center;letter-spacing:.01em}
 .ilogo span{display:inline-block;animation:drop .5s cubic-bezier(.2,.9,.3,1.4) both}
-.itag{margin:6px 0 0;font:700 16px Outfit,system-ui,sans-serif;color:var(--ovInk);opacity:0;animation:rise .5s 1.1s forwards}
-.iskip{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));margin:0;font:600 13px Outfit,system-ui,sans-serif;color:var(--mut);opacity:0;animation:rise .5s 1.4s forwards}
+.itag{margin:6px 0 0;font:700 16px Outfit,system-ui,sans-serif;color:var(--ovInk);opacity:0;animation:riseIn .5s 1.1s forwards}
+.iskip{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));margin:0;font:600 13px Outfit,system-ui,sans-serif;color:var(--mut);opacity:0;animation:riseIn .5s 1.4s forwards}
 @keyframes fanin{from{transform:translateX(0) rotate(0) scale(.3);opacity:0}}
 @keyframes drop{from{transform:translateY(-50px) scale(.5);opacity:0}}
 
@@ -432,7 +432,29 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .cc.lock span{filter:brightness(0);opacity:.25}
 .newb{display:inline-block;vertical-align:middle;margin-left:4px;padding:1px 7px;border-radius:6px;background:#ff3d6e;color:#fff;font:900 10px/16px Outfit,system-ui,sans-serif;letter-spacing:.05em;animation:pulse 1.4s ease-in-out infinite}
 .ntitle{font:800 18px Outfit,system-ui,sans-serif;color:var(--ovInk);margin-top:6px;animation:rise .5s .3s both}
-.iver{margin:4px 0 0;font:700 12.5px Outfit,system-ui,sans-serif;color:var(--mut);opacity:0;animation:rise .5s 1.2s forwards}
+.iver{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:0;right:0;margin:0;text-align:center;font:700 12.5px Outfit,system-ui,sans-serif;color:var(--mut);opacity:0;animation:riseIn .5s 1.2s forwards}
+.iskip{bottom:max(46px,calc(env(safe-area-inset-bottom) + 32px))!important}
+.irays{position:absolute;left:50%;top:38%;width:150vmax;height:150vmax;margin:-75vmax 0 0 -75vmax;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--g) 22%,transparent) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 42%);mask:radial-gradient(circle,#000 0,transparent 42%);animation:spin 18s linear infinite,fade .8s both;pointer-events:none}
+.ispk{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 12px 3px var(--g);opacity:0;animation:spk 1.6s ease-out forwards;pointer-events:none}
+.ilogo{position:relative;overflow:hidden}
+.ilogo::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.75) 50%,transparent 60%);transform:translateX(-120%);animation:sweep 1s 1.25s ease-out forwards;mix-blend-mode:overlay}
+@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes sweep{to{transform:translateX(120%)}}
+@keyframes spk{0%{opacity:0;transform:translate(0,0) scale(.3)}25%{opacity:1}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(1.2)}}
+@keyframes ring{from{transform:translate(-50%,-50%) scale(.2);opacity:.9}to{transform:translate(-50%,-50%) scale(3.4);opacity:0}}
+@keyframes spark{to{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.2);opacity:0}}
+@keyframes shk{10%{transform:translate(-6px,3px)}30%{transform:translate(6px,-4px)}50%{transform:translate(-4px,-3px)}70%{transform:translate(4px,4px)}90%{transform:translate(-2px,1px)}}
+@keyframes sheen{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
+.fx .ring{position:absolute;left:50%;top:44%;width:260px;height:260px;border-radius:50%;border:5px solid var(--c);box-shadow:0 0 40px 8px var(--c),inset 0 0 30px var(--c);animation:ring .85s ease-out forwards;pointer-events:none}
+.fx .ring.r2{animation-delay:.14s;border-width:3px}
+.fx .sp{position:absolute;left:50%;top:44%;width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 10px 2px var(--c);animation:spark .9s ease-out forwards;pointer-events:none}
+.ov.shk{animation:shk .5s}
+.flip.on .front::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.55) 50%,transparent 62%);animation:sheen 1.1s .55s ease-out both;pointer-events:none}
+.flip.on.rS .front{animation:glowS 1.6s .6s ease-in-out infinite alternate}
+@keyframes glowS{to{box-shadow:0 0 0 3px var(--c),0 0 110px 26px color-mix(in srgb,var(--c) 80%,transparent)}}
+:root[data-frame=gold] .avr{background:conic-gradient(#ffd34d calc(var(--p)*1%),#6b4a12 0)}
+:root[data-frame=rain] .avr{background:conic-gradient(#f26b1d,#ffb627,#e3406b,#8a5cff,#1e6fe0 calc(var(--p)*1%),var(--line) 0)}
+
 .wn{margin:12px 0;padding:0;list-style:none;display:grid;gap:10px}
 .wn li{background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-weight:700;animation:rise .4s both}
 .wn li:nth-child(2){animation-delay:.08s}.wn li:nth-child(3){animation-delay:.16s}.wn li:nth-child(4){animation-delay:.24s}.wn li:nth-child(5){animation-delay:.32s}
@@ -835,9 +857,49 @@ tt_4:["Chef de cantine", "Canteen chef", "Chef del comedor", "Kantinenchef", "Ch
 tt_5:["Légende du goût", "Taste legend", "Leyenda del sabor", "Geschmackslegende", "Leggenda del gusto", "Lenda do sabor", "Легенда вкуса", "أسطورة الذوق", "味觉传奇", "味の伝説"],
 tt_6:["Maître Tarpin", "Tarpin Master", "Maestro Tarpin", "Tarpin-Meister", "Maestro Tarpin", "Mestre Tarpin", "Мастер Тарпен", "سيد تاربان", "Tarpin 大师", "タルパン・マスター"],
 new_title:["Nouveau titre : {t}", "New title: {t}", "Nuevo título: {t}", "Neuer Titel: {t}", "Nuovo titolo: {t}", "Novo título: {t}", "Новое звание: {t}", "لقب جديد: {t}", "新称号：{t}", "新しい称号：{t}"],
+a_b100:["Centurion", "Centurion", "Centurión", "Centurio", "Centurione", "Centurião", "Центурион", "قائد المئة", "百夫长", "百人隊長"],
+a_b100_d:["Ouvre 100 boosters", "Open 100 boosters", "Abre 100 sobres", "Öffne 100 Booster", "Apri 100 booster", "Abre 100 boosters", "Открой 100 бустеров", "افتح 100 بوستر", "打开100包", "100パック開封"],
+a_s3:["Veinard", "Lucky devil", "Suertudo", "Glückspilz", "Fortunato", "Sortudo", "Везунчик", "محظوظ", "幸运儿", "ラッキーマン"],
+a_s3_d:["Obtiens 3 cartes de rang S", "Pull 3 S-rank cards", "Consigue 3 cartas de rango S", "Ziehe 3 Karten mit Rang S", "Ottieni 3 carte di rango S", "Obtém 3 cartas de rank S", "Получи 3 карты ранга S", "احصل على 3 بطاقات من الفئة S", "抽到3张S级卡", "Sランクを3枚引く"],
+a_st14:["Fidèle", "Loyal", "Fiel", "Treu", "Fedele", "Fiel", "Верный", "وفي", "忠实", "忠実"],
+a_st14_d:["Série de 14 jours", "14-day streak", "Racha de 14 días", "14 Tage in Folge", "Serie di 14 giorni", "Sequência de 14 dias", "Серия 14 дней", "سلسلة 14 يومًا", "连续14天", "14日連続"],
+a_st30:["Increvable", "Unstoppable", "Imparable", "Unaufhaltsam", "Inarrestabile", "Imparável", "Неудержимый", "لا يُوقف", "势不可挡", "止まらない"],
+a_st30_d:["Série de 30 jours", "30-day streak", "Racha de 30 días", "30 Tage in Folge", "Serie di 30 giorni", "Sequência de 30 dias", "Серия 30 дней", "سلسلة 30 يومًا", "连续30天", "30日連続"],
+a_d4:["Journée complète", "Full day", "Día completo", "Voller Tag", "Giornata completa", "Dia completo", "Полный день", "يوم كامل", "完整一天", "フルデイ"],
+a_d4_d:["Ouvre le pack de la journée ×4", "Open the ×4 day pack", "Abre el pack del día ×4", "Öffne das ×4-Tagespack", "Apri il pack giornata ×4", "Abre o pack do dia ×4", "Открой дневной пак ×4", "افتح حزمة اليوم ×4", "打开×4全天包", "×4デイパックを開ける"],
+a_lvl10:["Vétéran", "Veteran", "Veterano", "Veteran", "Veterano", "Veterano", "Ветеран", "محنّك", "老手", "ベテラン"],
+a_lvl10_d:["Atteins le niveau 10", "Reach level 10", "Alcanza el nivel 10", "Erreiche Level 10", "Raggiungi il livello 10", "Atinge o nível 10", "Достигни 10 уровня", "بلغ المستوى 10", "达到10级", "レベル10に到達"],
+a_buy:["Premier achat", "First purchase", "Primera compra", "Erster Kauf", "Primo acquisto", "Primeira compra", "Первая покупка", "أول عملية شراء", "首次购买", "初めての購入"],
+a_buy_d:["Achète un objet à la boutique", "Buy an item in the shop", "Compra un objeto en la tienda", "Kaufe einen Artikel im Shop", "Compra un oggetto nel negozio", "Compra um item na loja", "Купи предмет в магазине", "اشترِ غرضًا من المتجر", "在商店买一件物品", "ショップで購入する"],
+a_chest7:["Chasseur de coffres", "Chest hunter", "Cazacofres", "Truhenjäger", "Cacciatore di forzieri", "Caçador de baús", "Охотник за сундуками", "صائد الصناديق", "宝箱猎人", "宝箱ハンター"],
+a_chest7_d:["Ouvre 7 coffres du jour", "Open 7 daily chests", "Abre 7 cofres diarios", "Öffne 7 Tageskisten", "Apri 7 forzieri giornalieri", "Abre 7 baús diários", "Открой 7 ежедневных сундуков", "افتح 7 صناديق يومية", "开启7个每日宝箱", "毎日の宝箱を7回開ける"],
+a_col50:["Grand collectionneur", "Big collector", "Gran coleccionista", "Großsammler", "Gran collezionista", "Grande colecionador", "Крупный коллекционер", "جامع كبير", "大收藏家", "大コレクター"],
+a_col50_d:["Collectionne 50 cartes", "Collect 50 cards", "Reúne 50 cartas", "Sammle 50 Karten", "Raccogli 50 carte", "Coleciona 50 cartas", "Собери 50 карт", "اجمع 50 بطاقة", "收集50张卡", "50枚集める"],
+a_rr:["Repentir", "Second thoughts", "Arrepentido", "Umentschieden", "Ripensamento", "Arrependido", "Передумал", "تراجع", "改主意", "気が変わった"],
+a_rr_d:["Utilise une relance", "Use a reroll", "Usa una repetición", "Nutze einen Reroll", "Usa un reroll", "Usa uma repetição", "Используй пере-ролл", "استخدم إعادة السحب", "使用一次重抽", "リロールを使う"],
+a_all:["Complétiste", "Completionist", "Completista", "Komplettist", "Completista", "Completista", "Перфекционист", "المكتمل", "全收集", "コンプリート"],
+a_all_d:["Collectionne toutes les cartes", "Collect every card", "Reúne todas las cartas", "Sammle alle Karten", "Raccogli tutte le carte", "Coleciona todas as cartas", "Собери все карты", "اجمع كل البطاقات", "收集所有卡片", "全カードを集める"],
+sh_boost:["Boost XP ×2", "XP boost ×2", "Impulso XP ×2", "XP-Boost ×2", "Boost XP ×2", "Boost XP ×2", "Буст опыта ×2", "تعزيز XP ×2", "经验加成×2", "XPブースト×2"],
+sh_boost_d:["Double l’XP de ton prochain booster", "Doubles the XP of your next booster", "Duplica la XP de tu próximo sobre", "Verdoppelt die XP deines nächsten Boosters", "Raddoppia gli XP del prossimo booster", "Duplica o XP do teu próximo booster", "Удваивает опыт следующего бустера", "يضاعف XP للبوستر القادم", "下一包经验翻倍", "次のパックのXPが2倍"],
+sh_pity:["Étincelle", "Spark", "Chispa", "Funke", "Scintilla", "Faísca", "Искра", "شرارة", "火花", "スパーク"],
+sh_pity_d:["+1 sur la garantie A du moment actuel", "+1 on the current moment’s A guarantee", "+1 en la garantía A del momento actual", "+1 auf die A-Garantie des aktuellen Moments", "+1 sulla garanzia A del momento attuale", "+1 na garantia A do momento atual", "+1 к гарантии A текущего момента", "+1 على ضمان A للوقت الحالي", "当前时段A级保底+1", "現在の時間帯のA保証+1"],
+sh_gold:["Cadre doré", "Golden frame", "Marco dorado", "Goldener Rahmen", "Cornice dorata", "Moldura dourada", "Золотая рамка", "إطار ذهبي", "金色边框", "ゴールドフレーム"],
+sh_gold_d:["Anneau doré autour de ton avatar", "Golden ring around your avatar", "Anillo dorado alrededor de tu avatar", "Goldener Ring um deinen Avatar", "Anello dorato attorno al tuo avatar", "Anel dourado à volta do avatar", "Золотое кольцо вокруг аватара", "حلقة ذهبية حول صورتك", "头像外的金色圆环", "アバターの金のリング"],
+sh_rain:["Cadre arc-en-ciel", "Rainbow frame", "Marco arcoíris", "Regenbogenrahmen", "Cornice arcobaleno", "Moldura arco-íris", "Радужная рамка", "إطار قوس قزح", "彩虹边框", "レインボーフレーム"],
+sh_rain_d:["Anneau multicolore autour de ton avatar", "Multicolour ring around your avatar", "Anillo multicolor alrededor de tu avatar", "Bunter Ring um deinen Avatar", "Anello multicolore attorno al tuo avatar", "Anel multicolor à volta do avatar", "Разноцветное кольцо вокруг аватара", "حلقة ملونة حول صورتك", "头像外的彩色圆环", "アバターの虹色リング"],
+equip:["Équiper", "Equip", "Equipar", "Anlegen", "Equipaggia", "Equipar", "Надеть", "تجهيز", "装备", "装備"],
+equipped:["Équipé", "Equipped", "Equipado", "Angelegt", "Equipaggiato", "Equipado", "Надето", "مُجهّز", "已装备", "装備中"],
+boost_used:["Boost XP ×2 utilisé !", "XP boost ×2 used!", "¡Impulso XP ×2 usado!", "XP-Boost ×2 benutzt!", "Boost XP ×2 usato!", "Boost XP ×2 usado!", "Буст опыта ×2 использован!", "تم استخدام تعزيز XP ×2!", "已使用经验加成×2！", "XPブースト×2を使用！"],
+t_pitymax:["Compteur déjà au maximum", "Counter already at max", "Contador ya al máximo", "Zähler schon am Maximum", "Contatore già al massimo", "Contador já no máximo", "Счётчик уже на максимуме", "العداد في أقصاه", "计数已达上限", "カウンターは最大です"],
+t_spark:["Étincelle ! Garantie plus proche", "Spark! Guarantee is closer", "¡Chispa! Garantía más cerca", "Funke! Garantie näher", "Scintilla! Garanzia più vicina", "Faísca! Garantia mais perto", "Искра! Гарантия ближе", "شرارة! الضمان أقرب", "火花！保底更近了", "スパーク！保証が近づいた"],
+w37_1:["🎬 Nouvelle intro et animations d’ouverture plus spectaculaires", "🎬 New intro and more spectacular opening animations", "🎬 Nueva intro y animaciones de apertura más espectaculares", "🎬 Neues Intro und spektakulärere Öffnungsanimationen", "🎬 Nuova intro e animazioni di apertura più spettacolari", "🎬 Nova intro e animações de abertura mais espetaculares", "🎬 Новое интро и более зрелищные анимации открытия", "🎬 مقدمة جديدة وحركات فتح أكثر إبهارًا", "🎬 全新开场和更华丽的开包动画", "🎬 新イントロとより派手な開封アニメ"],
+w37_2:["🏆 11 nouveaux succès à débloquer", "🏆 11 new achievements to unlock", "🏆 11 nuevos logros por desbloquear", "🏆 11 neue Erfolge zum Freischalten", "🏆 11 nuovi obiettivi da sbloccare", "🏆 11 novas conquistas para desbloquear", "🏆 11 новых достижений", "🏆 11 إنجازًا جديدًا لفتحه", "🏆 11个新成就", "🏆 新しい実績11個"],
+w37_3:["🛒 Boutique : Boost XP, Étincelle et cadres d’avatar", "🛒 Shop: XP boost, Spark and avatar frames", "🛒 Tienda: impulso XP, Chispa y marcos de avatar", "🛒 Shop: XP-Boost, Funke und Avatar-Rahmen", "🛒 Negozio: boost XP, Scintilla e cornici avatar", "🛒 Loja: boost XP, Faísca e molduras de avatar", "🛒 Магазин: буст опыта, Искра и рамки аватара", "🛒 المتجر: تعزيز XP وشرارة وإطارات للصورة", "🛒 商店：经验加成、火花和头像边框", "🛒 ショップ：XPブースト、スパーク、アバターフレーム"],
+w37_4:["🍔 Tu ajoutes tes articles, les établissements sont désormais fixes", "🍔 Add your own items; places are now fixed", "🍔 Añade tus artículos; los locales ahora son fijos", "🍔 Eigene Artikel hinzufügen; Orte sind jetzt fest", "🍔 Aggiungi i tuoi articoli; i locali ora sono fissi", "🍔 Adiciona os teus artigos; os locais agora são fixos", "🍔 Добавляй свои блюда; заведения теперь фиксированы", "🍔 أضف أصنافك؛ الأماكن أصبحت ثابتة", "🍔 可添加自己的菜品；店铺现已固定", "🍔 アイテムは追加OK、お店は固定になりました"],
+w37_5:["🏷️ Version et date affichées en bas de l’intro", "🏷️ Version and date shown at the bottom of the intro", "🏷️ Versión y fecha al pie de la intro", "🏷️ Version und Datum unten im Intro", "🏷️ Versione e data in fondo all’intro", "🏷️ Versão e data no fundo da intro", "🏷️ Версия и дата внизу интро", "🏷️ الإصدار والتاريخ أسفل المقدمة", "🏷️ 开场底部显示版本和日期", "🏷️ イントロ下部にバージョンと日付"],
 };
 
-const LS='gachamidi_v1',APP_V='3.6',V_NAME='Croissant',V_DATE='2026-11-20';
+const LS='gachamidi_v1',APP_V='3.7',V_NAME='Pain au chocolat',V_DATE='2026-11-20';
 const RL=['B','A','S'],rv={B:0,A:1,S:2};
 const RK={B:{stars:3,c:'#3f8cff'},A:{stars:4,c:'#a55cf2'},S:{stars:5,c:'#ff9a1f'}};
 const CK=['boisson','entree','plat','dessert'];
@@ -905,7 +967,7 @@ const I0=[
 const mkItem=([p,c,r,e,n,pr,mo])=>({id:uid(),placeId:p,cat:c,rank:r,emoji:e,name:n,price:pr,img:null,ex:true,modes:[...mo]});
 const DS={rates:{B:70,A:25,S:5},pityA:3,pityS:5,theme:'auto',pseudo:'Joueur',avatar:'😋',avatarImg:null,sound:true,volume:70,vibe:true,budgets:{matin:null,midi:null,gouter:null,soir:null},explore:{origin:'Aix-en-Provence, centre-ville',radius:1000,mode:null,wish:'',last:null},hours:{matin:'05:00',midi:'10:30',gouter:'14:30',soir:'18:00'}};
 const newPity=()=>({matin:{a:0,s:0},midi:{a:0,s:0},gouter:{a:0,s:0},soir:{a:0,s:0}});
-const newGame=()=>({xp:0,coins:0,freeze:0,rrBonus:0,chest:null,seen:{},streak:{n:0,last:null,best:0},quests:null,ach:{},stats:{under:0,shares:0,explore:0,modes:[]}});
+const newGame=()=>({xp:0,coins:0,freeze:0,rrBonus:0,chest:null,seen:{},streak:{n:0,last:null,best:0},quests:null,ach:{},stats:{under:0,shares:0,explore:0,modes:[],buys:0,chests:0,rr:0,d4:0}});
 function detectLang(){const l=(navigator.language||'fr').slice(0,2);return LANGS.some(x=>x[0]==l)?l:'fr'}
 function seed(){return {v:3,lang:detectLang(),places:P0.map(([id,name,emoji,rank,weight,modes])=>({id,name,emoji,rank,weight,modes:[...modes]})),items:I0.map(mkItem),settings:JSON.parse(JSON.stringify(DS)),pity:newPity(),history:[],opened:0,game:newGame()}}
 function migrate(d){
@@ -1046,6 +1108,7 @@ function openDay(){
   S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
   const res=MO.map(m=>({m,r:drawEntry(m,true)})),ok=res.filter(x=>x.r.e),ko=res.filter(x=>!x.r.e);
   if(!ok.length)return toast(ko[0].r.err);
+  if(ok.length==4){const st=S.game.stats;st.d4=(st.d4||0)+1}
   if(ko.length)setTimeout(()=>toast(t('t_skipped',{m:ko.map(x=>mL(x.m)).join(', ')})),300);
   SFX.open();const list=ok.map(x=>x.r.e);
   seq={multi:true,list,best:bestOf(list.map(entryBest)),stage:'pack'};
@@ -1077,7 +1140,11 @@ const QP=[['q_open2','🎁',2,20],['q_rankA','💜',1,25],['q_rankS','🌟',1,40
 function hashStr(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}
 function quests(){const g=S.game,k=dayKey();if(!g.quests||g.quests.day!=k){let h=hashStr(k);const pool=[...QP],pick=[];while(pick.length<3){h=Math.imul(h^(h>>>15),2246822507)>>>0;pick.push(pool.splice(h%pool.length,1)[0])}g.quests={day:k,modes:[],list:pick.map(q=>({id:q[0],e:q[1],n:q[2],xp:q[3],p:0,done:false}))}}return g.quests}
 function qProgress(id,inc=1,set){const Q=quests(),out=[];Q.list.forEach(q=>{if(q.id!=id||q.done)return;q.p=set!=null?Math.max(q.p,set):q.p+inc;if(q.p>=q.n){q.p=q.n;q.done=true;S.game.xp+=q.xp;out.push(q)}});return out}
-const ACH=[['a_first','🎉',g=>S.opened>=1],['a_s','🌟',g=>S.history.some(h=>[h.place.rank,...CK.map(k=>h.slots[k]&&h.slots[k].rank)].includes('S'))],['a_st3','🔥',g=>g.streak.best>=3],['a_st7','☄️',g=>g.streak.best>=7],['a_b10','🍽️',g=>S.opened>=10],['a_b50','👑',g=>S.opened>=50],['a_modes','🕐',g=>MO.every(m=>g.stats.modes.includes(m))],['a_explore','🧭',g=>g.stats.explore>=1],['a_share','📸',g=>g.stats.shares>=1],['a_budget','💰',g=>g.stats.under>=5],['a_lvl5','🎓',g=>lvlInfo(g.xp).l>=5],['a_collect','📚',g=>Object.keys(g.seen||{}).length>=25]];
+const ACH=[['a_first','🎉',g=>S.opened>=1],['a_s','🌟',g=>S.history.some(h=>[h.place.rank,...CK.map(k=>h.slots[k]&&h.slots[k].rank)].includes('S'))],['a_st3','🔥',g=>g.streak.best>=3],['a_st7','☄️',g=>g.streak.best>=7],['a_b10','🍽️',g=>S.opened>=10],['a_b50','👑',g=>S.opened>=50],['a_modes','🕐',g=>MO.every(m=>g.stats.modes.includes(m))],['a_explore','🧭',g=>g.stats.explore>=1],['a_share','📸',g=>g.stats.shares>=1],['a_budget','💰',g=>g.stats.under>=5],['a_lvl5','🎓',g=>lvlInfo(g.xp).l>=5],['a_collect','📚',g=>Object.keys(g.seen||{}).length>=25],
+['a_b100','🏆',g=>S.opened>=100],['a_s3','🍀',g=>S.history.reduce((n,h)=>n+[h.place.rank,...CK.map(k=>h.slots[k]&&h.slots[k].rank)].filter(r=>r=='S').length,0)>=3],
+['a_st14','💎',g=>g.streak.best>=14],['a_st30','🌋',g=>g.streak.best>=30],['a_d4','🗓️',g=>(g.stats.d4||0)>=1],['a_lvl10','🧙',g=>lvlInfo(g.xp).l>=10],
+['a_buy','🛍️',g=>(g.stats.buys||0)>=1],['a_chest7','🎁',g=>(g.stats.chests||0)>=7],['a_col50','🗃️',g=>Object.keys(g.seen||{}).length>=50],
+['a_rr','🔁',g=>(g.stats.rr||0)>=1],['a_all','🌈',g=>S.items.length>=10&&S.items.every(i=>(g.seen||{})[i.id])]];
 function checkAch(){const g=S.game,out=[];ACH.forEach(([id,e,fn])=>{if(!g.ach[id]&&fn(g)){g.ach[id]=Date.now();g.xp+=50;out.push({id,e})}});return out}
 function reward(e,silent){
   if(e.rewarded)return null;e.rewarded=true;const g=S.game,before=g.xp;
@@ -1088,13 +1155,14 @@ function reward(e,silent){
   const c0=g.coins||0;CK.forEach(x=>{const it=e.slots[x];if(it&&!g.seen[it.id])g.seen[it.id]=e.t});
   const under=e.budget!=null&&total(e)<=e.budget;if(under)g.stats.under++;
   if(!g.stats.modes.includes(e.mode))g.stats.modes.push(e.mode);
-  const base=10+ranks.reduce((a,r)=>a+XPR[r],0)+(under?5:0)+Math.min(st.n,7)*2;g.xp+=base;
+  const base0=10+ranks.reduce((a,r)=>a+XPR[r],0)+(under?5:0)+Math.min(st.n,7)*2;const bst=(g.boost||0)>0;let base=base0;if(bst){base*=2;g.boost--}g.xp+=base;
   const Q=quests();if(!Q.modes.includes(e.mode))Q.modes.push(e.mode);
   const done=[...qProgress('q_open2'),...(ranks.some(r=>rv[r]>=1)?qProgress('q_rankA'):[]),...(ranks.includes('S')?qProgress('q_rankS'):[]),...(under?qProgress('q_budget'):[]),...(e.slots.entree||e.slots.dessert?qProgress('q_opt'):[]),...qProgress('q_modes',0,Q.modes.length)];
   g.coins=c0+5+done.length*10;const ach=checkAch();g.coins+=ach.length*20;save();
-  return silent?null:{before,after:g.xp,base,done,ach,streak:st.n,up,best:bestOf(ranks),coins:g.coins-c0,froze};
+  return silent?null:{before,after:g.xp,base,done,ach,streak:st.n,up,best:bestOf(ranks),coins:g.coins-c0,froze,bst};
 }
-function hdr(){const s=S.settings,L=lvlInfo(S.game.xp),st=S.game.streak,live=st.last==dayKey()||st.last==dayKey(new Date(Date.now()-864e5));
+const applyFrame=()=>{document.documentElement.dataset.frame=S.game.frame||''};
+function hdr(){applyFrame();const s=S.settings,L=lvlInfo(S.game.xp),st=S.game.streak,live=st.last==dayKey()||st.last==dayKey(new Date(Date.now()-864e5));
   $('#av').innerHTML=s.avatarImg?`<img src="${esc(s.avatarImg)}" alt="">`:esc(s.avatar||'😋');
   $('#avr').style.setProperty('--p',Math.round(L.cur/L.need*100));
   $('#lvl').textContent=`${s.pseudo||'Joueur'} · ${t('lvl',{n:L.l})}`;
@@ -1140,7 +1208,9 @@ function flipCard(f){if(f.classList.contains('on'))return;f.classList.add('on');
   setTimeout(()=>{const nx=$('#nx');if(nx){nx.disabled=false;nx.focus({preventScroll:true})}},reduce?0:700)}
 function goNext(){const f=$('#flip');if(f&&!reduce){f.classList.add('out');SFX.swipe();setTimeout(()=>{seq.i++;ovRender()},260)}else{seq.i++;ovRender()}}
 function tear(p){if(p.classList.contains('open'))return;p.style.setProperty('--cut',1);p.classList.add('open');SFX.tear(seq.best);
-  const fx=document.createElement('div');fx.className='fx';fx.style.setProperty('--c',RK[seq.best].c);fx.innerHTML='<i class="streak"></i><i class="flash"></i>';
+  const fx=document.createElement('div');fx.className='fx';fx.style.setProperty('--c',RK[seq.best].c);const nsp=seq.best=='S'?26:seq.best=='A'?16:9;let spx='';for(let i=0;i<nsp;i++){const an=Math.random()*6.283,d=120+Math.random()*190;spx+=`<i class="sp" style="--x:${Math.cos(an)*d}px;--y:${Math.sin(an)*d}px;animation-delay:${Math.random()*.15}s"></i>`}
+  fx.innerHTML='<i class="streak"></i><i class="flash"></i><i class="ring"></i><i class="ring r2"></i>'+spx;
+  if(!reduce&&seq.best!='B'){ov.classList.remove('shk');void ov.offsetWidth;setTimeout(()=>ov.classList.add('shk'),450);vib([30,30,60])}
   setTimeout(()=>ov.appendChild(fx),reduce?0:450);setTimeout(()=>{if(seq.multi)seq.stage='grid';else seq.i++;ovRender()},reduce?300:1750)}
 function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
   const keys=['place',...CK.filter(k=>seq.steps.includes(k))];
@@ -1153,6 +1223,7 @@ function rewardScreen(r){
   const L0=lvlInfo(r.before),L1=lvlInfo(r.after),gain=r.after-r.before;
   const items=[];
   if(r.coins)items.push(`<div class="ritem" style="animation-delay:.4s"><span class="e">🪙</span><div><b>${t('coins_gain',{n:r.coins})}</b><small>${t('shop_h')}</small></div></div>`);
+  if(r.bst)items.push(`<div class="ritem" style="animation-delay:.42s;border-color:#ffb627"><span class="e">🚀</span><div><b>${t('boost_used')}</b></div></div>`);
   if(r.froze)items.push(`<div class="ritem" style="animation-delay:.45s;border-color:#7ad3ff"><span class="e">🧊</span><div><b>${t('freeze_used')}</b></div></div>`);
   items.push(`<div class="ritem" style="animation-delay:.5s"><span class="e">🔥</span><div><b>${r.up&&r.streak>1?t('streak_up',{n:r.streak}):t('streak_keep',{n:r.streak})}</b><small>${t('streak_sub')}</small></div></div>`);
   r.done.forEach((q,j)=>items.push(`<div class="ritem" style="animation-delay:${.7+j*.15}s"><span class="e">${q.e}</span><div><b>${t('q_done')}</b><small>${t(q.id)}</small></div><em>+${q.xp} XP</em></div>`));
@@ -1241,8 +1312,7 @@ function settings(){
   <label class="sw"><span>${t('s_vib')}${'vibrate' in navigator?'':`<small>${t('s_vib_no')}</small>`}</span><input type="checkbox" data-f="vibe" ${s.vibe?'checked':''}><i></i></label>
   <button class="btn ghost sm" data-act="testsfx">${t('s_test')}</button></section>
   <section class="box"><h2>${t('s_places')}</h2><p class="hint2">${t('s_places_h')}</p>
-  ${S.places.map(p=>`<div class="prow"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8"><input data-f="p:${p.id}:name" value="${esc(p.name)}"><select data-f="p:${p.id}:rank">${RL.map(r=>`<option ${p.rank==r?'selected':''}>${r}</option>`).join('')}</select><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}"><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div>`).join('')}
-  <button class="btn ghost sm" data-act="addplace">${t('s_addplace')}</button></section>
+  ${S.places.map(p=>`<div class="prow"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8"><input data-f="p:${p.id}:name" value="${esc(p.name)}"><select data-f="p:${p.id}:rank">${RL.map(r=>`<option ${p.rank==r?'selected':''}>${r}</option>`).join('')}</select><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}"><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div>`).join('')}</section>
   <section class="box"><h2>${t('s_rates')}</h2><p class="hint2">${t('s_rates_h')}</p><div class="rates">${RL.map(r=>`<label class="rate" style="--c:${RK[r].c}"><span>${t('rank',{r})} ${stars(RK[r].stars)}</span><input type="number" min="0" inputmode="decimal" data-f="rate:${r}" value="${s.rates[r]}"><b data-pct="r:${r}">${pct(s.rates[r],tr)}</b></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_pity')}</h2><div class="two"><label class="fld">${t('s_pityA')}<input type="number" min="1" max="50" inputmode="numeric" data-f="pityA" value="${s.pityA}"></label><label class="fld">${t('s_pityS')}<input type="number" min="1" max="99" inputmode="numeric" data-f="pityS" value="${s.pityS}"></label></div><p class="hint2">${t('s_pity_h')}</p></section>
   <section class="box"><h2>${t('s_data')}</h2><p class="hint2">${t('s_data_h')}</p><div class="btns"><button class="btn sm" data-act="export">${t('s_copy')}</button>${window.claude?'':`<button class="btn ghost sm" data-act="exportfile">${t('s_dl')}</button>`}<label class="btn ghost sm file">${t('s_impf')}<input type="file" id="fImp" accept=".json,.txt,application/json,text/plain" hidden></label></div><textarea id="imp" rows="3" placeholder="${t('s_paste')}"></textarea><div class="btns"><button class="btn ghost sm" data-act="import">${t('s_imp')}</button>${S.items.some(i=>i.ex)?`<button class="btn ghost sm" data-act="clearex">${t('s_clearex')}</button>`:''}<button class="btn ghost sm" data-act="clearhist">${t('s_clearhist')}</button><button class="btn danger sm" data-act="reset">${pendReset?t('s_reset_s'):t('s_reset')}</button></div><p class="pc" style="margin:14px 0 0" translate="no">Tarpaing Faim · ${vName()}</p></section>`;
@@ -1355,20 +1425,24 @@ function profileSheet(){const g=S.game,L=lvlInfo(g.xp);
   <h3 class="sub">${t('achs')} · ${Object.keys(g.ach).length}/${ACH.length}</h3><div class="achs">${ACH.map(([id,e])=>`<div class="ach ${g.ach[id]?'got':'lock'}"><span>${e}</span><b>${t(id)}</b><small>${t(id+'_d')}</small></div>`).join('')}</div>
   <div class="sact"><button class="btn ghost sm" data-act="tab" data-v="set">${t('edit_prof')}</button><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
 
-function shopSheet(){const g=S.game,items=[['freeze','🧊',60],['rr','🔁',40]];
+const SHOP=[['freeze','🧊',60,'sh_freeze','n'],['rr','🔁',40,'sh_reroll','n'],['boost','🚀',80,'sh_boost','n'],['pity','✨',120,'sh_pity','n'],['gold','🥇',150,'sh_gold','f'],['rain','🌈',300,'sh_rain','f']];
+const shopOwned=id=>{const g=S.game;return id=='freeze'?g.freeze||0:id=='rr'?g.rrBonus||0:id=='boost'?g.boost||0:0};
+function shopSheet(){const g=S.game,fr=g.frames||[];
   sheet(`<h2>🛒 ${t('shop')}</h2><div class="coinbal">🪙 <b>${g.coins||0}</b> ${t('coins')}</div><p class="hint2">${t('shop_h')}</p>
-  ${items.map(([id,e,p])=>`<div class="shopi"><span class="e">${e}</span><div class="grow"><b>${t(id=='freeze'?'sh_freeze':'sh_reroll')}</b><small>${t(id=='freeze'?'sh_freeze_d':'sh_reroll_d')}</small><small>${t('owned',{n:id=='freeze'?g.freeze||0:g.rrBonus||0})}</small></div><button class="btn sm" data-act="buy" data-v="${id}" data-p="${p}" ${(g.coins||0)<p?'disabled':''}>🪙 ${p}</button></div>`).join('')}
+  ${SHOP.map(([id,e,p,k,ty])=>{const own=ty=='f'&&fr.includes(id),on=g.frame==id;
+  const btn=ty=='f'&&own?(on?`<button class="btn sm ghost" disabled>✓ ${t('equipped')}</button>`:`<button class="btn sm" data-act="equip" data-v="${id}">${t('equip')}</button>`):`<button class="btn sm" data-act="buy" data-v="${id}" data-p="${p}" ${(g.coins||0)<p?'disabled':''}>🪙 ${p}</button>`;
+  return `<div class="shopi"><span class="e">${e}</span><div class="grow"><b>${t(k)}</b><small>${t(k+'_d')}</small>${ty=='n'&&id!='pity'?`<small>${t('owned',{n:shopOwned(id)})}</small>`:''}</div>${btn}</div>`}).join('')}
   <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
 function collSheet(){const g=S.game,seen=g.seen||{},n=S.items.filter(i=>seen[i.id]).length;
   sheet(`<h2>📚 ${t('collection')}</h2><div class="xpline"><span>${n}</span><div class="xpb"><i style="width:${S.items.length?n/S.items.length*100:0}%"></i></div><span>${S.items.length}</span></div><p class="pc" style="text-align:center;margin:4px 0 10px">${t('col_prog',{n,m:S.items.length})}</p>
   ${S.places.map(p=>{const its=S.items.filter(i=>i.placeId==p.id);if(!its.length)return'';return `<h3 class="sub">${esc(p.emoji+' '+p.name)} · ${its.filter(i=>seen[i.id]).length}/${its.length}</h3><div class="coll">${its.map(i=>seen[i.id]?`<div class="cc" style="--c:${RK[i.rank].c}"><span>${icon(i.emoji,i.img)}</span><small>${esc(i.name)}</small><i>${i.rank}</i></div>`:`<div class="cc lock"><span>${icon(i.emoji,i.img)}</span><small>???</small></div>`).join('')}</div>`}).join('')}
   <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
-function openChest(){const g=S.game;if(g.chest==dayKey())return;g.chest=dayKey();const xp=10+Math.floor(Math.random()*31),co=10+Math.floor(Math.random()*21);g.xp+=xp;g.coins=(g.coins||0)+co;checkAch();save();
+function openChest(){const g=S.game;if(g.chest==dayKey())return;g.chest=dayKey();g.stats.chests=(g.stats.chests||0)+1;const xp=10+Math.floor(Math.random()*31),co=10+Math.floor(Math.random()*21);g.xp+=xp;g.coins=(g.coins||0)+co;checkAch();save();
   sheet(`<div class="chestfx"><div class="bigchest" id="bch">🎁</div><div id="chres" class="chres"></div><button class="btn play" data-act="close" style="margin-top:10px" id="chok" hidden>${t('continue')}</button></div>`);
   SFX.open();vib([20,40,20,40,20]);
   setTimeout(()=>{const b=$('#bch');if(!b)return;b.textContent='✨';b.classList.add('pop2');SFX.level();confetti(110);$('#chres').innerHTML=`<b>+${xp} XP</b><b>🪙 ${t('coins_gain',{n:co})}</b>`;$('#chok').hidden=false;hdr();if(view=='home')render()},reduce?0:1100)}
 function whatsNew(){if(S.seenV==APP_V)return;S.seenV=APP_V;save();
-  sheet(`<h2>✨ ${t('whatsnew')}</h2><p class="pc" translate="no">Tarpaing Faim · ${vName()}</p><ul class="wn">${[1,2,3,4,5].map(n=>`<li>${t('wn_'+n)}</li>`).join('')}</ul><div class="sact"><button class="btn play" data-act="close">${t('lets_go')}</button></div>`)}
+  sheet(`<h2>✨ ${t('whatsnew')}</h2><p class="pc" translate="no">Tarpaing Faim · ${vName()}</p><ul class="wn">${[1,2,3,4,5].map(n=>`<li>${t('w37_'+n)}</li>`).join('')}</ul><div class="sact"><button class="btn play" data-act="close">${t('lets_go')}</button></div>`)}
 function resize(file,max){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext('2d').drawImage(im,0,0,c.width,c.height);let u=c.toDataURL('image/webp',.82);if(!u.startsWith('data:image/webp'))u=c.toDataURL('image/png');res(u)};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
 function doImport(txt){try{const d=JSON.parse(txt);if(!Array.isArray(d.places)||!Array.isArray(d.items))throw 0;S=fix(d);setLang();save(true);applyTheme();render();toast(t('t_imported'))}catch(e){toast(t('t_invalid'))}}
 
@@ -1491,7 +1565,6 @@ const A={
     const p=S.places.find(x=>x.id==d.placeId),added=p?d.modes.filter(m=>!inMode(p,m)):[];if(p&&added.length)p.modes=MO.filter(m=>inMode(p,m)||added.includes(m));
     if(d.id){const i=S.items.findIndex(x=>x.id==d.id);d.ex=false;d.ia=false;S.items[i]=d}else S.items.push({...d,id:uid(),ex:false});
     save();closeSheet();render();SFX.yes();toast(added.length?t('t_padded',{p:p.name,m:added.map(mL).join(', ')}):t('t_saved'))},
-  addplace:()=>{S.places.push({id:uid(),name:t('new_place'),emoji:'📍',rank:'A',weight:10,modes:[curMode()]});save();render()},
   pmode:b=>{const p=S.places.find(x=>x.id==b.dataset.id);if(!p)return;const v=b.dataset.v,ms=MO.filter(m=>inMode(p,m));p.modes=ms.includes(v)?ms.filter(m=>m!=v):MO.filter(m=>ms.includes(m)||m==v);SFX.soft();save();render()},
   delplace:b=>{const id=b.dataset.id;if(pendDel!=id){armDel(id);render();const n=S.items.filter(i=>i.placeId==id).length;if(n)toast(t('t_delplace',{n}));return}S.places=S.places.filter(p=>p.id!=id);S.items=S.items.filter(i=>i.placeId!=id);if(catFilter==id)catFilter='all';pendDel=null;save();render()},
   noav:()=>{S.settings.avatarImg=null;save();render()},
@@ -1523,7 +1596,7 @@ const A={
     S.places.push({id,name:p.name,emoji:p.emoji,rank:p.rank,weight:{B:30,A:15,S:5}[p.rank],modes:[m],ia:true});
     p.items.forEach(i=>S.items.push({id:uid(),placeId:id,cat:i.cat,rank:i.rank,emoji:i.emoji,name:i.name,price:i.price||'',img:null,ex:false,ia:true,modes:[m]}));
     S.game.stats.explore++;const a=checkAch();save();SFX.yes();render();toast(a.length?t('new_ach')+' : '+t(a[0].id):t('t_xadded',{p:p.name,n:p.items.length}))},
-  reroll:()=>{const e=seq&&seq.e;if(!e)return;if(rrLeft()<1)return toast(t('t_noreroll'));const g=S.game,k=dayKey();if(rrFree()>0){g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++}else g.rrBonus--;
+  reroll:()=>{const e=seq&&seq.e;if(!e)return;if(rrLeft()<1)return toast(t('t_noreroll'));const g=S.game,k=dayKey();g.stats.rr=(g.stats.rr||0)+1;if(rrFree()>0){g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++}else g.rrBonus--;
     S.history=S.history.filter(h=>h.id!=e.id);if(e.pb)Object.assign(PT(e.mode),e.pb);S.opened=Math.max(0,S.opened-1);
     if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};if(!S.skip.ids.includes(e.place.id))S.skip.ids.push(e.place.id);
     const r=drawEntry(e.mode);if(r.err){save();toast(r.err);return A.rewclose()}SFX.open();seq={e:r.e,i:0,best:r.best,steps:stepsFor(e.mode)};ovRender()},
@@ -1531,7 +1604,11 @@ const A={
   shop:()=>{SFX.soft();shopSheet()},
   coll:()=>{SFX.soft();collSheet()},
   chest:()=>openChest(),
-  buy:b=>{const g=S.game,p=+b.dataset.p;if((g.coins||0)<p)return toast(t('t_nocoins'));g.coins-=p;if(b.dataset.v=='freeze')g.freeze=(g.freeze||0)+1;else g.rrBonus=(g.rrBonus||0)+1;save();SFX.yes();toast(t('t_bought'));hdr();shopSheet()},
+  buy:b=>{const g=S.game,p=+b.dataset.p,v=b.dataset.v;if((g.coins||0)<p)return toast(t('t_nocoins'));
+    if(v=='pity'){const q=PT(curMode());if(q.a>=S.settings.pityA-1)return toast(t('t_pitymax'));q.a++}
+    g.coins-=p;if(v=='freeze')g.freeze=(g.freeze||0)+1;else if(v=='rr')g.rrBonus=(g.rrBonus||0)+1;else if(v=='boost')g.boost=(g.boost||0)+1;else if(v=='gold'||v=='rain'){g.frames=g.frames||[];if(!g.frames.includes(v))g.frames.push(v);g.frame=v}
+    g.stats.buys=(g.stats.buys||0)+1;const ach=checkAch();save();SFX.yes();toast(v=='pity'?t('t_spark'):t('t_bought'));if(ach.length){confetti(80);SFX.level()}applyFrame();hdr();shopSheet()},
+  equip:b=>{S.game.frame=b.dataset.v;save();SFX.soft();applyFrame();shopSheet()},
   next:()=>{SFX.tap();goNext()},
   skip:()=>{SFX.soft();seq.i=seq.steps.length-1;ovRender()},
   ask:b=>{b.dataset.v=='1'?SFX.yes():SFX.soft();const k=seq.steps[seq.i].slice(4);if(b.dataset.v=='1'){const it=pickSlot(seq.e.place.id,k,'B',remOf(seq.e),seq.e.mode);seq.e.slots[k]=snap(it);if(it)bump(it.rank,seq.e.mode);save();seq.steps.splice(seq.i+1,0,k)}seq.i++;ovRender()},
@@ -1602,9 +1679,10 @@ if('serviceWorker' in navigator&&window.top===window&&location.protocol==='https
 function intro(){if(reduce){setTimeout(whatsNew,300);return}const el=document.createElement('div');el.id='intro';
   const fan=MO.map((m,k)=>`<i style="--k:${k};--r:${(k-1.5)*14}deg;--x:${(k-1.5)*30}px;background:${MODES[m].art}"><b>TF</b><span>${MODES[m].e}</span></i>`).join('');
   const word=(w,d)=>[...w].map((c,j)=>`<span style="animation-delay:${d+j*.045}s">${c}</span>`).join('');
-  el.setAttribute('translate','no');el.innerHTML=`<div class="ifan">${fan}</div><div class="ilogo">${word('TARPAING',.45)}<br>${word('FAIM',.85)}</div><p class="itag">${t('intro_tag')}</p><p class="iver" translate="no">${vName()}</p><p class="iskip">${t('tap_skip')}</p>`;
+  el.setAttribute('translate','no');const spk=Array.from({length:14},(_,i)=>{const an=Math.random()*6.283,d=90+Math.random()*150;return `<i class="ispk" style="left:50%;top:34%;--sx:${Math.cos(an)*d}px;--sy:${Math.sin(an)*d}px;animation-delay:${.35+i*.07}s"></i>`}).join('');
+  el.innerHTML=`<div class="irays"></div>${spk}<div class="ifan">${fan}</div><div class="ilogo">${word('TARPAING',.45)}<br>${word('FAIM',.85)}</div><p class="itag">${t('intro_tag')}</p><p class="iver" translate="no">${vName()}</p><p class="iskip">${t('tap_skip')}</p>`;
   document.body.appendChild(el);let done=false;const end=()=>{if(done)return;done=true;el.classList.add('out');setTimeout(()=>{el.remove();whatsNew()},450)};
-  el.addEventListener('click',end);setTimeout(end,2300)}
+  el.addEventListener('click',end);setTimeout(end,2900)}
 intro();
 applyTheme();render();
 }
