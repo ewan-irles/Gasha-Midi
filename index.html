@@ -352,6 +352,42 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .lvup{font:900 34px/1 Outfit,system-ui,sans-serif;color:var(--gInk);animation:pop .6s both}
 #confetti{position:fixed;inset:0;z-index:99;pointer-events:none}
 /* ---- keyframes ---- */
+
+.playrow{display:flex;gap:10px;width:min(340px,100%);margin:12px auto 0}
+.playrow .play{margin:0;flex:1;width:auto}
+.play4{min-height:58px;flex:none;width:94px;flex-direction:column;gap:2px;border-radius:18px;line-height:1;padding:0 8px;box-shadow:0 5px 0 var(--line)}
+.play4 b{font:900 22px/1 Outfit,system-ui,sans-serif;color:var(--gInk)}
+.play4 small{font-size:12px;letter-spacing:-1px}
+.dayemo{position:relative;font-size:34px;letter-spacing:4px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(340px,92vw)}
+.flip.mflip{width:100%;--ch:300px;animation:rise .45s both}
+.flip.mflip:not(.on){animation:rise .45s both}
+.mflip .fhd{font-size:12px;padding:0 10px;height:17%}
+.mflip .fhd .rb{height:22px;min-width:24px;font-size:12px}
+.mflip .big{font-size:52px}
+.mflip .fname{padding:30px 10px 10px}
+.mflip .fname b{font-size:15px}
+.mflip .fname small{font-size:11.5px}
+.mflip .fart{padding-bottom:30%}
+.mback{display:grid;justify-items:center;gap:6px;font-size:40px;color:#fff}
+.mback small{font:800 13px Outfit,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.dayr{display:grid;gap:4px;align-items:stretch}
+.dh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dh b{flex:1}
+.dm{font:800 12px Outfit,system-ui,sans-serif;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;width:100%}
+.dt{text-align:right;font-weight:800}
+#intro{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(circle at 50% 38%,var(--ov1),var(--ov2) 85%);transition:opacity .45s;cursor:pointer}
+#intro.out{opacity:0;pointer-events:none}
+.ifan{position:relative;width:220px;height:170px}
+.ifan i{position:absolute;left:50%;top:50%;width:86px;height:122px;margin:-61px 0 0 -43px;border-radius:14px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,.35);display:flex;flex-direction:column;align-items:center;transform:translateX(var(--x)) rotate(var(--r));animation:fanin .7s cubic-bezier(.2,.9,.3,1.3) both;animation-delay:calc(var(--k)*.09s)}
+.ifan i b{display:block;width:100%;background:#000;color:#fff;text-align:center;font:900 20px/26px 'Big Shoulders Display',Impact,sans-serif}
+.ifan i span{flex:1;display:grid;place-items:center;font-size:38px}
+.ilogo{font:900 58px/.88 'Big Shoulders Display',Impact,sans-serif;color:var(--gInk);text-align:center;letter-spacing:.01em}
+.ilogo span{display:inline-block;animation:drop .5s cubic-bezier(.2,.9,.3,1.4) both}
+.itag{margin:6px 0 0;font:700 16px Outfit,system-ui,sans-serif;color:var(--ovInk);opacity:0;animation:rise .5s 1.1s forwards}
+.iskip{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));margin:0;font:600 13px Outfit,system-ui,sans-serif;color:var(--mut);opacity:0;animation:rise .5s 1.4s forwards}
+@keyframes fanin{from{transform:translateX(0) rotate(0) scale(.3);opacity:0}}
+@keyframes drop{from{transform:translateY(-50px) scale(.5);opacity:0}}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-1deg)}}
 @keyframes float{50%{transform:translateY(-8px)}}
 @keyframes pulse{50%{opacity:.55;transform:scale(.93)}}
@@ -704,10 +740,20 @@ kw_midi:["snack|boulangerie|fast food","snack bar|bakery|fast food","bar|panader
 kw_gouter:["boulangerie|pâtisserie|glacier","bakery|pastry shop|ice cream","panadería|pastelería|heladería","пекарня|кондитерская|мороженое","パン屋|ケーキ屋|アイス"],
 kw_soir:["restaurant|tacos|pizza|sushi","restaurant|tacos|pizza|sushi","restaurante|tacos|pizza|sushi","ресторан|тако|пицца|суши","レストラン|タコス|ピザ|寿司"],
 near:["près de","near","cerca de","рядом с","付近"],
+pack_day:["Pack journée","Day pack","Pack del día","Пак на день","1日パック"],
+open4_aria:["Ouvrir les 4 boosters de la journée","Open all 4 boosters of the day","Abrir los 4 sobres del día","Открыть 4 бустера дня","1日分の4ブースターを開封"],
+flip_all:["Tout retourner","Flip all","Girar todas","Открыть все","全部めくる"],
+see_recap:["Voir le récap","See recap","Ver resumen","К итогам","結果を見る"],
+tap_cards:["Touche chaque carte pour la retourner","Tap each card to flip it","Toca cada carta para girarla","Нажимай на карты, чтобы открыть","カードをタップしてめくろう"],
+day_recap:["Ta journée","Your day","Tu día","Твой день","今日の食事"],
+day_total:["Total de la journée","Day total","Total del día","Итого за день","1日の合計"],
+t_skipped:["Pas de booster possible pour : {m}","No booster possible for: {m}","Sin sobre posible para: {m}","Нет бустера для: {m}","開封できない時間帯：{m}"],
+intro_tag:["Tire au sort ton repas","Let fate pick your meal","Sortea tu comida","Пусть судьба выберет еду","ごはんをガチャで決めよう"],
+tap_skip:["Touche pour passer","Tap to skip","Toca para saltar","Нажми, чтобы пропустить","タップでスキップ"],
 ai_lang:["français","English","español","русский","日本語"]
 };
 
-const LS='gachamidi_v1';
+const LS='gachamidi_v1',APP_V='3.3';
 const RL=['B','A','S'],rv={B:0,A:1,S:2};
 const RK={B:{stars:3,c:'#3f8cff'},A:{stars:4,c:'#a55cf2'},S:{stars:5,c:'#ff9a1f'}};
 const CK=['boisson','entree','plat','dessert'];
@@ -870,14 +916,12 @@ const PT=m=>S.pity[m]||(S.pity[m]={a:0,s:0});
 function bump(r,m){const p=PT(m);if(rv[r]>=1)p.a=0;if(r=='S')p.s=0}
 function force(m){const p=PT(m);return p.s+1>=S.settings.pityS?'S':(p.a+1>=S.settings.pityA?'A':null)}
 const bestOf=a=>a.filter(Boolean).sort((x,y)=>rv[y]-rv[x])[0]||'B';
-function openBooster(){
-  S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
-  const m=curMode(),Mo=MODES[m],B=budgetM(m),all=placesOf(m);
-  if(!all.length)return toast(t('t_noplace'));
-  const fed=all.filter(p=>poolOf(p.id,Mo.main,m).length);if(!fed.length)return toast(t('t_nomain'));
+function drawEntry(m){
+  const Mo=MODES[m],B=budgetM(m),all=placesOf(m);
+  if(!all.length)return{err:t('t_noplace')};
+  const fed=all.filter(p=>poolOf(p.id,Mo.main,m).length);if(!fed.length)return{err:t('t_nomain')};
   const P=fed.filter(p=>needCost(p.id,m)<=B+1e-9);
-  if(!P.length)return toast(t('t_tight',{p:eur(Math.min(...fed.map(p=>needCost(p.id,m))))}));
-  SFX.open();
+  if(!P.length)return{err:t('t_tight',{p:eur(Math.min(...fed.map(p=>needCost(p.id,m))))})};
   const f=force(m);let c=P;
   const others=(pid,cat)=>Mo.must.filter(k=>k!=cat).reduce((a,k)=>a+minPrice(pid,k,m),0);
   const goodS=p=>S.items.some(i=>i.placeId==p.id&&inMode(i,m)&&i.rank=='S'&&Mo.must.includes(i.cat)&&pr(i)+others(p.id,i.cat)<=B+1e-9);
@@ -894,10 +938,42 @@ function openBooster(){
   const best=bestOf([place.rank,...Object.values(slots).map(x=>x&&x.rank)]);
   const p=PT(m);p.a++;p.s++;bump(best,m);
   S.history.unshift(e);S.history=S.history.slice(0,300);S.opened++;save();
+  return{e,best};
+}
+const entryBest=e=>bestOf([e.place.rank,...CK.map(k=>e.slots[k]&&e.slots[k].rank)]);
+function openBooster(){
+  S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
+  const m=curMode(),Mo=MODES[m],r=drawEntry(m);if(r.err)return toast(r.err);
+  SFX.open();const e=r.e,best=r.best;
   const steps=['pack','place'];CK.forEach(k=>{if(Mo.must.includes(k))steps.push(k);else if(Mo.opt.includes(k))steps.push('ask:'+k)});steps.push('recap');
   seq={e,i:0,best,steps};
   ov.hidden=false;document.body.style.overflow='hidden';ovRender();
 }
+function openDay(){
+  S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
+  const res=MO.map(m=>({m,r:drawEntry(m)})),ok=res.filter(x=>x.r.e),ko=res.filter(x=>!x.r.e);
+  if(!ok.length)return toast(ko[0].r.err);
+  if(ko.length)setTimeout(()=>toast(t('t_skipped',{m:ko.map(x=>mL(x.m)).join(', ')})),300);
+  SFX.open();const list=ok.map(x=>x.r.e);
+  seq={multi:true,list,best:bestOf(list.map(entryBest)),stage:'pack'};
+  ov.hidden=false;document.body.style.overflow='hidden';ovRender();
+}
+const DAYART='conic-gradient(from 225deg at 50% 45%,#f5a524 0 25%,#ec6f2c 0 50%,#ee6f92 0 75%,#3a35a8 0)';
+function multiRender(){
+  const L=seq.list;
+  if(seq.stage=='pack'){ov.innerHTML=`<p class="ovh">${t('pack_day')} · ×${L.length}</p>
+    <button class="pack" id="pack" aria-label="${t('open_aria')}"><span class="strip">${t('tear_here')}</span><i class="cut"></i><div class="bhd"><div class="logo">TARPAING FAIM<small>ORIGINAL</small></div></div><div class="bart" style="background:${DAYART}"><div class="burst"></div><div class="dayemo">${L.map(e=>MODES[e.mode].e).join('')}</div><div class="bttl">${t('pack_day')}</div><div class="bsub">×${L.length} · ${L.map(e=>mL(e.mode)).join(' · ')}</div></div></button>
+    <p class="swipearrow">${t('tear_hint')} <i>${I.chev}</i></p>`;return}
+  if(seq.stage=='grid'){ov.innerHTML=`<p class="ovh">${t('pack_day')}</p><div class="mgrid">${L.map((e,j)=>{const b=entryBest(e),c=RK[b].c,main=e.slots[MODES[e.mode].main];
+    return `<button class="flip mflip r${b}" data-j="${j}" style="--c:${c};animation-delay:${j*.08}s">${b!='B'?'<div class="rays"></div>':''}<div class="in"><div class="face back"><div class="mback">${MODES[e.mode].e}<small>${mL(e.mode)}</small></div></div>
+    <div class="face front"><div class="fhd"><span>${MODES[e.mode].e} ${mL(e.mode)}</span><span class="rb" style="--c:${c}">${b}</span></div><div class="fart"><span class="big">${esc(e.place.emoji)}</span><div class="fname"><b>${esc(e.place.name)}</b><small>${main?esc(main.emoji+' '+main.name):''}</small></div></div></div></div></button>`}).join('')}</div>
+    <p class="ovsub">${t('tap_cards')}</p><div class="ovact"><button class="btn ghost" data-act="mflipall">${t('flip_all')}</button><button class="btn" id="mrc" data-act="mrecap" disabled>${t('see_recap')}</button></div>`;return}
+  const tot=L.reduce((s,e)=>s+total(e),0);
+  ov.innerHTML=`<div class="recap"><h2>${t('day_recap')}</h2>${L.map((e,j)=>{const c=RK[e.place.rank].c;return `<div class="rr dayr" style="--i:${j};--c:${c}"><div class="dh"><span class="dm">${MODES[e.mode].e} ${mL(e.mode)}</span><b>${esc(e.place.emoji)} ${esc(e.place.name)}</b><span class="rb">${e.place.rank}</span></div><div class="hi">${CK.map(k=>e.slots[k]).filter(Boolean).map(i=>`<span class="tag" style="--c:${RK[i.rank].c}">${icon(i.emoji,imgOf(i.id),'ti')} ${esc(i.name)}</span>`).join('')||`<span class="note">${t('h_nothing')}</span>`}</div><div class="dt">${eur(total(e))}</div></div>`}).join('')}
+  <div class="rtot"><span>${t('day_total')}</span><span>${eur(tot)}</span></div><div class="rbtns"><button class="btn play" data-act="closeov">${t('bon_app')}</button></div></div>`;
+  SFX.recap();if(seq.best=='S')confetti(100);
+}
+function mCheck(){const n=document.querySelectorAll('.mflip.on').length,b=$('#mrc');if(b&&n>=seq.list.length)b.disabled=false}
 
 /* ---------- Gamification ---------- */
 const XPR={B:2,A:6,S:20};
@@ -939,6 +1015,7 @@ function cardData(k){const e=seq.e;if(k=='place')return{t:e.place.name,s:t('est'
   return{t:it.name,s:l+(it.price?' · '+eur(it.price):''),r:it.rank,em:it.emoji,img:imgOf(it.id)}}
 const ASK={entree:'🥗',dessert:'🍰',boisson:'🥤',plat:'🍽️'};
 function ovRender(){
+  if(seq.multi)return multiRender();
   const st=seq.steps[seq.i],m=seq.e.mode,Mo=MODES[m];
   const flow=seq.steps.filter(s=>!s.startsWith('ask')&&s!='pack'&&s!='recap'),pos=flow.indexOf(st);
   const dots=`<div class="dots">${flow.map((s,j)=>`<i class="${pos<0||j<pos?'done':j==pos?'on':''}"></i>`).join('')}</div>`;
@@ -967,7 +1044,7 @@ function flipCard(f){if(f.classList.contains('on'))return;f.classList.add('on');
 function goNext(){const f=$('#flip');if(f&&!reduce){f.classList.add('out');SFX.swipe();setTimeout(()=>{seq.i++;ovRender()},260)}else{seq.i++;ovRender()}}
 function tear(p){if(p.classList.contains('open'))return;p.style.setProperty('--cut',1);p.classList.add('open');SFX.tear(seq.best);
   const fx=document.createElement('div');fx.className='fx';fx.style.setProperty('--c',RK[seq.best].c);fx.innerHTML='<i class="streak"></i><i class="flash"></i>';
-  setTimeout(()=>ov.appendChild(fx),reduce?0:450);setTimeout(()=>{seq.i++;ovRender()},reduce?300:1750)}
+  setTimeout(()=>ov.appendChild(fx),reduce?0:450);setTimeout(()=>{if(seq.multi)seq.stage='grid';else seq.i++;ovRender()},reduce?300:1750)}
 function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
   const keys=['place',...CK.filter(k=>seq.steps.includes(k))];
   const rows=keys.map((k,j)=>{const d=cardData(k),c=d.r?RK[d.r].c:'#6b7a70';return `<div class="rr" style="--i:${j};--c:${c}"><div class="ico">${icon(d.em,d.img)}</div><div class="rm"><b>${esc(d.t)}</b><small>${esc(d.s)}</small></div>${d.r?`<span class="rb">${d.r}</span>`:''}</div>`}).join('');
@@ -1019,7 +1096,7 @@ function home(){
   <p class="swh"><span>${I.up} ${t('sw_up')}</span><span>${I.lr} ${t('sw_lr')}</span></p>
   <div class="bud"><div class="bstep"><button data-act="bstep" data-v="-1" aria-label="${t('b_less')}">${I.minus}</button><button class="bval" data-act="bsheet"><small>${t('budget_of',{mode:mLow(m)})}</small>${b==null?t('unlimited'):eur(b)}</button><button data-act="bstep" data-v="1" aria-label="${t('b_more')}">${I.plus}</button></div></div>
   <p class="bhint ${bad?'bad':''}">${bh}</p>
-  <button class="btn play" data-act="open" ${bi.tight||bi.none?'disabled':''}>${t('open')}</button>
+  <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none?'disabled':''}>${t('open')}</button><button class="btn ghost play4" data-act="open4" aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
   ${questsHTML()}
   <section class="box"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}`;
 }
@@ -1062,7 +1139,7 @@ function settings(){
   <button class="btn ghost sm" data-act="addplace">${t('s_addplace')}</button></section>
   <section class="box"><h2>${t('s_rates')}</h2><p class="hint2">${t('s_rates_h')}</p><div class="rates">${RL.map(r=>`<label class="rate" style="--c:${RK[r].c}"><span>${t('rank',{r})} ${stars(RK[r].stars)}</span><input type="number" min="0" inputmode="decimal" data-f="rate:${r}" value="${s.rates[r]}"><b data-pct="r:${r}">${pct(s.rates[r],tr)}</b></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_pity')}</h2><div class="two"><label class="fld">${t('s_pityA')}<input type="number" min="1" max="50" inputmode="numeric" data-f="pityA" value="${s.pityA}"></label><label class="fld">${t('s_pityS')}<input type="number" min="1" max="99" inputmode="numeric" data-f="pityS" value="${s.pityS}"></label></div><p class="hint2">${t('s_pity_h')}</p></section>
-  <section class="box"><h2>${t('s_data')}</h2><p class="hint2">${t('s_data_h')}</p><div class="btns"><button class="btn sm" data-act="export">${t('s_copy')}</button>${window.claude?'':`<button class="btn ghost sm" data-act="exportfile">${t('s_dl')}</button>`}<label class="btn ghost sm file">${t('s_impf')}<input type="file" id="fImp" accept=".json,.txt,application/json,text/plain" hidden></label></div><textarea id="imp" rows="3" placeholder="${t('s_paste')}"></textarea><div class="btns"><button class="btn ghost sm" data-act="import">${t('s_imp')}</button>${S.items.some(i=>i.ex)?`<button class="btn ghost sm" data-act="clearex">${t('s_clearex')}</button>`:''}<button class="btn ghost sm" data-act="clearhist">${t('s_clearhist')}</button><button class="btn danger sm" data-act="reset">${pendReset?t('s_reset_s'):t('s_reset')}</button></div></section>`;
+  <section class="box"><h2>${t('s_data')}</h2><p class="hint2">${t('s_data_h')}</p><div class="btns"><button class="btn sm" data-act="export">${t('s_copy')}</button>${window.claude?'':`<button class="btn ghost sm" data-act="exportfile">${t('s_dl')}</button>`}<label class="btn ghost sm file">${t('s_impf')}<input type="file" id="fImp" accept=".json,.txt,application/json,text/plain" hidden></label></div><textarea id="imp" rows="3" placeholder="${t('s_paste')}"></textarea><div class="btns"><button class="btn ghost sm" data-act="import">${t('s_imp')}</button>${S.items.some(i=>i.ex)?`<button class="btn ghost sm" data-act="clearex">${t('s_clearex')}</button>`:''}<button class="btn ghost sm" data-act="clearhist">${t('s_clearhist')}</button><button class="btn danger sm" data-act="reset">${pendReset?t('s_reset_s'):t('s_reset')}</button></div><p class="pc" style="margin:14px 0 0">Tarpaing Faim · v${APP_V}</p></section>`;
 }
 /* ---------- Explorer ---------- */
 let scan={busy:false,ctl:null,err:''};
@@ -1219,6 +1296,9 @@ let pendingReward=null;
 const A={
   tab:b=>{SFX.soft();closeSheet();view=b.dataset.v;pendDel=null;histN=40;render();scrollTo(0,0);if(!reduce){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}},
   open:()=>openBooster(),
+  open4:()=>openDay(),
+  mflipall:()=>{document.querySelectorAll('.mflip:not(.on)').forEach((c,j)=>setTimeout(()=>{flipCard(c);mCheck()},reduce?0:j*350))},
+  mrecap:()=>{SFX.tap();seq.stage='recap';ovRender()},
   mode:b=>{const v=b.dataset.v,i=MO.indexOf(v),c=MO.indexOf(curMode());if(i==c)return;SFX.soft();modeOver=v==autoMode()?null:v;enterDir=i>c?'enter-r':'enter-l';render()},
   mauto:()=>{SFX.soft();modeOver=null;render()},
   rates:()=>ratesSheet(),
@@ -1281,14 +1361,15 @@ const A={
   next:()=>{SFX.tap();goNext()},
   skip:()=>{SFX.soft();seq.i=seq.steps.length-1;ovRender()},
   ask:b=>{b.dataset.v=='1'?SFX.yes():SFX.soft();const k=seq.steps[seq.i].slice(4);if(b.dataset.v=='1'){const it=pickSlot(seq.e.place.id,k,'B',remOf(seq.e),seq.e.mode);seq.e.slots[k]=snap(it);if(it)bump(it.rank,seq.e.mode);save();seq.steps.splice(seq.i+1,0,k)}seq.i++;ovRender()},
-  closeov:()=>{SFX.tap();const r=reward(seq.e);if(r){rewardScreen(r)}else A.rewclose()},
-  rewclose:()=>{ov.hidden=true;ov.innerHTML='';document.body.style.overflow='';seq=null;view='home';render();scrollTo(0,0)}
+  closeov:()=>{SFX.tap();if(seq.multi){const rs=seq.list.slice().reverse().map(e=>reward(e)).filter(Boolean);if(!rs.length)return A.rewclose();rewardScreen({before:rs[0].before,after:S.game.xp,done:rs.flatMap(r=>r.done),ach:rs.flatMap(r=>r.ach),streak:rs[rs.length-1].streak,up:rs.some(r=>r.up),best:bestOf(rs.map(r=>r.best))});return}const r=reward(seq.e);if(r){rewardScreen(r)}else A.rewclose()},
+  rewclose:()=>{if(window.__reload){location.reload();return}ov.hidden=true;ov.innerHTML='';document.body.style.overflow='';seq=null;view='home';render();scrollTo(0,0)}
 };
 let suppress=0;
 document.addEventListener('click',e=>{
   if(Date.now()<suppress){e.preventDefault();e.stopPropagation();return}
   if(e.target===sh){closeSheet();return}
   const p=e.target.closest('#pack');if(p){tear(p);return}
+  const mf=e.target.closest('.mflip');if(mf){flipCard(mf);mCheck();return}
   const f=e.target.closest('#flip');if(f){flipCard(f);return}
   const b=e.target.closest('[data-act]');if(!b)return;
   if(['del','rates','bsheet'].includes(b.dataset.act))e.stopPropagation();
@@ -1336,7 +1417,18 @@ setInterval(()=>{
   const a=autoMode();if(a!=lastAuto){lastAuto=a;applyTheme();if(view=='home'&&!seq&&sh.hidden){if(modeOver==a)modeOver=null;render()}}
   if(reduce||view!='home'||seq)return;const pl=$('#plate');if(!pl)return;const e=emojisOf(curMode());if(e.length<2)return;const sp=pl.firstElementChild;sp.classList.add('out');setTimeout(()=>{pj=(pj+1)%e.length;sp.textContent=e[pj];sp.classList.remove('out')},350)},2200);
 document.addEventListener('visibilitychange',()=>{root.classList.toggle('paused',document.hidden);if(!document.hidden&&view=='home'&&!seq&&sh.hidden)render()});
-if('serviceWorker' in navigator&&window.top===window&&location.protocol==='https:'&&document.querySelector('link[rel=manifest]'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+if('serviceWorker' in navigator&&window.top===window&&location.protocol==='https:'&&document.querySelector('link[rel=manifest]')){
+  const had=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!had||window.__rl)return;window.__rl=true;if(seq)window.__reload=true;else location.reload()});
+  addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{r.update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)r.update()})}).catch(()=>{}));
+}
+function intro(){if(reduce)return;const el=document.createElement('div');el.id='intro';
+  const fan=MO.map((m,k)=>`<i style="--k:${k};--r:${(k-1.5)*14}deg;--x:${(k-1.5)*30}px;background:${MODES[m].art}"><b>TF</b><span>${MODES[m].e}</span></i>`).join('');
+  const word=(w,d)=>[...w].map((c,j)=>`<span style="animation-delay:${d+j*.045}s">${c}</span>`).join('');
+  el.innerHTML=`<div class="ifan">${fan}</div><div class="ilogo">${word('TARPAING',.45)}<br>${word('FAIM',.85)}</div><p class="itag">${t('intro_tag')}</p><p class="iskip">${t('tap_skip')}</p>`;
+  document.body.appendChild(el);let done=false;const end=()=>{if(done)return;done=true;el.classList.add('out');setTimeout(()=>el.remove(),450)};
+  el.addEventListener('click',end);setTimeout(end,2300)}
+intro();
 applyTheme();render();
 }
 </script>
