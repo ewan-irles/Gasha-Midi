@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" translate="no">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="google" content="notranslate">
 <meta name="theme-color" content="#74c3f5">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
@@ -406,6 +407,36 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .skipl button.on{border-color:#e5484d;background:color-mix(in srgb,#e5484d 14%,var(--card2));color:#c0303a;text-decoration:line-through}
 .wk{margin:-4px 0 14px;font:700 14px Outfit,system-ui,sans-serif;color:var(--mut)}
 [dir=rtl] .bpre.l,[dir=rtl] .chips{direction:rtl}
+
+.coin .fl{filter:none;opacity:1}
+.tb{gap:6px}
+.streak{padding:0 10px 0 7px}
+.chestbox{display:flex;align-items:center;gap:14px}
+.chesti{font-size:44px;line-height:1;animation:wobble 2.2s ease-in-out infinite;filter:drop-shadow(0 6px 8px rgba(0,0,0,.2))}
+.chestbox.done .chesti{animation:none;opacity:.6}
+.chestfx{display:grid;justify-items:center;gap:8px;padding:10px 0;text-align:center}
+.bigchest{font-size:110px;line-height:1;animation:shake .35s ease-in-out infinite}
+.bigchest.pop2{animation:pop .6s both}
+.chres{display:grid;gap:4px;font:900 30px Outfit,system-ui,sans-serif;color:#ff9a1f;min-height:40px}
+.chres b{animation:rise .4s both}
+.coinbal{font:900 34px Outfit,system-ui,sans-serif;text-align:center;margin:4px 0}
+.shopi{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:2px solid var(--line)}
+.shopi .e{font-size:34px}
+.shopi b{display:block}.shopi small{display:block;color:var(--mut);font-size:13px}
+.coll{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.cc{position:relative;display:grid;justify-items:center;gap:2px;padding:10px 6px 8px;border-radius:14px;border:2px solid var(--c,var(--line));background:color-mix(in srgb,var(--c,#888) 12%,var(--card));text-align:center}
+.cc span{font-size:30px;line-height:1.1}.cc span img{width:34px;height:34px;object-fit:cover;border-radius:8px}
+.cc small{font-size:11px;line-height:1.2;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cc i{position:absolute;top:4px;right:6px;font:900 10px Outfit,system-ui,sans-serif;color:var(--c);font-style:normal}
+.cc.lock{--c:var(--line);background:var(--card2)}
+.cc.lock span{filter:brightness(0);opacity:.25}
+.newb{display:inline-block;vertical-align:middle;margin-left:4px;padding:1px 7px;border-radius:6px;background:#ff3d6e;color:#fff;font:900 10px/16px Outfit,system-ui,sans-serif;letter-spacing:.05em;animation:pulse 1.4s ease-in-out infinite}
+.ntitle{font:800 18px Outfit,system-ui,sans-serif;color:var(--ovInk);margin-top:6px;animation:rise .5s .3s both}
+.iver{margin:4px 0 0;font:700 12.5px Outfit,system-ui,sans-serif;color:var(--mut);opacity:0;animation:rise .5s 1.2s forwards}
+.wn{margin:12px 0;padding:0;list-style:none;display:grid;gap:10px}
+.wn li{background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-weight:700;animation:rise .4s both}
+.wn li:nth-child(2){animation-delay:.08s}.wn li:nth-child(3){animation-delay:.16s}.wn li:nth-child(4){animation-delay:.24s}.wn li:nth-child(5){animation-delay:.32s}
+@media (max-width:380px){.streak{padding:0 8px 0 6px;font-size:15px}.streak .fl{font-size:18px}}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-1deg)}}
 @keyframes float{50%{transform:translateY(-8px)}}
 @keyframes pulse{50%{opacity:.55;transform:scale(.93)}}
@@ -441,9 +472,9 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 <body>
 <div id="app">
   <header class="top">
-    <div class="mini" id="brand">TARPAING<br>FAIM</div>
+    <div class="mini notranslate" id="brand" translate="no">TARPAING<br>FAIM</div>
     <button class="me" data-act="profile" id="me"><div class="avr" id="avr"><div class="av" id="av"></div></div><small id="lvl"></small></button>
-    <div class="tb"><button class="streak" data-act="profile" id="stk"><span class="fl">🔥</span><b id="stkn">0</b></button></div>
+    <div class="tb"><button class="streak coin" data-act="shop" id="coinb"><span class="fl">🪙</span><b id="coinn">0</b></button><button class="streak" data-act="profile" id="stk"><span class="fl">🔥</span><b id="stkn">0</b></button></div>
   </header>
   <main id="view"></main>
 </div>
@@ -766,9 +797,47 @@ search_ph:["Rechercher un aliment ou un lieu…", "Search an item or a place…"
 no_result:["Aucun résultat.", "No results.", "Sin resultados.", "Keine Ergebnisse.", "Nessun risultato.", "Sem resultados.", "Ничего не найдено.", "لا نتائج.", "没有结果。", "該当なし。"],
 week:["Cette semaine : {p} · {n} repas", "This week: {p} · {n} meal(s)", "Esta semana: {p} · {n} comida(s)", "Diese Woche: {p} · {n} Mahlzeit(en)", "Questa settimana: {p} · {n} pasto/i", "Esta semana: {p} · {n} refeição(ões)", "На этой неделе: {p} · приёмов: {n}", "هذا الأسبوع: {p} · {n} وجبة", "本周：{p} · {n}餐", "今週：{p}・{n}食"],
 tab_home:["Accueil", "Home", "Inicio", "Start", "Home", "Início", "Главная", "الرئيسية", "首页", "ホーム"],
+cur_label:["Monnaie", "Currency", "Moneda", "Währung", "Valuta", "Moeda", "Валюта", "العملة", "货币", "通貨"],
+cur_h:["Change le symbole affiché. Les montants ne sont pas convertis.", "Changes the symbol shown. Amounts are not converted.", "Cambia el símbolo mostrado. Los importes no se convierten.", "Ändert das angezeigte Symbol. Beträge werden nicht umgerechnet.", "Cambia il simbolo mostrato. Gli importi non vengono convertiti.", "Muda o símbolo mostrado. Os valores não são convertidos.", "Меняет символ. Суммы не пересчитываются.", "يغيّر الرمز المعروض. لا تُحوَّل المبالغ.", "只更改显示的符号，金额不会换算。", "表示する記号のみ変更。金額は換算されません。"],
+v_name:["Version {v} « {n} » · {d}", "Version {v} “{n}” · {d}", "Versión {v} «{n}» · {d}", "Version {v} „{n}“ · {d}", "Versione {v} «{n}» · {d}", "Versão {v} «{n}» · {d}", "Версия {v} «{n}» · {d}", "الإصدار {v} «{n}» · {d}", "版本 {v}「{n}」· {d}", "バージョン {v}「{n}」· {d}"],
+whatsnew:["Quoi de neuf ?", "What’s new?", "¿Qué hay de nuevo?", "Was ist neu?", "Novità", "Novidades", "Что нового?", "ما الجديد؟", "新内容", "新機能"],
+wn_1:["🎁 Un coffre gratuit chaque jour", "🎁 A free chest every day", "🎁 Un cofre gratis cada día", "🎁 Jeden Tag eine Gratis-Truhe", "🎁 Un forziere gratis ogni giorno", "🎁 Um baú grátis todos os dias", "🎁 Бесплатный сундук каждый день", "🎁 صندوق مجاني كل يوم", "🎁 每天一个免费宝箱", "🎁 毎日もらえる無料の宝箱"],
+wn_2:["🪙 Des pièces et une boutique (gel de série, relances)", "🪙 Coins and a shop (streak freeze, rerolls)", "🪙 Monedas y una tienda (congelar racha, tiradas)", "🪙 Münzen und ein Shop (Serienschutz, Neuzüge)", "🪙 Monete e un negozio (blocco serie, ripescate)", "🪙 Moedas e uma loja (congelar série, novas tiradas)", "🪙 Монеты и магазин (заморозка серии, перебросы)", "🪙 عملات ومتجر (تجميد السلسلة، إعادة السحب)", "🪙 金币和商店（连续保护、重抽）", "🪙 コインとショップ（連続記録の保護・引き直し）"],
+wn_3:["📚 La collection de cartes et le badge NOUVEAU", "📚 A card collection and the NEW badge", "📚 Colección de cartas y la etiqueta NUEVO", "📚 Kartensammlung und NEU-Abzeichen", "📚 Collezione di carte e il badge NUOVO", "📚 Coleção de cartas e o selo NOVO", "📚 Коллекция карт и метка НОВОЕ", "📚 مجموعة البطاقات وشارة جديد", "📚 卡牌图鉴和“新”标记", "📚 カード図鑑とNEWバッジ"],
+wn_4:["🏅 Des titres selon ton niveau", "🏅 Titles based on your level", "🏅 Títulos según tu nivel", "🏅 Titel je nach Level", "🏅 Titoli in base al livello", "🏅 Títulos conforme o nível", "🏅 Звания по уровню", "🏅 ألقاب حسب مستواك", "🏅 按等级获得称号", "🏅 レベルに応じた称号"],
+wn_5:["💱 Choix de la monnaie dans Réglages", "💱 Pick your currency in Settings", "💱 Elige la moneda en Ajustes", "💱 Währung in den Einstellungen wählen", "💱 Scegli la valuta nelle Impostazioni", "💱 Escolhe a moeda nas Definições", "💱 Выбор валюты в Настройках", "💱 اختر العملة من الإعدادات", "💱 在设置中选择货币", "💱 設定で通貨を選べます"],
+lets_go:["C’est parti !", "Let’s go!", "¡Vamos!", "Los geht’s!", "Si parte!", "Vamos lá!", "Поехали!", "هيا بنا!", "出发！", "はじめよう！"],
+chest:["Coffre du jour", "Daily chest", "Cofre del día", "Tagestruhe", "Forziere del giorno", "Baú do dia", "Сундук дня", "صندوق اليوم", "每日宝箱", "今日の宝箱"],
+chest_open:["Ouvrir le coffre", "Open the chest", "Abrir el cofre", "Truhe öffnen", "Apri il forziere", "Abrir o baú", "Открыть сундук", "افتح الصندوق", "打开宝箱", "宝箱を開ける"],
+chest_done:["Déjà ouvert. Reviens demain !", "Already opened. Come back tomorrow!", "Ya abierto. ¡Vuelve mañana!", "Schon geöffnet. Komm morgen wieder!", "Già aperto. Torna domani!", "Já aberto. Volta amanhã!", "Уже открыт. Возвращайся завтра!", "فُتح بالفعل. عد غدًا!", "今天已打开，明天再来！", "開封済み。また明日！"],
+coins:["Pièces", "Coins", "Monedas", "Münzen", "Monete", "Moedas", "Монеты", "عملات", "金币", "コイン"],
+shop:["Boutique", "Shop", "Tienda", "Shop", "Negozio", "Loja", "Магазин", "المتجر", "商店", "ショップ"],
+shop_h:["Gagne des pièces avec les boosters, les défis et le coffre du jour.", "Earn coins from boosters, quests and the daily chest.", "Gana monedas con sobres, retos y el cofre del día.", "Verdiene Münzen mit Boostern, Aufgaben und der Tagestruhe.", "Guadagna monete con booster, sfide e forziere del giorno.", "Ganha moedas com boosters, desafios e o baú do dia.", "Монеты дают бустеры, задания и сундук дня.", "اكسب العملات من البوسترات والتحديات وصندوق اليوم.", "通过卡包、任务和每日宝箱赚取金币。", "ブースター・クエスト・宝箱でコインを獲得。"],
+sh_freeze:["Gel de série", "Streak freeze", "Congelar racha", "Serienschutz", "Blocco serie", "Congelar série", "Заморозка серии", "تجميد السلسلة", "连续保护", "連続記録フリーズ"],
+sh_freeze_d:["Sauve ta série si tu rates un jour", "Saves your streak if you miss a day", "Salva tu racha si te saltas un día", "Rettet deine Serie, wenn du einen Tag verpasst", "Salva la serie se salti un giorno", "Salva a tua série se falhares um dia", "Спасёт серию, если пропустишь день", "تحفظ سلسلتك إن فاتك يوم", "漏掉一天也能保住连续记录", "1日休んでも連続記録を守る"],
+sh_reroll:["Relance bonus", "Bonus reroll", "Tirada extra", "Bonus-Neuzug", "Ripescata bonus", "Nova tirada extra", "Доп. переброс", "إعادة سحب إضافية", "额外重抽", "追加の引き直し"],
+sh_reroll_d:["Une relance en plus, quand tu veux", "One extra reroll, whenever you want", "Una tirada más, cuando quieras", "Ein zusätzlicher Neuzug, wann du willst", "Una ripescata in più, quando vuoi", "Mais uma tirada, quando quiseres", "Ещё один переброс в любой момент", "إعادة سحب إضافية متى شئت", "多一次重抽，随时可用", "いつでも使える引き直し1回"],
+buy:["Acheter", "Buy", "Comprar", "Kaufen", "Compra", "Comprar", "Купить", "شراء", "购买", "購入"],
+owned:["En stock : {n}", "Owned: {n}", "En stock: {n}", "Vorrat: {n}", "Disponibili: {n}", "Em stock: {n}", "В запасе: {n}", "المتوفر: {n}", "库存：{n}", "所持：{n}"],
+t_nocoins:["Pas assez de pièces", "Not enough coins", "Monedas insuficientes", "Nicht genug Münzen", "Monete insufficienti", "Moedas insuficientes", "Не хватает монет", "عملات غير كافية", "金币不足", "コインが足りません"],
+t_bought:["Acheté !", "Bought!", "¡Comprado!", "Gekauft!", "Acquistato!", "Comprado!", "Куплено!", "تم الشراء!", "购买成功！", "購入しました！"],
+freeze_used:["Gel utilisé : ta série est sauvée !", "Freeze used: your streak is safe!", "Congelación usada: ¡tu racha está a salvo!", "Serienschutz genutzt: deine Serie ist gerettet!", "Blocco usato: la tua serie è salva!", "Congelamento usado: a tua série está salva!", "Заморозка сработала: серия спасена!", "استُخدم التجميد: سلسلتك محفوظة!", "已使用连续保护：记录保住了！", "フリーズ使用：連続記録を守りました！"],
+coins_gain:["+{n} pièces", "+{n} coins", "+{n} monedas", "+{n} Münzen", "+{n} monete", "+{n} moedas", "+{n} монет", "+{n} عملة", "+{n} 金币", "+{n} コイン"],
+collection:["Collection", "Collection", "Colección", "Sammlung", "Collezione", "Coleção", "Коллекция", "المجموعة", "图鉴", "図鑑"],
+col_prog:["{n}/{m} cartes collectées", "{n}/{m} cards collected", "{n}/{m} cartas reunidas", "{n}/{m} Karten gesammelt", "{n}/{m} carte raccolte", "{n}/{m} cartas colecionadas", "Собрано карт: {n}/{m}", "{n}/{m} بطاقة مجمعة", "已收集 {n}/{m} 张", "{n}/{m}枚コンプリート"],
+new_card:["NOUVEAU", "NEW", "NUEVO", "NEU", "NUOVO", "NOVO", "НОВОЕ", "جديد", "新", "NEW"],
+a_collect:["Collectionneur", "Collector", "Coleccionista", "Sammler", "Collezionista", "Colecionador", "Коллекционер", "جامع", "收藏家", "コレクター"],
+a_collect_d:["Collectionne 25 cartes", "Collect 25 cards", "Reúne 25 cartas", "Sammle 25 Karten", "Raccogli 25 carte", "Coleciona 25 cartas", "Собери 25 карт", "اجمع 25 بطاقة", "收集25张卡", "25枚集める"],
+tt_1:["Petite faim", "Peckish", "Hambre ligera", "Kleiner Hunger", "Languorino", "Fominha", "Лёгкий голод", "جوع خفيف", "小饿", "小腹がすいた"],
+tt_2:["Gourmand", "Foodie", "Goloso", "Feinschmecker", "Goloso", "Guloso", "Гурман-любитель", "محب الطعام", "吃货", "食いしん坊"],
+tt_3:["Fin gourmet", "Fine gourmet", "Gourmet fino", "Gourmet", "Buongustaio", "Gourmet", "Знаток вкуса", "ذوّاق رفيع", "美食达人", "グルメ通"],
+tt_4:["Chef de cantine", "Canteen chef", "Chef del comedor", "Kantinenchef", "Chef della mensa", "Chef da cantina", "Шеф столовой", "شيف المطعم", "食堂主厨", "食堂のシェフ"],
+tt_5:["Légende du goût", "Taste legend", "Leyenda del sabor", "Geschmackslegende", "Leggenda del gusto", "Lenda do sabor", "Легенда вкуса", "أسطورة الذوق", "味觉传奇", "味の伝説"],
+tt_6:["Maître Tarpin", "Tarpin Master", "Maestro Tarpin", "Tarpin-Meister", "Maestro Tarpin", "Mestre Tarpin", "Мастер Тарпен", "سيد تاربان", "Tarpin 大师", "タルパン・マスター"],
+new_title:["Nouveau titre : {t}", "New title: {t}", "Nuevo título: {t}", "Neuer Titel: {t}", "Nuovo titolo: {t}", "Novo título: {t}", "Новое звание: {t}", "لقب جديد: {t}", "新称号：{t}", "新しい称号：{t}"],
 };
 
-const LS='gachamidi_v1',APP_V='3.5';
+const LS='gachamidi_v1',APP_V='3.6',V_NAME='Croissant',V_DATE='2026-11-20';
 const RL=['B','A','S'],rv={B:0,A:1,S:2};
 const RK={B:{stars:3,c:'#3f8cff'},A:{stars:4,c:'#a55cf2'},S:{stars:5,c:'#ff9a1f'}};
 const CK=['boisson','entree','plat','dessert'];
@@ -779,7 +848,7 @@ const MODES={
   gouter:{e:'🍪',must:['dessert'],opt:['boisson'],main:'dessert',art:'radial-gradient(120% 90% at 50% 28%,#ffc6d3 0,#ee6f92 48%,#8e2a4c 100%)',glow:'#f27a9a'},
   soir:{e:'🌙',must:['boisson','plat'],opt:['entree','dessert'],main:'plat',art:'radial-gradient(120% 90% at 50% 28%,#7d7ff5 0,#3a35a8 50%,#0e0b33 100%)',glow:'#6f6cf0'}};
 let LI=0;
-const t=(k,v)=>{const a=D[k];let s=a?(a[LI]??a[0]):k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
+const t=(k,v)=>{const a=D[k];let s=a?(a[LI]??a[0]):k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);if(curC()!='EUR'&&s.includes('€'))s=s.split('€').join(curSym());return s};
 const loc=()=>LANGS[LI][3];
 const mL=m=>t('m_'+m);
 const mLow=m=>['ja','zh','ar'].includes(LANGS[LI][0])?mL(m):mL(m).toLocaleLowerCase(loc());
@@ -803,7 +872,10 @@ const STAR='<svg class="st" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 
 const stars=n=>STAR.repeat(n);
 const uid=()=>Math.random().toString(36).slice(2,9);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const eur=n=>(+n||0).toLocaleString(loc(),{style:'currency',currency:'EUR'});
+const CUR=['EUR','USD','GBP','CHF','CAD','JPY','CNY','RUB','BRL','MAD','DZD','TND','XOF','AED','INR','KRW'];
+const curC=()=>(typeof S!='undefined'&&S.settings&&S.settings.cur)||'EUR';
+const eur=n=>{try{return (+n||0).toLocaleString(loc(),{style:'currency',currency:curC(),currencyDisplay:'narrowSymbol'})}catch(e){return (+n||0).toLocaleString(loc(),{style:'currency',currency:curC()})}};
+const curSym=c=>{try{return (0).toLocaleString(loc(),{style:'currency',currency:c||curC(),currencyDisplay:'narrowSymbol'}).replace(/[\d\s.,\u00a0\u202f\u066b\u066c]/g,'')}catch(e){return c}};
 const pct=(v,t2)=>t2>0?(Math.round((+v||0)/t2*1000)/10).toLocaleString(loc())+' %':'0 %';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root=document.documentElement;
@@ -833,7 +905,7 @@ const I0=[
 const mkItem=([p,c,r,e,n,pr,mo])=>({id:uid(),placeId:p,cat:c,rank:r,emoji:e,name:n,price:pr,img:null,ex:true,modes:[...mo]});
 const DS={rates:{B:70,A:25,S:5},pityA:3,pityS:5,theme:'auto',pseudo:'Joueur',avatar:'😋',avatarImg:null,sound:true,volume:70,vibe:true,budgets:{matin:null,midi:null,gouter:null,soir:null},explore:{origin:'Aix-en-Provence, centre-ville',radius:1000,mode:null,wish:'',last:null},hours:{matin:'05:00',midi:'10:30',gouter:'14:30',soir:'18:00'}};
 const newPity=()=>({matin:{a:0,s:0},midi:{a:0,s:0},gouter:{a:0,s:0},soir:{a:0,s:0}});
-const newGame=()=>({xp:0,streak:{n:0,last:null,best:0},quests:null,ach:{},stats:{under:0,shares:0,explore:0,modes:[]}});
+const newGame=()=>({xp:0,coins:0,freeze:0,rrBonus:0,chest:null,seen:{},streak:{n:0,last:null,best:0},quests:null,ach:{},stats:{under:0,shares:0,explore:0,modes:[]}});
 function detectLang(){const l=(navigator.language||'fr').slice(0,2);return LANGS.some(x=>x[0]==l)?l:'fr'}
 function seed(){return {v:3,lang:detectLang(),places:P0.map(([id,name,emoji,rank,weight,modes])=>({id,name,emoji,rank,weight,modes:[...modes]})),items:I0.map(mkItem),settings:JSON.parse(JSON.stringify(DS)),pity:newPity(),history:[],opened:0,game:newGame()}}
 function migrate(d){
@@ -851,7 +923,7 @@ function migrate(d){
   if((d.v||1)<3){d.lang=d.lang||detectLang();d.game=d.game||newGame();d.game.xp=d.game.xp||(d.history||[]).length*15;(d.history||[]).forEach(h=>h.rewarded=true)}
   d.v=3;return d;
 }
-function fix(d){migrate(d);d.settings={...DS,...(d.settings||{})};for(const k of ['rates','budgets','hours','explore'])d.settings[k]={...DS[k],...(d.settings[k]||{})};d.pity={...newPity(),...(d.pity||{})};d.history=d.history||[];d.opened=d.opened||d.history.length||0;d.game={...newGame(),...(d.game||{})};d.game.stats={...newGame().stats,...(d.game.stats||{})};return d}
+function fix(d){migrate(d);d.settings={...DS,...(d.settings||{})};for(const k of ['rates','budgets','hours','explore'])d.settings[k]={...DS[k],...(d.settings[k]||{})};d.pity={...newPity(),...(d.pity||{})};d.history=d.history||[];d.opened=d.opened||d.history.length||0;d.game={...newGame(),...(d.game||{})};if(d.game.coins==null||(d.game.coins===0&&!d.game.coinInit)){d.game.coins=Math.min(200,(d.opened||0)*5);d.game.coinInit=1}if(!d.game.seen||!Object.keys(d.game.seen).length){d.game.seen={};(d.history||[]).forEach(h=>CK.forEach(k=>{const x=h.slots[k];if(x)d.game.seen[x.id]=h.t}))}d.game.stats={...newGame().stats,...(d.game.stats||{})};return d}
 function load(){try{const d=JSON.parse(localStorage.getItem(LS));if(d&&Array.isArray(d.places)&&Array.isArray(d.items))return fix(d)}catch(e){}return seed()}
 let catQ='';
 let S=load(),view='home',catFilter='all',catMode='all',histMode='all',histN=40,seq=null,draft=null,pendDel=null,pendReset=false,modeOver=null,enterDir='';
@@ -959,7 +1031,9 @@ function drawEntry(m,full){
   return{e,best};
 }
 const stepsFor=m=>{const Mo=MODES[m],s=['pack','place'];CK.forEach(k=>{if(Mo.must.includes(k))s.push(k);else if(Mo.opt.includes(k))s.push('ask:'+k)});s.push('recap');return s};
-const rrLeft=()=>{const g=S.game,k=dayKey();return g.rr&&g.rr.day==k?Math.max(0,1-g.rr.used):1};
+const rrFree=()=>{const g=S.game,k=dayKey();return g.rr&&g.rr.day==k?Math.max(0,1-g.rr.used):1};
+const rrLeft=()=>rrFree()+(S.game.rrBonus||0);
+const vName=()=>t('v_name',{v:APP_V,n:V_NAME,d:new Date(V_DATE+'T12:00').toLocaleDateString(loc(),{day:'numeric',month:'long',year:'numeric'})});
 const entryBest=e=>bestOf([e.place.rank,...CK.map(k=>e.slots[k]&&e.slots[k].rank)]);
 function openBooster(){
   S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
@@ -988,7 +1062,7 @@ function multiRender(){
     <div class="face front"><div class="fhd"><span>${MODES[e.mode].e} ${mL(e.mode)}</span><span class="rb" style="--c:${c}">${b}</span></div><div class="fart"><span class="big">${esc(e.place.emoji)}</span><div class="fname"><b>${esc(e.place.name)}</b><small>${main?esc(main.name):''}</small><i class="memo">${CK.map(k=>e.slots[k]).filter(Boolean).map(x=>esc(x.emoji)).join(' ')}</i></div></div></div></div></button>`}).join('')}</div>
     <p class="ovsub">${t('tap_cards')}</p><div class="ovact"><button class="btn ghost" data-act="mflipall">${t('flip_all')}</button><button class="btn" id="mrc" data-act="mrecap" disabled>${t('see_recap')}</button></div>`;return}
   const tot=L.reduce((s,e)=>s+total(e),0);
-  ov.innerHTML=`<div class="recap"><h2>${t('day_recap')}</h2>${L.map((e,j)=>{const c=RK[e.place.rank].c;return `<div class="rr dayr" style="--i:${j};--c:${c}"><div class="dh"><span class="dm">${MODES[e.mode].e} ${mL(e.mode)}</span><b>${esc(e.place.emoji)} ${esc(e.place.name)}</b><span class="rb">${e.place.rank}</span></div><div class="hi">${CK.map(k=>e.slots[k]).filter(Boolean).map(i=>`<span class="tag" style="--c:${RK[i.rank].c}">${icon(i.emoji,imgOf(i.id),'ti')} ${esc(i.name)}</span>`).join('')||`<span class="note">${t('h_nothing')}</span>`}</div><div class="dt">${eur(total(e))}</div></div>`}).join('')}
+  ov.innerHTML=`<div class="recap"><h2>${t('day_recap')}</h2>${L.map((e,j)=>{const c=RK[e.place.rank].c;return `<div class="rr dayr" style="--i:${j};--c:${c}"><div class="dh"><span class="dm">${MODES[e.mode].e} ${mL(e.mode)}</span><b>${esc(e.place.emoji)} ${esc(e.place.name)}</b><span class="rb">${e.place.rank}</span></div><div class="hi">${CK.map(k=>e.slots[k]).filter(Boolean).map(i=>`<span class="tag" style="--c:${RK[i.rank].c}">${icon(i.emoji,imgOf(i.id),'ti')} ${esc(i.name)}${S.game.seen[i.id]?'':` <span class="newb">${t('new_card')}</span>`}</span>`).join('')||`<span class="note">${t('h_nothing')}</span>`}</div><div class="dt">${eur(total(e))}</div></div>`}).join('')}
   <div class="rtot"><span>${t('day_total')}</span><span>${eur(tot)}</span></div><div class="rbtns"><button class="btn ghost" data-act="shareday">${I.share} ${t('share_jpg')}</button><button class="btn" data-act="closeov">${t('bon_app')}</button></div></div>`;
   SFX.recap();if(seq.best=='S')confetti(100);
 }
@@ -997,30 +1071,34 @@ function mCheck(){const n=document.querySelectorAll('.mflip.on').length,b=$('#mr
 /* ---------- Gamification ---------- */
 const XPR={B:2,A:6,S:20};
 const lvlInfo=xp=>{let l=1,need=60,acc=0;while(xp>=acc+need){acc+=need;l++;need=60+(l-1)*30}return{l,cur:xp-acc,need}};
+const TT=[[1,'tt_1'],[3,'tt_2'],[5,'tt_3'],[8,'tt_4'],[12,'tt_5'],[20,'tt_6']];
+const titleOf=l=>{let r=TT[0][1];for(const [n,k] of TT)if(l>=n)r=k;return t(r)};
 const QP=[['q_open2','🎁',2,20],['q_rankA','💜',1,25],['q_rankS','🌟',1,40],['q_budget','💰',1,25],['q_opt','🍰',1,15],['q_share','📸',1,20],['q_modes','🕐',2,30]];
 function hashStr(s){let h=2166136261;for(const c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}
 function quests(){const g=S.game,k=dayKey();if(!g.quests||g.quests.day!=k){let h=hashStr(k);const pool=[...QP],pick=[];while(pick.length<3){h=Math.imul(h^(h>>>15),2246822507)>>>0;pick.push(pool.splice(h%pool.length,1)[0])}g.quests={day:k,modes:[],list:pick.map(q=>({id:q[0],e:q[1],n:q[2],xp:q[3],p:0,done:false}))}}return g.quests}
 function qProgress(id,inc=1,set){const Q=quests(),out=[];Q.list.forEach(q=>{if(q.id!=id||q.done)return;q.p=set!=null?Math.max(q.p,set):q.p+inc;if(q.p>=q.n){q.p=q.n;q.done=true;S.game.xp+=q.xp;out.push(q)}});return out}
-const ACH=[['a_first','🎉',g=>S.opened>=1],['a_s','🌟',g=>S.history.some(h=>[h.place.rank,...CK.map(k=>h.slots[k]&&h.slots[k].rank)].includes('S'))],['a_st3','🔥',g=>g.streak.best>=3],['a_st7','☄️',g=>g.streak.best>=7],['a_b10','🍽️',g=>S.opened>=10],['a_b50','👑',g=>S.opened>=50],['a_modes','🕐',g=>MO.every(m=>g.stats.modes.includes(m))],['a_explore','🧭',g=>g.stats.explore>=1],['a_share','📸',g=>g.stats.shares>=1],['a_budget','💰',g=>g.stats.under>=5],['a_lvl5','🎓',g=>lvlInfo(g.xp).l>=5]];
+const ACH=[['a_first','🎉',g=>S.opened>=1],['a_s','🌟',g=>S.history.some(h=>[h.place.rank,...CK.map(k=>h.slots[k]&&h.slots[k].rank)].includes('S'))],['a_st3','🔥',g=>g.streak.best>=3],['a_st7','☄️',g=>g.streak.best>=7],['a_b10','🍽️',g=>S.opened>=10],['a_b50','👑',g=>S.opened>=50],['a_modes','🕐',g=>MO.every(m=>g.stats.modes.includes(m))],['a_explore','🧭',g=>g.stats.explore>=1],['a_share','📸',g=>g.stats.shares>=1],['a_budget','💰',g=>g.stats.under>=5],['a_lvl5','🎓',g=>lvlInfo(g.xp).l>=5],['a_collect','📚',g=>Object.keys(g.seen||{}).length>=25]];
 function checkAch(){const g=S.game,out=[];ACH.forEach(([id,e,fn])=>{if(!g.ach[id]&&fn(g)){g.ach[id]=Date.now();g.xp+=50;out.push({id,e})}});return out}
 function reward(e,silent){
   if(e.rewarded)return null;e.rewarded=true;const g=S.game,before=g.xp;
   const ranks=[e.place.rank,...CK.map(k=>e.slots[k]&&e.slots[k].rank)].filter(Boolean);
   const k=dayKey(new Date(e.t)),y=dayKey(new Date(e.t-864e5)),st=g.streak;let up=false;
-  if(st.last!=k){st.n=st.last==y?st.n+1:1;st.last=k;st.best=Math.max(st.best,st.n);up=true}
+  let froze=false;
+  if(st.last!=k){if(st.last==y)st.n++;else{const gap=st.last?Math.round((Date.parse(k)-Date.parse(st.last))/864e5)-1:99;if(st.n>0&&gap>0&&gap<=(g.freeze||0)){g.freeze-=gap;st.n++;froze=true}else st.n=1}st.last=k;st.best=Math.max(st.best,st.n);up=true}
+  const c0=g.coins||0;CK.forEach(x=>{const it=e.slots[x];if(it&&!g.seen[it.id])g.seen[it.id]=e.t});
   const under=e.budget!=null&&total(e)<=e.budget;if(under)g.stats.under++;
   if(!g.stats.modes.includes(e.mode))g.stats.modes.push(e.mode);
   const base=10+ranks.reduce((a,r)=>a+XPR[r],0)+(under?5:0)+Math.min(st.n,7)*2;g.xp+=base;
   const Q=quests();if(!Q.modes.includes(e.mode))Q.modes.push(e.mode);
   const done=[...qProgress('q_open2'),...(ranks.some(r=>rv[r]>=1)?qProgress('q_rankA'):[]),...(ranks.includes('S')?qProgress('q_rankS'):[]),...(under?qProgress('q_budget'):[]),...(e.slots.entree||e.slots.dessert?qProgress('q_opt'):[]),...qProgress('q_modes',0,Q.modes.length)];
-  const ach=checkAch();save();
-  return silent?null:{before,after:g.xp,base,done,ach,streak:st.n,up,best:bestOf(ranks)};
+  g.coins=c0+5+done.length*10;const ach=checkAch();g.coins+=ach.length*20;save();
+  return silent?null:{before,after:g.xp,base,done,ach,streak:st.n,up,best:bestOf(ranks),coins:g.coins-c0,froze};
 }
 function hdr(){const s=S.settings,L=lvlInfo(S.game.xp),st=S.game.streak,live=st.last==dayKey()||st.last==dayKey(new Date(Date.now()-864e5));
   $('#av').innerHTML=s.avatarImg?`<img src="${esc(s.avatarImg)}" alt="">`:esc(s.avatar||'😋');
   $('#avr').style.setProperty('--p',Math.round(L.cur/L.need*100));
   $('#lvl').textContent=`${s.pseudo||'Joueur'} · ${t('lvl',{n:L.l})}`;
-  $('#stkn').textContent=live?st.n:0;$('#stk').classList.toggle('on',live&&st.n>0);
+  $('#coinn').textContent=S.game.coins||0;$('#stkn').textContent=live?st.n:0;$('#stk').classList.toggle('on',live&&st.n>0);
   document.querySelectorAll('#tab button').forEach((b,j)=>b.setAttribute('aria-label',t(['tab_home','tab_cat','tab_explore','tab_hist','tab_set'][j])))}
 
 /* ---------- Overlay booster ---------- */
@@ -1066,7 +1144,7 @@ function tear(p){if(p.classList.contains('open'))return;p.style.setProperty('--c
   setTimeout(()=>ov.appendChild(fx),reduce?0:450);setTimeout(()=>{if(seq.multi)seq.stage='grid';else seq.i++;ovRender()},reduce?300:1750)}
 function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
   const keys=['place',...CK.filter(k=>seq.steps.includes(k))];
-  const rows=keys.map((k,j)=>{const d=cardData(k),c=d.r?RK[d.r].c:'#6b7a70';return `<div class="rr" style="--i:${j};--c:${c}"><div class="ico">${icon(d.em,d.img)}</div><div class="rm"><b>${esc(d.t)}</b><small>${esc(d.s)}</small></div>${d.r?`<span class="rb">${d.r}</span>`:''}</div>`}).join('');
+  const rows=keys.map((k,j)=>{const d=cardData(k),c=d.r?RK[d.r].c:'#6b7a70',it=k!='place'&&e.slots[k],nw=it&&!S.game.seen[it.id];return `<div class="rr" style="--i:${j};--c:${c}"><div class="ico">${icon(d.em,d.img)}</div><div class="rm"><b>${esc(d.t)}${nw?` <span class="newb">${t('new_card')}</span>`:''}</b><small>${esc(d.s)}</small></div>${d.r?`<span class="rb">${d.r}</span>`:''}</div>`}).join('');
   return `<div class="recap"><h2>${MODES[e.mode].e} ${t('mr_'+e.mode)}</h2>${rows}<div class="rtot"><span>${t('total')}</span><span>${eur(total(e))}</span></div>${e.budget!=null?`<p class="rp">${t('b_left',{b:eur(e.budget),r:`<b style="color:var(--gInk)">${eur(remOf(e))}</b>`})}</p>`:''}
   <p class="rp">${t('pity_line',{a:pt.a,am:s.pityA,s:pt.s,sm:s.pityS})}${e.forced?' · '+t('guar_used',{r:e.forced}):''}</p>
   <div class="rbtns"><button class="btn ghost" data-act="share" data-id="${e.id}">${I.share} ${t('share_jpg')}</button><button class="btn" data-act="closeov">${t('bon_app')}</button></div>
@@ -1074,6 +1152,8 @@ function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
 function rewardScreen(r){
   const L0=lvlInfo(r.before),L1=lvlInfo(r.after),gain=r.after-r.before;
   const items=[];
+  if(r.coins)items.push(`<div class="ritem" style="animation-delay:.4s"><span class="e">🪙</span><div><b>${t('coins_gain',{n:r.coins})}</b><small>${t('shop_h')}</small></div></div>`);
+  if(r.froze)items.push(`<div class="ritem" style="animation-delay:.45s;border-color:#7ad3ff"><span class="e">🧊</span><div><b>${t('freeze_used')}</b></div></div>`);
   items.push(`<div class="ritem" style="animation-delay:.5s"><span class="e">🔥</span><div><b>${r.up&&r.streak>1?t('streak_up',{n:r.streak}):t('streak_keep',{n:r.streak})}</b><small>${t('streak_sub')}</small></div></div>`);
   r.done.forEach((q,j)=>items.push(`<div class="ritem" style="animation-delay:${.7+j*.15}s"><span class="e">${q.e}</span><div><b>${t('q_done')}</b><small>${t(q.id)}</small></div><em>+${q.xp} XP</em></div>`));
   r.ach.forEach((a,j)=>items.push(`<div class="ritem" style="animation-delay:${1+j*.15}s;border-color:#ff9a1f"><span class="e">${a.e}</span><div><b>${t('new_ach')} : ${t(a.id)}</b><small>${t(a.id+'_d')}</small></div><em>+50 XP</em></div>`));
@@ -1085,7 +1165,7 @@ function rewardScreen(r){
   if(r.done.length)setTimeout(()=>SFX.quest(),700);
   const step=now=>{const k=dur?Math.min(1,(now-t0)/dur):1,ease=1-Math.pow(1-k,3),v=Math.round(gain*ease);if(v!=last){last=v;$('#xpc').textContent=`+${v} XP`;if(v%3==0)SFX.tick(v)}
     const cur=r.before+v,L=lvlInfo(cur);bar.style.width=(L.l>L0.l?100:L.cur/L.need*100)+'%';$('#rava').style.setProperty('--p',L.l>L0.l?100:Math.round(L.cur/L.need*100));
-    if(k<1)requestAnimationFrame(step);else if(L1.l>L0.l){setTimeout(()=>{bar.style.transition='none';bar.style.width='0%';requestAnimationFrame(()=>{bar.style.transition='width .6s';bar.style.width=(L1.cur/L1.need*100)+'%'});$('#lvup').innerHTML=`<div class="lvup">${t('level_up',{n:L1.l})}</div>`;$('#xpl').textContent=t('lvl',{n:L1.l});$('#xpn').textContent=t('lvl',{n:L1.l+1});$('#rava').style.setProperty('--p',Math.round(L1.cur/L1.need*100));SFX.level();confetti(160)},250)}};
+    if(k<1)requestAnimationFrame(step);else if(L1.l>L0.l){setTimeout(()=>{bar.style.transition='none';bar.style.width='0%';requestAnimationFrame(()=>{bar.style.transition='width .6s';bar.style.width=(L1.cur/L1.need*100)+'%'});$('#lvup').innerHTML=`<div class="lvup">${t('level_up',{n:L1.l})}</div>${titleOf(L1.l)!=titleOf(L0.l)?`<div class="ntitle">🏅 ${t('new_title',{t:titleOf(L1.l)})}</div>`:''}`;$('#xpl').textContent=t('lvl',{n:L1.l});$('#xpn').textContent=t('lvl',{n:L1.l+1});$('#rava').style.setProperty('--p',Math.round(L1.cur/L1.need*100));SFX.level();confetti(160)},250)}};
   requestAnimationFrame(step);
 }
 
@@ -1099,6 +1179,7 @@ function pityRow(r,cnt,n){const rem=Math.max(1,n-cnt),c=RK[r].c;
 function modeBar(){const m=curMode(),au=autoMode();
   return `<nav class="modes">${MO.map(k=>`<button class="${k==m?'on':''}" data-act="mode" data-v="${k}" aria-pressed="${k==m}"><span>${MODES[k].e}</span>${mL(k)}</button>`).join('')}</nav>
   <p class="mhint">${modeOver&&modeOver!=au?`${t('manual')} <button class="lnk" data-act="mauto">${t('back_auto',{mode:MODES[au].e+' '+mL(au)})}</button>`:t('auto_hint',{time:hhmm(),mode:mLow(au)})}</p>`}
+function chestHTML(){const done=S.game.chest==dayKey();return `<section class="box sec chestbox ${done?'done':''}"><div class="chesti">${done?'📭':'🎁'}</div><div class="grow"><h2 style="margin:0 0 4px">${t('chest')}</h2>${done?`<p class="pc" style="margin:0">${t('chest_done')}</p>`:`<button class="btn sm" data-act="chest">${t('chest_open')}</button>`}</div></section>`}
 function questsHTML(){const Q=quests();return `<section class="box sec"><div class="ph"><h2>🎯 ${t('quests')}</h2></div>${Q.list.map(q=>`<div class="quest ${q.done?'done':''}"><div class="qi">${q.done?'✅':q.e}</div><div><b>${t(q.id)}</b><div class="qb"><i style="width:${q.p/q.n*100}%"></i></div></div><span class="qx">${q.done?I.check:q.p+'/'+q.n} · ${q.xp} XP</span></div>`).join('')}</section>`}
 function home(){
   const s=S.settings,m=curMode(),Mo=MODES[m],f=force(m),last=S.history.find(h=>h.mode==m),pt=PT(m),src=emojisOf(m);
@@ -1115,7 +1196,7 @@ function home(){
   <div class="bud"><div class="bstep"><button data-act="bstep" data-v="-1" aria-label="${t('b_less')}">${I.minus}</button><button class="bval" data-act="bsheet"><small>${t('budget_of',{mode:mLow(m)})}</small>${b==null?t('unlimited'):eur(b)}</button><button data-act="bstep" data-v="1" aria-label="${t('b_more')}">${I.plus}</button></div></div>
   <p class="bhint ${bad?'bad':''}">${bh}${skipIds().length?` · <button class="lnk" data-act="rates" style="min-height:0;font-size:12.5px">🚫 ${t('skipped_n',{n:skipIds().length})}</button>`:''}</p>
   <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none?'disabled':''}>${t('open')}</button><button class="btn ghost play4" data-act="open4" aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
-  ${questsHTML()}
+  ${chestHTML()}${questsHTML()}
   <section class="box"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}`;
 }
 const modeTags=x=>(x.modes||MO).map(m=>MODES[m].e).join('');
@@ -1151,6 +1232,7 @@ function settings(){
   const s=S.settings,tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0);
   return `<div class="vh"><h1>${t('tab_set')}</h1></div>
   <section class="box"><h2>${t('s_lang')}</h2><div class="langsel"><select data-f="lang" aria-label="${t('s_lang')}">${LANGS.map((l,j)=>`<option value="${l[0]}" ${j==LI?'selected':''}>${l[2]}  ${l[1]}</option>`).join('')}</select></div></section>
+  <section class="box"><h2>${t('cur_label')}</h2><div class="langsel"><select data-f="cur">${CUR.map(c=>`<option value="${c}" ${c==curC()?'selected':''}>${c} · ${curSym(c)}</option>`).join('')}</select></div><p class="hint2" style="margin-bottom:0">${t('cur_h')}</p></section>
   <section class="box"><h2>${t('s_profile')}</h2><div class="prof"><div class="avr" style="--p:${Math.round(lvlInfo(S.game.xp).cur/lvlInfo(S.game.xp).need*100)};width:76px;height:76px;flex:none"><div class="av">${s.avatarImg?`<img src="${esc(s.avatarImg)}" alt="">`:esc(s.avatar)}</div></div><div class="grow"><label class="fld">${t('s_pseudo')}<input data-f="pseudo" value="${esc(s.pseudo)}" maxlength="20"></label><div class="iconrow"><input data-f="avatar" value="${esc(s.avatar)}" maxlength="8" aria-label="${t('s_avatar')}"><label class="btn ghost sm file">${t('s_photo')}<input type="file" id="fAv" accept="image/*" hidden></label>${s.avatarImg?`<button class="lnk" data-act="noav">${t('s_remove')}</button>`:''}</div></div></div></section>
   <section class="box"><h2>${t('s_hours')}</h2><p class="hint2">${t('s_hours_h')}</p><div class="two">${MO.map(m=>`<label class="fld">${t('from',{m:MODES[m].e+' '+mL(m)})}<input type="time" data-f="hour:${m}" value="${esc(s.hours[m])}"></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_sound')}</h2>
@@ -1163,7 +1245,7 @@ function settings(){
   <button class="btn ghost sm" data-act="addplace">${t('s_addplace')}</button></section>
   <section class="box"><h2>${t('s_rates')}</h2><p class="hint2">${t('s_rates_h')}</p><div class="rates">${RL.map(r=>`<label class="rate" style="--c:${RK[r].c}"><span>${t('rank',{r})} ${stars(RK[r].stars)}</span><input type="number" min="0" inputmode="decimal" data-f="rate:${r}" value="${s.rates[r]}"><b data-pct="r:${r}">${pct(s.rates[r],tr)}</b></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_pity')}</h2><div class="two"><label class="fld">${t('s_pityA')}<input type="number" min="1" max="50" inputmode="numeric" data-f="pityA" value="${s.pityA}"></label><label class="fld">${t('s_pityS')}<input type="number" min="1" max="99" inputmode="numeric" data-f="pityS" value="${s.pityS}"></label></div><p class="hint2">${t('s_pity_h')}</p></section>
-  <section class="box"><h2>${t('s_data')}</h2><p class="hint2">${t('s_data_h')}</p><div class="btns"><button class="btn sm" data-act="export">${t('s_copy')}</button>${window.claude?'':`<button class="btn ghost sm" data-act="exportfile">${t('s_dl')}</button>`}<label class="btn ghost sm file">${t('s_impf')}<input type="file" id="fImp" accept=".json,.txt,application/json,text/plain" hidden></label></div><textarea id="imp" rows="3" placeholder="${t('s_paste')}"></textarea><div class="btns"><button class="btn ghost sm" data-act="import">${t('s_imp')}</button>${S.items.some(i=>i.ex)?`<button class="btn ghost sm" data-act="clearex">${t('s_clearex')}</button>`:''}<button class="btn ghost sm" data-act="clearhist">${t('s_clearhist')}</button><button class="btn danger sm" data-act="reset">${pendReset?t('s_reset_s'):t('s_reset')}</button></div><p class="pc" style="margin:14px 0 0">Tarpaing Faim · v${APP_V}</p></section>`;
+  <section class="box"><h2>${t('s_data')}</h2><p class="hint2">${t('s_data_h')}</p><div class="btns"><button class="btn sm" data-act="export">${t('s_copy')}</button>${window.claude?'':`<button class="btn ghost sm" data-act="exportfile">${t('s_dl')}</button>`}<label class="btn ghost sm file">${t('s_impf')}<input type="file" id="fImp" accept=".json,.txt,application/json,text/plain" hidden></label></div><textarea id="imp" rows="3" placeholder="${t('s_paste')}"></textarea><div class="btns"><button class="btn ghost sm" data-act="import">${t('s_imp')}</button>${S.items.some(i=>i.ex)?`<button class="btn ghost sm" data-act="clearex">${t('s_clearex')}</button>`:''}<button class="btn ghost sm" data-act="clearhist">${t('s_clearhist')}</button><button class="btn danger sm" data-act="reset">${pendReset?t('s_reset_s'):t('s_reset')}</button></div><p class="pc" style="margin:14px 0 0" translate="no">Tarpaing Faim · ${vName()}</p></section>`;
 }
 /* ---------- Explorer ---------- */
 let scan={busy:false,ctl:null,err:''};
@@ -1179,7 +1261,7 @@ function scanPrompt(x,m){const B=S.settings.budgets[m],names=S.places.map(p=>p.n
 Point de départ : ${x.origin}
 Rayon : ${fmtR(x.radius)} autour de ce point.
 Moment : ${MDESC[m]}.
-Budget max par repas : ${B==null?'aucun':B+' €'}.
+Budget max par repas : ${B==null?'aucun':eur(B)}.
 Envies : ${x.wish||'aucune précision'}.
 Établissements déjà dans l’app (ne pas les reproposer) : ${names}.
 
@@ -1266,11 +1348,27 @@ function budgetSheet(){const m=curMode(),b=S.settings.budgets[m];
   <label class="fld">${t('custom')}<input id="bCustom" type="number" inputmode="decimal" min="1" step="0.5" value="${b??''}"></label><p class="bhint" style="text-align:left">${budgetHint(m)[0]}</p>
   <div class="sact"><button class="btn ghost sm" data-act="close">${t('close')}</button><button class="btn sm" data-act="bcustom">${t('apply')}</button></div>`)}
 function profileSheet(){const g=S.game,L=lvlInfo(g.xp);
-  sheet(`<div class="mrow" style="margin-bottom:10px"><div class="avr" style="--p:${Math.round(L.cur/L.need*100)};width:76px;height:76px;flex:none"><div class="av">${S.settings.avatarImg?`<img src="${esc(S.settings.avatarImg)}" alt="">`:esc(S.settings.avatar)}</div></div><div><h2 style="margin:0">${esc(S.settings.pseudo)}</h2><b style="color:var(--gInk)">${t('lvl',{n:L.l})}</b></div></div>
+  sheet(`<div class="mrow" style="margin-bottom:10px"><div class="avr" style="--p:${Math.round(L.cur/L.need*100)};width:76px;height:76px;flex:none"><div class="av">${S.settings.avatarImg?`<img src="${esc(S.settings.avatarImg)}" alt="">`:esc(S.settings.avatar)}</div></div><div><h2 style="margin:0">${esc(S.settings.pseudo)}</h2><b style="color:var(--gInk)">${t('lvl',{n:L.l})} · 🏅 ${titleOf(L.l)}</b></div></div>
   <div class="xpline"><span>${t('lvl',{n:L.l})}</span><div class="xpb"><i style="width:${L.cur/L.need*100}%"></i></div><span>${t('lvl',{n:L.l+1})}</span></div><p class="pc" style="text-align:center;margin:4px 0 12px">${t('xp_of',{x:L.cur,y:L.need})}</p>
-  <div class="stats"><div><b>🔥 ${g.streak.n}</b><small>${t('cur_streak')}</small></div><div><b>🏆 ${g.streak.best}</b><small>${t('best_streak')}</small></div><div><b>${S.opened}</b><small>${t('h_boost')}</small></div></div>
+  <div class="stats"><div><b>🔥 ${g.streak.n}</b><small>${t('cur_streak')}</small></div><div><b>🏆 ${g.streak.best}</b><small>${t('best_streak')}</small></div><div><b>🪙 ${g.coins||0}</b><small>${t('coins')}</small></div></div>
+  <div class="btns" style="margin-bottom:6px"><button class="btn ghost sm" data-act="coll">📚 ${t('collection')} · ${Object.keys(g.seen||{}).filter(id=>S.items.some(i=>i.id==id)).length}/${S.items.length}</button><button class="btn ghost sm" data-act="shop">🛒 ${t('shop')}</button></div>
   <h3 class="sub">${t('achs')} · ${Object.keys(g.ach).length}/${ACH.length}</h3><div class="achs">${ACH.map(([id,e])=>`<div class="ach ${g.ach[id]?'got':'lock'}"><span>${e}</span><b>${t(id)}</b><small>${t(id+'_d')}</small></div>`).join('')}</div>
   <div class="sact"><button class="btn ghost sm" data-act="tab" data-v="set">${t('edit_prof')}</button><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
+
+function shopSheet(){const g=S.game,items=[['freeze','🧊',60],['rr','🔁',40]];
+  sheet(`<h2>🛒 ${t('shop')}</h2><div class="coinbal">🪙 <b>${g.coins||0}</b> ${t('coins')}</div><p class="hint2">${t('shop_h')}</p>
+  ${items.map(([id,e,p])=>`<div class="shopi"><span class="e">${e}</span><div class="grow"><b>${t(id=='freeze'?'sh_freeze':'sh_reroll')}</b><small>${t(id=='freeze'?'sh_freeze_d':'sh_reroll_d')}</small><small>${t('owned',{n:id=='freeze'?g.freeze||0:g.rrBonus||0})}</small></div><button class="btn sm" data-act="buy" data-v="${id}" data-p="${p}" ${(g.coins||0)<p?'disabled':''}>🪙 ${p}</button></div>`).join('')}
+  <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
+function collSheet(){const g=S.game,seen=g.seen||{},n=S.items.filter(i=>seen[i.id]).length;
+  sheet(`<h2>📚 ${t('collection')}</h2><div class="xpline"><span>${n}</span><div class="xpb"><i style="width:${S.items.length?n/S.items.length*100:0}%"></i></div><span>${S.items.length}</span></div><p class="pc" style="text-align:center;margin:4px 0 10px">${t('col_prog',{n,m:S.items.length})}</p>
+  ${S.places.map(p=>{const its=S.items.filter(i=>i.placeId==p.id);if(!its.length)return'';return `<h3 class="sub">${esc(p.emoji+' '+p.name)} · ${its.filter(i=>seen[i.id]).length}/${its.length}</h3><div class="coll">${its.map(i=>seen[i.id]?`<div class="cc" style="--c:${RK[i.rank].c}"><span>${icon(i.emoji,i.img)}</span><small>${esc(i.name)}</small><i>${i.rank}</i></div>`:`<div class="cc lock"><span>${icon(i.emoji,i.img)}</span><small>???</small></div>`).join('')}</div>`}).join('')}
+  <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
+function openChest(){const g=S.game;if(g.chest==dayKey())return;g.chest=dayKey();const xp=10+Math.floor(Math.random()*31),co=10+Math.floor(Math.random()*21);g.xp+=xp;g.coins=(g.coins||0)+co;checkAch();save();
+  sheet(`<div class="chestfx"><div class="bigchest" id="bch">🎁</div><div id="chres" class="chres"></div><button class="btn play" data-act="close" style="margin-top:10px" id="chok" hidden>${t('continue')}</button></div>`);
+  SFX.open();vib([20,40,20,40,20]);
+  setTimeout(()=>{const b=$('#bch');if(!b)return;b.textContent='✨';b.classList.add('pop2');SFX.level();confetti(110);$('#chres').innerHTML=`<b>+${xp} XP</b><b>🪙 ${t('coins_gain',{n:co})}</b>`;$('#chok').hidden=false;hdr();if(view=='home')render()},reduce?0:1100)}
+function whatsNew(){if(S.seenV==APP_V)return;S.seenV=APP_V;save();
+  sheet(`<h2>✨ ${t('whatsnew')}</h2><p class="pc" translate="no">Tarpaing Faim · ${vName()}</p><ul class="wn">${[1,2,3,4,5].map(n=>`<li>${t('wn_'+n)}</li>`).join('')}</ul><div class="sact"><button class="btn play" data-act="close">${t('lets_go')}</button></div>`)}
 function resize(file,max){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext('2d').drawImage(im,0,0,c.width,c.height);let u=c.toDataURL('image/webp',.82);if(!u.startsWith('data:image/webp'))u=c.toDataURL('image/png');res(u)};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
 function doImport(txt){try{const d=JSON.parse(txt);if(!Array.isArray(d.places)||!Array.isArray(d.items))throw 0;S=fix(d);setLang();save(true);applyTheme();render();toast(t('t_imported'))}catch(e){toast(t('t_invalid'))}}
 
@@ -1425,15 +1523,19 @@ const A={
     S.places.push({id,name:p.name,emoji:p.emoji,rank:p.rank,weight:{B:30,A:15,S:5}[p.rank],modes:[m],ia:true});
     p.items.forEach(i=>S.items.push({id:uid(),placeId:id,cat:i.cat,rank:i.rank,emoji:i.emoji,name:i.name,price:i.price||'',img:null,ex:false,ia:true,modes:[m]}));
     S.game.stats.explore++;const a=checkAch();save();SFX.yes();render();toast(a.length?t('new_ach')+' : '+t(a[0].id):t('t_xadded',{p:p.name,n:p.items.length}))},
-  reroll:()=>{const e=seq&&seq.e;if(!e)return;if(rrLeft()<1)return toast(t('t_noreroll'));const g=S.game,k=dayKey();g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++;
+  reroll:()=>{const e=seq&&seq.e;if(!e)return;if(rrLeft()<1)return toast(t('t_noreroll'));const g=S.game,k=dayKey();if(rrFree()>0){g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++}else g.rrBonus--;
     S.history=S.history.filter(h=>h.id!=e.id);if(e.pb)Object.assign(PT(e.mode),e.pb);S.opened=Math.max(0,S.opened-1);
     if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};if(!S.skip.ids.includes(e.place.id))S.skip.ids.push(e.place.id);
     const r=drawEntry(e.mode);if(r.err){save();toast(r.err);return A.rewclose()}SFX.open();seq={e:r.e,i:0,best:r.best,steps:stepsFor(e.mode)};ovRender()},
   skipp:b=>{const k=dayKey(),id=b.dataset.id;if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};const L=S.skip.ids;L.includes(id)?L.splice(L.indexOf(id),1):L.push(id);SFX.soft();save();ratesSheet();if(view=='home')render()},
+  shop:()=>{SFX.soft();shopSheet()},
+  coll:()=>{SFX.soft();collSheet()},
+  chest:()=>openChest(),
+  buy:b=>{const g=S.game,p=+b.dataset.p;if((g.coins||0)<p)return toast(t('t_nocoins'));g.coins-=p;if(b.dataset.v=='freeze')g.freeze=(g.freeze||0)+1;else g.rrBonus=(g.rrBonus||0)+1;save();SFX.yes();toast(t('t_bought'));hdr();shopSheet()},
   next:()=>{SFX.tap();goNext()},
   skip:()=>{SFX.soft();seq.i=seq.steps.length-1;ovRender()},
   ask:b=>{b.dataset.v=='1'?SFX.yes():SFX.soft();const k=seq.steps[seq.i].slice(4);if(b.dataset.v=='1'){const it=pickSlot(seq.e.place.id,k,'B',remOf(seq.e),seq.e.mode);seq.e.slots[k]=snap(it);if(it)bump(it.rank,seq.e.mode);save();seq.steps.splice(seq.i+1,0,k)}seq.i++;ovRender()},
-  closeov:()=>{SFX.tap();if(seq.multi){const rs=seq.list.slice().reverse().map(e=>reward(e)).filter(Boolean);if(!rs.length)return A.rewclose();rewardScreen({before:rs[0].before,after:S.game.xp,done:rs.flatMap(r=>r.done),ach:rs.flatMap(r=>r.ach),streak:rs[rs.length-1].streak,up:rs.some(r=>r.up),best:bestOf(rs.map(r=>r.best))});return}const r=reward(seq.e);if(r){rewardScreen(r)}else A.rewclose()},
+  closeov:()=>{SFX.tap();if(seq.multi){const rs=seq.list.slice().reverse().map(e=>reward(e)).filter(Boolean);if(!rs.length)return A.rewclose();rewardScreen({before:rs[0].before,after:S.game.xp,done:rs.flatMap(r=>r.done),ach:rs.flatMap(r=>r.ach),streak:rs[rs.length-1].streak,up:rs.some(r=>r.up),best:bestOf(rs.map(r=>r.best)),coins:rs.reduce((s,r)=>s+r.coins,0),froze:rs.some(r=>r.froze)});return}const r=reward(seq.e);if(r){rewardScreen(r)}else A.rewclose()},
   rewclose:()=>{if(window.__reload){location.reload();return}ov.hidden=true;ov.innerHTML='';document.body.style.overflow='';seq=null;view='home';render();scrollTo(0,0)}
 };
 let suppress=0;
@@ -1469,6 +1571,7 @@ document.addEventListener('input',e=>{
   if(e.target.id=='fEmo'&&draft&&!draft.img){$('#pv').innerHTML=icon(e.target.value,null);return}
   const f=e.target.dataset.f;if(!f)return;const v=e.target.value,s=S.settings;
   if(f=='q'){catQ=v;const l=$('#catlist');if(l)l.innerHTML=catList();return}
+  if(f=='cur'){S.settings.cur=v;save();render();return}
   if(f=='lang'){S.lang=v;setLang();save();SFX.yes();render();return}
   if(f=='sound'||f=='vibe')s[f]=e.target.checked;else if(f=='volume')s.volume=+v;else if(f=='pseudo')s.pseudo=v;else if(f=='avatar')s.avatar=v||'😋';
   else if(f.startsWith('hour:')){if(v){s.hours[f.slice(5)]=v;applyTheme()}}
@@ -1496,11 +1599,11 @@ if('serviceWorker' in navigator&&window.top===window&&location.protocol==='https
   navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!had||window.__rl)return;window.__rl=true;if(seq)window.__reload=true;else location.reload()});
   addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{r.update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)r.update()})}).catch(()=>{}));
 }
-function intro(){if(reduce)return;const el=document.createElement('div');el.id='intro';
+function intro(){if(reduce){setTimeout(whatsNew,300);return}const el=document.createElement('div');el.id='intro';
   const fan=MO.map((m,k)=>`<i style="--k:${k};--r:${(k-1.5)*14}deg;--x:${(k-1.5)*30}px;background:${MODES[m].art}"><b>TF</b><span>${MODES[m].e}</span></i>`).join('');
   const word=(w,d)=>[...w].map((c,j)=>`<span style="animation-delay:${d+j*.045}s">${c}</span>`).join('');
-  el.innerHTML=`<div class="ifan">${fan}</div><div class="ilogo">${word('TARPAING',.45)}<br>${word('FAIM',.85)}</div><p class="itag">${t('intro_tag')}</p><p class="iskip">${t('tap_skip')}</p>`;
-  document.body.appendChild(el);let done=false;const end=()=>{if(done)return;done=true;el.classList.add('out');setTimeout(()=>el.remove(),450)};
+  el.setAttribute('translate','no');el.innerHTML=`<div class="ifan">${fan}</div><div class="ilogo">${word('TARPAING',.45)}<br>${word('FAIM',.85)}</div><p class="itag">${t('intro_tag')}</p><p class="iver" translate="no">${vName()}</p><p class="iskip">${t('tap_skip')}</p>`;
+  document.body.appendChild(el);let done=false;const end=()=>{if(done)return;done=true;el.classList.add('out');setTimeout(()=>{el.remove();whatsNew()},450)};
   el.addEventListener('click',end);setTimeout(end,2300)}
 intro();
 applyTheme();render();
