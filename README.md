@@ -1,4 +1,4 @@
-# Tarpaing Faim
+# Tarpin Faim
 
 Une web app perso qui tire au sort ton repas façon gacha (inspirée des boosters Pokémon TCG et des tirages HoYoverse). Il y a quatre boosters selon le moment de la journée (petit-déj, midi, goûter, soir), des rangs B / A / S, un système de pity, un budget, de la gamification (XP, niveaux, séries, défis du jour, succès), un thème qui suit l'heure, dix langues (FR, EN, ES, DE, IT, PT, RU, AR, ZH, JA) et le partage du récap en JPG.
 
