@@ -1,4 +1,4 @@
-# Gacha'Midi : installer l'app sur ton téléphone
+# Tarpaing Faim : installer l'app sur ton téléphone
 
 Ce dossier est une **PWA** (Progressive Web App) : une web app qui s'installe comme une vraie appli, avec une icône, en plein écran et utilisable hors ligne.
 
@@ -15,7 +15,7 @@ Il faut obligatoirement du **https** pour que l'installation et le mode hors lig
 
 1. Ouvre l'adresse dans **Chrome**.
 2. Menu **⋮ > Installer l'application** (ou « Ajouter à l'écran d'accueil »).
-3. Gacha'Midi apparaît dans tes applis, avec son icône.
+3. Tarpaing Faim apparaît dans tes applis, avec son icône.
 
 Sur iPhone : ouvre l'adresse dans Safari, puis **Partager > Sur l'écran d'accueil**.
 
@@ -43,4 +43,4 @@ Dans la version Claude : **Réglages > Copier la sauvegarde**. Puis dans l'app i
 
 ## Mettre à jour l'app
 
-Remplace `index.html` dans ton dépôt GitHub. Ensuite, dans `sw.js`, passe `gachamidi-v1` à `gachamidi-v2` pour que les téléphones téléchargent la nouvelle version.
+Remplace `index.html` dans ton dépôt GitHub. `index.html` se met à jour tout seul sur le téléphone. Si tu modifies les icônes ou le manifeste, change aussi le nom du cache en haut de `sw.js` (par exemple `tarpaing-v3` → `tarpaing-v4`).

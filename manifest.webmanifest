@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "Gacha'Midi",
-  "short_name": "Gacha'Midi",
+  "name": "Tarpaing Faim",
+  "short_name": "Tarpaing Faim",
   "description": "Tire au sort ton repas façon gacha : petit-déj, midi, goûter et soir.",
   "lang": "fr",
   "start_url": "./",
@@ -9,7 +9,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#040a06",
-  "theme_color": "#0f3d20",
+  "theme_color": "#1f9447",
   "categories": [
     "food",
     "lifestyle",
