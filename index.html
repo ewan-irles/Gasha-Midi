@@ -514,11 +514,12 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 @media (hover:hover){.btn:hover:not(:disabled){filter:brightness(1.07)}.row:hover,.acch:hover,.shopi:hover{background:color-mix(in srgb,var(--g) 6%,var(--card))}.chips button:hover:not(.on){border-color:var(--g)}.tab button:hover:not(.on){color:var(--ink)}}
 @media (min-width:700px){
   #app{max-width:780px;padding-left:28px;padding-right:28px}
-  .tab{width:min(780px,100%)}
+  .tab{width:100%;padding-left:max(4px,calc((100% - 780px)/2));padding-right:max(4px,calc((100% - 780px)/2))}
   .hero{--ch:clamp(300px,calc(100dvh - 420px),520px)}
   .playrow{width:min(420px,100%)}
-  .hr{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;margin-top:8px}
+  .hr{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto 1fr;grid-template-areas:"chest quests" "pity quests" "last quests";gap:14px;align-items:start;margin-top:8px}
   .hr>*{margin:0!important}
+  .hr .chestbox{grid-area:chest}.hr .qbox{grid-area:quests}.hr .pbox{grid-area:pity}.hr .lastm{grid-area:last}
   #view[data-v=cat] #catlist{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
   #view[data-v=cat] .acc{margin:0}
   #view[data-v=set],#view[data-v=hist]{column-count:2;column-gap:18px}
@@ -578,6 +579,16 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .inter .ie{font-size:92px;line-height:1;animation:pop .5s both}
 .inter h2{margin:0;font:900 40px/1 'Big Shoulders Display',Impact,sans-serif;text-transform:uppercase}
 .inter p{margin:0;color:var(--mut);font-weight:800}
+@media (min-width:900px) and (max-width:1099px){
+  #app{max-width:1020px}
+  .hgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 28px;align-items:start}
+  .hm{grid-column:1/-1}
+  .hc{display:flex;flex-direction:column;align-items:center}
+  .hr{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:none;margin-top:0}
+  .hr>*{grid-area:auto!important}
+  .hero{--ch:clamp(320px,calc(100dvh - 400px),520px);width:100%}
+  .hc .playrow{width:min(440px,100%)}
+}
 </style>
 </head>
 <body>
@@ -1367,7 +1378,7 @@ function modeBar(){const m=curMode(),au=autoMode();
   return `<nav class="modes">${MO.map(k=>`<button class="${k==m?'on':''}${isUsed(k)?' used':''}" data-act="mode" data-v="${k}" aria-pressed="${k==m}"><span>${MODES[k].e}</span>${mL(k)}${isUsed(k)?'<i class="tick">✓</i>':''}</button>`).join('')}</nav>
   <p class="mhint">${modeOver&&modeOver!=au?`${t('manual')} <button class="lnk" data-act="mauto">${t('back_auto',{mode:MODES[au].e+' '+mL(au)})}</button>`:t('auto_hint',{time:hhmm(),mode:mLow(au)})}</p>`}
 function chestHTML(){const done=S.game.chest==dayKey();return `<section class="box sec chestbox ${done?'done':''}"><div class="chesti">${done?'📭':'🎁'}</div><div class="grow"><h2 style="margin:0 0 4px">${t('chest')}</h2>${done?`<p class="pc" style="margin:0">${t('chest_done')}</p>`:`<button class="btn sm" data-act="chest">${t('chest_open')}</button>`}</div></section>`}
-function questsHTML(){const Q=quests();return `<section class="box sec"><div class="ph"><h2>🎯 ${t('quests')}</h2></div>${Q.list.map(q=>`<div class="quest ${q.done?'done':''}"><div class="qi">${q.done?'✅':q.e}</div><div><b>${t(q.id)}</b><div class="qb"><i style="width:${q.p/q.n*100}%"></i></div></div><span class="qx">${q.done?I.check:q.p+'/'+q.n} · ${q.xp} XP</span></div>`).join('')}</section>`}
+function questsHTML(){const Q=quests();return `<section class="box sec qbox"><div class="ph"><h2>🎯 ${t('quests')}</h2></div>${Q.list.map(q=>`<div class="quest ${q.done?'done':''}"><div class="qi">${q.done?'✅':q.e}</div><div><b>${t(q.id)}</b><div class="qb"><i style="width:${q.p/q.n*100}%"></i></div></div><span class="qx">${q.done?I.check:q.p+'/'+q.n} · ${q.xp} XP</span></div>`).join('')}</section>`}
 function home(){
   const s=S.settings,m=curMode(),Mo=MODES[m],f=force(m),last=S.history.find(h=>h.mode==m),pt=PT(m),src=emojisOf(m);
   const orbs=[[6,12],[78,10],[4,52],[80,50]].map((p,j)=>`<span class="orb" style="left:${p[0]}%;top:${p[1]}%;animation-delay:${j*-.9}s">${esc(src[(j*2+1)%src.length])}</span>`).join('');
@@ -1384,7 +1395,7 @@ function home(){
   <p class="bhint ${bad?'bad':''}">${bh}${skipIds().length?` · <button class="lnk" data-act="rates" style="min-height:0;font-size:12.5px">🚫 ${t('skipped_n',{n:skipIds().length})}</button>`:''}</p>
   <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none||isUsed(m)?'disabled':''}>${isUsed(m)?`<small>${t('come_back')}</small><b data-cd>${fmtCd()}</b>`:t('open')}</button><button class="btn ghost play4" data-act="open4" ${MO.every(isUsed)?'disabled':''} aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
   </div><div class="hr">${chestHTML()}${questsHTML()}
-  <section class="box"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}</div></div>`;
+  <section class="box pbox"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}</div></div>`;
 }
 const modeTags=x=>(x.modes||MO).map(m=>MODES[m].e).join('');
 function rowHTML(i){return `<div class="row" data-act="edit" data-id="${i.id}" style="--c:${RK[i.rank].c}"><div class="ico">${icon(i.emoji,i.img)}</div><div class="rm"><b>${esc(i.name)}</b><small>${catL(i.cat)}${i.price?' · '+eur(i.price):''} · ${modeTags(i)}${i.ex?' · '+t('example'):''}${i.ia?' · <span class="iab">'+t('ai_check')+'</span>':''}</small></div><span class="rb">${i.rank}</span><button class="ib ${pendDel==i.id?'warn':''}" data-act="del" data-id="${i.id}" aria-label="${t('del')}">${pendDel==i.id?t('sure'):I.trash}</button></div>`}
