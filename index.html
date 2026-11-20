@@ -504,6 +504,8 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .accb .prow{margin-bottom:12px}
 .accb .btn{width:100%;margin-top:2px}
 .catbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.modes button{position:relative}.modes button.used{opacity:.75}.modes .tick{position:absolute;top:2px;right:6px;font:900 11px Outfit,system-ui,sans-serif;font-style:normal;color:currentColor}
+.play:disabled{opacity:.6}
 </style>
 </head>
 <body>
@@ -913,9 +915,17 @@ w37_3:["🛒 Boutique : Boost XP, Étincelle et cadres d’avatar", "🛒 Shop: 
 w37_4:["🍔 Tu ajoutes tes articles, les établissements sont désormais fixes", "🍔 Add your own items; places are now fixed", "🍔 Añade tus artículos; los locales ahora son fijos", "🍔 Eigene Artikel hinzufügen; Orte sind jetzt fest", "🍔 Aggiungi i tuoi articoli; i locali ora sono fissi", "🍔 Adiciona os teus artigos; os locais agora são fixos", "🍔 Добавляй свои блюда; заведения теперь фиксированы", "🍔 أضف أصنافك؛ الأماكن أصبحت ثابتة", "🍔 可添加自己的菜品；店铺现已固定", "🍔 アイテムは追加OK、お店は固定になりました"],
 w37_5:["🏷️ Version et date affichées en bas de l’intro", "🏷️ Version and date shown at the bottom of the intro", "🏷️ Versión y fecha al pie de la intro", "🏷️ Version und Datum unten im Intro", "🏷️ Versione e data in fondo all’intro", "🏷️ Versão e data no fundo da intro", "🏷️ Версия и дата внизу интро", "🏷️ الإصدار والتاريخ أسفل المقدمة", "🏷️ 开场底部显示版本和日期", "🏷️ イントロ下部にバージョンと日付"],
 n_items:["{n} article(s)", "{n} item(s)", "{n} artículo(s)", "{n} Artikel", "{n} articoli", "{n} artigo(s)", "{n} поз.", "{n} صنف", "{n} 项", "{n}品"],
+t_used:["{m} déjà ouvert aujourd’hui : reviens dans {h} h", "{m} already opened today: come back in {h} h", "{m} ya abierto hoy: vuelve en {h} h", "{m} heute schon geöffnet: komm in {h} Std. wieder", "{m} già aperto oggi: torna tra {h} h", "{m} já aberto hoje: volta daqui a {h} h", "{m} уже открыт сегодня: приходи через {h} ч", "{m} مفتوح اليوم: عد بعد {h} ساعة", "今天已开过{m}：{h}小时后再来", "{m}は今日開封済み：{h}時間後にまた来てね"],
+t_allused:["Les 4 boosters du jour sont ouverts : reviens dans {h} h", "All 4 boosters opened today: come back in {h} h", "Los 4 sobres de hoy están abiertos: vuelve en {h} h", "Alle 4 Booster heute geöffnet: komm in {h} Std. wieder", "Tutti e 4 i booster di oggi aperti: torna tra {h} h", "Os 4 boosters de hoje estão abertos: volta daqui a {h} h", "Все 4 бустера открыты: приходи через {h} ч", "فُتحت البوسترات الأربعة اليوم: عد بعد {h} ساعة", "今天4个包都开完了：{h}小时后再来", "本日の4パックは開封済み：{h}時間後にまた来てね"],
+come_back:["Reviens dans {h} h", "Come back in {h} h", "Vuelve en {h} h", "In {h} Std. wieder", "Torna tra {h} h", "Volta daqui a {h} h", "Через {h} ч", "عد بعد {h} ساعة", "{h}小时后再来", "{h}時間後にまた"],
+reroll_pay:["relance à 🪙 {n} (1 gratuite par jour)", "reroll for 🪙 {n} (1 free per day)", "tirada por 🪙 {n} (1 gratis al día)", "Neuzug für 🪙 {n} (1 gratis pro Tag)", "ripescata a 🪙 {n} (1 gratis al giorno)", "tirada por 🪙 {n} (1 grátis por dia)", "перебросок за 🪙 {n} (1 бесплатный в день)", "إعادة سحب مقابل 🪙 {n} (واحدة مجانية يوميًا)", "重抽需🪙{n}（每天1次免费）", "引き直し🪙{n}（1日1回無料）"],
+t_rrcost:["Il te faut {n} pièces pour relancer, ou attends demain", "You need {n} coins to reroll, or wait until tomorrow", "Necesitas {n} monedas para repetir, o espera a mañana", "Du brauchst {n} Münzen zum Neuziehen oder warte bis morgen", "Servono {n} monete per ripescare, o aspetta domani", "Precisas de {n} moedas para repetir, ou espera até amanhã", "Нужно {n} монет для переброса, или жди до завтра", "تحتاج {n} عملة لإعادة السحب أو انتظر حتى الغد", "重抽需要{n}金币，或等到明天", "引き直しには{n}コイン必要、または明日まで待とう"],
+w38_1:["🎟️ 1 booster par moment et par jour (le ×4 aussi)", "🎟️ 1 booster per moment per day (the ×4 too)", "🎟️ 1 sobre por momento y día (el ×4 también)", "🎟️ 1 Booster pro Moment und Tag (auch ×4)", "🎟️ 1 booster per momento al giorno (anche il ×4)", "🎟️ 1 booster por momento e por dia (o ×4 também)", "🎟️ 1 бустер на время суток в день (×4 тоже)", "🎟️ بوستر واحد لكل وقت يوميًا (وكذلك ×4)", "🎟️ 每个时段每天1包（×4也一样）", "🎟️ 時間帯ごとに1日1パック（×4も同様）"],
+w38_2:["🔁 1 relance gratuite par jour, les suivantes coûtent 40 pièces", "🔁 1 free reroll per day, extra ones cost 40 coins", "🔁 1 repetición gratis al día, las demás cuestan 40 monedas", "🔁 1 Gratis-Neuzug pro Tag, weitere kosten 40 Münzen", "🔁 1 ripescata gratis al giorno, le altre costano 40 monete", "🔁 1 repetição grátis por dia, as outras custam 40 moedas", "🔁 1 бесплатный переброс в день, остальные по 40 монет", "🔁 إعادة سحب مجانية يوميًا والباقي بـ 40 عملة", "🔁 每天1次免费重抽，其余需40金币", "🔁 引き直しは1日1回無料、以降は40コイン"],
+w38_3:["📂 Catalogue en accordéons et ajout d’établissements", "📂 Accordion catalogue and adding places", "📂 Catálogo en acordeones y añadir locales", "📂 Katalog als Akkordeons und Orte hinzufügen", "📂 Catalogo a fisarmonica e aggiunta di locali", "📂 Catálogo em acordeões e adicionar locais", "📂 Каталог-аккордеон и добавление заведений", "📂 كتالوج بأكورديون وإضافة أماكن", "📂 手风琴式目录，可添加店铺", "📂 アコーディオン式カタログと店舗追加"],
 };
 
-const LS='gachamidi_v1',APP_V='3.7',V_NAME='Pain au chocolat',V_DATE='2026-11-20';
+const LS='gachamidi_v1',APP_V='3.8',V_NAME='Brioche',V_DATE='2026-11-20';
 const RL=['B','A','S'],rv={B:0,A:1,S:2};
 const RK={B:{stars:3,c:'#3f8cff'},A:{stars:4,c:'#a55cf2'},S:{stars:5,c:'#ff9a1f'}};
 const CK=['boisson','entree','plat','dessert'];
@@ -1111,19 +1121,26 @@ function drawEntry(m,full){
 const stepsFor=m=>{const Mo=MODES[m],s=['pack','place'];CK.forEach(k=>{if(Mo.must.includes(k))s.push(k);else if(Mo.opt.includes(k))s.push('ask:'+k)});s.push('recap');return s};
 const rrFree=()=>{const g=S.game,k=dayKey();return g.rr&&g.rr.day==k?Math.max(0,1-g.rr.used):1};
 const rrLeft=()=>rrFree()+(S.game.rrBonus||0);
+const RR_COST=40;
+const dayUsed=()=>{const g=S.game,k=dayKey();if(!g.day||g.day.k!=k)g.day={k,m:[]};return g.day.m};
+const isUsed=m=>dayUsed().includes(m);
+const markUsed=m=>{const u=dayUsed();if(!u.includes(m))u.push(m);save()};
+const hoursLeft=()=>{const n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1);return Math.max(1,Math.ceil((e-n)/36e5))};
 const vName=()=>t('v_name',{v:APP_V,n:V_NAME,d:new Date(V_DATE+'T12:00').toLocaleDateString(loc(),{day:'numeric',month:'long',year:'numeric'})});
 const entryBest=e=>bestOf([e.place.rank,...CK.map(k=>e.slots[k]&&e.slots[k].rank)]);
 function openBooster(){
   S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
-  const m=curMode(),Mo=MODES[m],r=drawEntry(m);if(r.err)return toast(r.err);
+  const m=curMode(),Mo=MODES[m];if(isUsed(m))return toast(t('t_used',{m:mL(m),h:hoursLeft()}));
+  const r=drawEntry(m);if(r.err)return toast(r.err);markUsed(m);
   SFX.open();const e=r.e,best=r.best,steps=stepsFor(m);
   seq={e,i:0,best,steps};
   ov.hidden=false;document.body.style.overflow='hidden';ovRender();
 }
 function openDay(){
   S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
-  const res=MO.map(m=>({m,r:drawEntry(m,true)})),ok=res.filter(x=>x.r.e),ko=res.filter(x=>!x.r.e);
-  if(!ok.length)return toast(ko[0].r.err);
+  const todo=MO.filter(m=>!isUsed(m));if(!todo.length)return toast(t('t_allused',{h:hoursLeft()}));
+  const res=todo.map(m=>({m,r:drawEntry(m,true)})),ok=res.filter(x=>x.r.e),ko=res.filter(x=>!x.r.e);
+  if(!ok.length)return toast(ko[0].r.err);ok.forEach(x=>markUsed(x.m));
   if(ok.length==4){const st=S.game.stats;st.d4=(st.d4||0)+1}
   if(ko.length)setTimeout(()=>toast(t('t_skipped',{m:ko.map(x=>mL(x.m)).join(', ')})),300);
   SFX.open();const list=ok.map(x=>x.r.e);
@@ -1234,7 +1251,7 @@ function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
   return `<div class="recap"><h2>${MODES[e.mode].e} ${t('mr_'+e.mode)}</h2>${rows}<div class="rtot"><span>${t('total')}</span><span>${eur(total(e))}</span></div>${e.budget!=null?`<p class="rp">${t('b_left',{b:eur(e.budget),r:`<b style="color:var(--gInk)">${eur(remOf(e))}</b>`})}</p>`:''}
   <p class="rp">${t('pity_line',{a:pt.a,am:s.pityA,s:pt.s,sm:s.pityS})}${e.forced?' · '+t('guar_used',{r:e.forced}):''}</p>
   <div class="rbtns"><button class="btn ghost" data-act="share" data-id="${e.id}">${I.share} ${t('share_jpg')}</button><button class="btn" data-act="closeov">${t('bon_app')}</button></div>
-  <button class="lnk" data-act="reroll" style="justify-self:center">🔁 ${t('reroll')} · ${t('reroll_left',{n:rrLeft()})}</button></div>`}
+  <button class="lnk" data-act="reroll" style="justify-self:center">🔁 ${t('reroll')} · ${rrLeft()>0?t('reroll_left',{n:rrLeft()}):t('reroll_pay',{n:RR_COST})}</button></div>`}
 function rewardScreen(r){
   const L0=lvlInfo(r.before),L1=lvlInfo(r.after),gain=r.after-r.before;
   const items=[];
@@ -1264,7 +1281,7 @@ function pityRow(r,cnt,n){const rem=Math.max(1,n-cnt),c=RK[r].c;
   const bar=n<=12?`<div class="pp" style="grid-template-columns:repeat(${n},1fr)">${Array.from({length:n},(_,j)=>`<i class="${j<cnt?'on':j==n-1?'g':''}"></i>`).join('')}</div>`:`<div class="pbar"><i style="width:${Math.min(100,cnt/(n-1)*100)}%"></i></div>`;
   return `<div class="prw" style="--c:${c}"><div class="rkb">${r}</div><div><div class="prt"><span><b>${t('rank',{r})}</b> <small>${stars(RK[r].stars)}</small></span><em>${rem==1?t('pity_next'):t('pity_in',{n:rem})}</em></div>${bar}<small class="pc">${t('pity_sub',{n:cnt,m:n,r})}</small></div></div>`}
 function modeBar(){const m=curMode(),au=autoMode();
-  return `<nav class="modes">${MO.map(k=>`<button class="${k==m?'on':''}" data-act="mode" data-v="${k}" aria-pressed="${k==m}"><span>${MODES[k].e}</span>${mL(k)}</button>`).join('')}</nav>
+  return `<nav class="modes">${MO.map(k=>`<button class="${k==m?'on':''}${isUsed(k)?' used':''}" data-act="mode" data-v="${k}" aria-pressed="${k==m}"><span>${MODES[k].e}</span>${mL(k)}${isUsed(k)?'<i class="tick">✓</i>':''}</button>`).join('')}</nav>
   <p class="mhint">${modeOver&&modeOver!=au?`${t('manual')} <button class="lnk" data-act="mauto">${t('back_auto',{mode:MODES[au].e+' '+mL(au)})}</button>`:t('auto_hint',{time:hhmm(),mode:mLow(au)})}</p>`}
 function chestHTML(){const done=S.game.chest==dayKey();return `<section class="box sec chestbox ${done?'done':''}"><div class="chesti">${done?'📭':'🎁'}</div><div class="grow"><h2 style="margin:0 0 4px">${t('chest')}</h2>${done?`<p class="pc" style="margin:0">${t('chest_done')}</p>`:`<button class="btn sm" data-act="chest">${t('chest_open')}</button>`}</div></section>`}
 function questsHTML(){const Q=quests();return `<section class="box sec"><div class="ph"><h2>🎯 ${t('quests')}</h2></div>${Q.list.map(q=>`<div class="quest ${q.done?'done':''}"><div class="qi">${q.done?'✅':q.e}</div><div><b>${t(q.id)}</b><div class="qb"><i style="width:${q.p/q.n*100}%"></i></div></div><span class="qx">${q.done?I.check:q.p+'/'+q.n} · ${q.xp} XP</span></div>`).join('')}</section>`}
@@ -1282,7 +1299,7 @@ function home(){
   <p class="swh"><span>${I.up} ${t('sw_up')}</span><span>${I.lr} ${t('sw_lr')}</span></p>
   <div class="bud"><div class="bstep"><button data-act="bstep" data-v="-1" aria-label="${t('b_less')}">${I.minus}</button><button class="bval" data-act="bsheet"><small>${t('budget_of',{mode:mLow(m)})}</small>${b==null?t('unlimited'):eur(b)}</button><button data-act="bstep" data-v="1" aria-label="${t('b_more')}">${I.plus}</button></div></div>
   <p class="bhint ${bad?'bad':''}">${bh}${skipIds().length?` · <button class="lnk" data-act="rates" style="min-height:0;font-size:12.5px">🚫 ${t('skipped_n',{n:skipIds().length})}</button>`:''}</p>
-  <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none?'disabled':''}>${t('open')}</button><button class="btn ghost play4" data-act="open4" aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
+  <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none||isUsed(m)?'disabled':''}>${isUsed(m)?t('come_back',{h:hoursLeft()}):t('open')}</button><button class="btn ghost play4" data-act="open4" ${MO.every(isUsed)?'disabled':''} aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
   ${chestHTML()}${questsHTML()}
   <section class="box"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}`;
 }
@@ -1459,7 +1476,7 @@ function openChest(){const g=S.game;if(g.chest==dayKey())return;g.chest=dayKey()
   SFX.open();vib([20,40,20,40,20]);
   setTimeout(()=>{const b=$('#bch');if(!b)return;b.textContent='✨';b.classList.add('pop2');SFX.level();confetti(110);$('#chres').innerHTML=`<b>+${xp} XP</b><b>🪙 ${t('coins_gain',{n:co})}</b>`;$('#chok').hidden=false;hdr();if(view=='home')render()},reduce?0:1100)}
 function whatsNew(){if(S.seenV==APP_V)return;S.seenV=APP_V;save();
-  sheet(`<h2>✨ ${t('whatsnew')}</h2><p class="pc" translate="no">Tarpaing Faim · ${vName()}</p><ul class="wn">${[1,2,3,4,5].map(n=>`<li>${t('w37_'+n)}</li>`).join('')}</ul><div class="sact"><button class="btn play" data-act="close">${t('lets_go')}</button></div>`)}
+  sheet(`<h2>✨ ${t('whatsnew')}</h2><p class="pc" translate="no">Tarpaing Faim · ${vName()}</p><ul class="wn">${[1,2,3].map(n=>`<li>${t('w38_'+n)}</li>`).join('')}</ul><div class="sact"><button class="btn play" data-act="close">${t('lets_go')}</button></div>`)}
 function resize(file,max){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext('2d').drawImage(im,0,0,c.width,c.height);let u=c.toDataURL('image/webp',.82);if(!u.startsWith('data:image/webp'))u=c.toDataURL('image/png');res(u)};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
 function doImport(txt){try{const d=JSON.parse(txt);if(!Array.isArray(d.places)||!Array.isArray(d.items))throw 0;S=fix(d);setLang();save(true);applyTheme();render();toast(t('t_imported'))}catch(e){toast(t('t_invalid'))}}
 
@@ -1616,7 +1633,7 @@ const A={
     S.places.push({id,name:p.name,emoji:p.emoji,rank:p.rank,weight:{B:30,A:15,S:5}[p.rank],modes:[m],ia:true});
     p.items.forEach(i=>S.items.push({id:uid(),placeId:id,cat:i.cat,rank:i.rank,emoji:i.emoji,name:i.name,price:i.price||'',img:null,ex:false,ia:true,modes:[m]}));
     S.game.stats.explore++;const a=checkAch();save();SFX.yes();render();toast(a.length?t('new_ach')+' : '+t(a[0].id):t('t_xadded',{p:p.name,n:p.items.length}))},
-  reroll:()=>{const e=seq&&seq.e;if(!e)return;if(rrLeft()<1)return toast(t('t_noreroll'));const g=S.game,k=dayKey();g.stats.rr=(g.stats.rr||0)+1;if(rrFree()>0){g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++}else g.rrBonus--;
+  reroll:()=>{const e=seq&&seq.e;if(!e)return;const g=S.game,k=dayKey();if(rrLeft()<1){if((g.coins||0)<RR_COST)return toast(t('t_rrcost',{n:RR_COST}));g.coins-=RR_COST;hdr()}else if(rrFree()>0){g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++}else g.rrBonus--;g.stats.rr=(g.stats.rr||0)+1;
     S.history=S.history.filter(h=>h.id!=e.id);if(e.pb)Object.assign(PT(e.mode),e.pb);S.opened=Math.max(0,S.opened-1);
     if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};if(!S.skip.ids.includes(e.place.id))S.skip.ids.push(e.place.id);
     const r=drawEntry(e.mode);if(r.err){save();toast(r.err);return A.rewclose()}SFX.open();seq={e:r.e,i:0,best:r.best,steps:stepsFor(e.mode)};ovRender()},
