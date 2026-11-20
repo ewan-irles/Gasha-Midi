@@ -539,9 +539,21 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
   #app{max-width:1280px;padding-left:132px;padding-right:36px}
   .tab{left:0;top:0;bottom:0;transform:none;width:96px;grid-template-columns:1fr;grid-auto-rows:62px;align-content:center;gap:12px;border-top:0;border-right:2px solid var(--line);padding:16px 10px}
   .tab button{height:62px}
-  .hgrid{display:grid;grid-template-columns:minmax(380px,500px) minmax(0,1fr);gap:40px;align-items:start}
-  .hr{grid-template-columns:1fr 1fr;margin-top:70px}
-  .hero{--ch:clamp(320px,calc(100dvh - 400px),560px)}
+  /* Écran de vœux façon jeu : moments à gauche, grande bannière au centre, progression à droite */
+  .top{grid-template-columns:auto 1fr auto}
+  .top .tb{grid-column:2;grid-row:1}.top .me{grid-column:3;grid-row:1;margin-left:14px}
+  .hgrid{display:grid;grid-template-columns:270px minmax(0,1fr) 340px;gap:32px;align-items:start}
+  .hm .modes{grid-template-columns:1fr;gap:12px;background:none;border:0;padding:0;margin-top:34px}
+  .hm .modes button{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:14px;min-height:76px;padding:0 20px;font-size:17px;background:var(--card);border:2px solid var(--line);border-radius:20px;text-align:left}
+  .hm .modes button.on{border-color:var(--g);background:var(--g);color:var(--onG)}
+  .hm .modes button span{font-size:32px}
+  .hm .modes .tick{top:50%;right:16px;transform:translateY(-50%);font-size:15px}
+  .hm .mhint{text-align:left;margin-top:12px}
+  .hc{display:flex;flex-direction:column;align-items:center}
+  .hr{grid-template-columns:1fr;margin-top:34px}
+  .hero{--ch:clamp(360px,calc(100dvh - 330px),660px);width:100%}
+  .hero::before{width:120%;top:-4%}
+  .hc .playrow{width:min(520px,100%)}
   #view[data-v=cat] #catlist{grid-template-columns:repeat(2,1fr);gap:14px}
   #view[data-v=set]{column-count:3;column-gap:20px}
   #toast{bottom:36px}
@@ -1338,7 +1350,7 @@ function home(){
   const tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0),bi=budgetInfo(m),[bh,bad]=budgetHint(m),b=s.budgets[m];
   const lastRow=last?`<button class="lastm" data-act="tab" data-v="hist" style="--c:${RK[last.place.rank].c}"><div class="ico">${esc(last.place.emoji)}</div><div class="rm"><small>${t('last_meal',{d:fdate(last.t)})}</small><b>${esc(last.place.name)} ${CK.map(k=>last.slots[k]).filter(Boolean).map(i=>esc(i.emoji)).join(' ')}</b></div><strong>${eur(total(last))}</strong></button>`:'';
   const ed=enterDir;enterDir='';
-  return `<div class="hgrid"><div class="hl">${modeBar()}<section class="hero" style="--glow:${f?RK[f].c:Mo.glow}"><div class="bwrap"><button class="bst ${f?'f':''} ${ed}" id="bst" data-act="open" style="--c:${f?RK[f].c:'#fff'}" aria-label="${t('open_aria')}">
+  return `<div class="hgrid"><div class="hm">${modeBar()}</div><div class="hc"><section class="hero" style="--glow:${f?RK[f].c:Mo.glow}"><div class="bwrap"><button class="bst ${f?'f':''} ${ed}" id="bst" data-act="open" style="--c:${f?RK[f].c:'#fff'}" aria-label="${t('open_aria')}">
     <div class="bart" style="background:${Mo.art}"><div class="burst"></div>${orbs}<div class="btop"><span class="tchip" data-act="rates">${I.info} ${t('rates')}</span><span class="nb">N°${String(S.opened+1).padStart(3,'0')}</span></div>
       <div class="plate" id="plate"><span>${esc(src[0])}</span></div>
       <div class="bttl">${t('mt_'+m)}</div><div class="bsub">${t('place_w')} · ${Mo.must.map(k=>catL(k,m)).join(' · ')}</div>${f?`<div class="gchip" style="--c:${RK[f].c}">${STAR} ${t('guarantee',{r:f})}</div>`:''}<div class="foil"></div></div>
