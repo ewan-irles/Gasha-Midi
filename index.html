@@ -562,6 +562,22 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 }
 @media (min-width:1500px){#view[data-v=cat] #catlist{grid-template-columns:repeat(3,1fr)}#app{max-width:1500px}}
 @media (min-width:700px) and (max-height:520px){.hero{--ch:clamp(220px,calc(100dvh - 160px),400px)}.pack,.flip{--w:min(260px,calc((100dvh - 160px)*.68));width:var(--w)}.swh{display:none}}
+.play small{display:block;font:700 11px/1 Outfit,system-ui,sans-serif;letter-spacing:.05em;opacity:.9;margin-bottom:3px;text-transform:uppercase}
+.play b{display:block;font:900 24px/1 Outfit,system-ui,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.03em}
+.play:has(b){display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:8px;padding-bottom:8px;line-height:1;min-height:60px}
+.lockcd{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);z-index:6;display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.66);color:#fff;padding:8px 18px;border-radius:999px;font:800 15px Outfit,system-ui,sans-serif;white-space:nowrap}
+.lockcd b{font:900 20px Outfit,system-ui,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.bst.locked .bart{filter:saturate(.55) brightness(.82)}
+.rr{position:relative}
+.rx,.tx{flex:none;border:0;cursor:pointer;font:900 14px/1 Outfit,system-ui,sans-serif;color:var(--mut);background:color-mix(in srgb,var(--ink) 9%,transparent);width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+.rx:hover,.tx:hover,.rx:focus-visible{background:#e5484d;color:#fff}
+.tx{width:20px;height:20px;font-size:10px;margin-left:6px}
+.recap.still .rr,.recap.still .rtot{animation:none!important;opacity:1}
+.qtag{display:inline-block;font:800 13px Outfit,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--g);background:color-mix(in srgb,var(--g) 14%,transparent);padding:4px 12px;border-radius:999px;margin-bottom:6px}
+.inter{display:grid;justify-items:center;gap:6px;text-align:center;animation:rise .4s both}
+.inter .ie{font-size:92px;line-height:1;animation:pop .5s both}
+.inter h2{margin:0;font:900 40px/1 'Big Shoulders Display',Impact,sans-serif;text-transform:uppercase}
+.inter p{margin:0;color:var(--mut);font-weight:800}
 </style>
 </head>
 <body>
@@ -971,9 +987,6 @@ w37_3:["🛒 Boutique : Boost XP, Étincelle et cadres d’avatar", "🛒 Shop: 
 w37_4:["🍔 Tu ajoutes tes articles, les établissements sont désormais fixes", "🍔 Add your own items; places are now fixed", "🍔 Añade tus artículos; los locales ahora son fijos", "🍔 Eigene Artikel hinzufügen; Orte sind jetzt fest", "🍔 Aggiungi i tuoi articoli; i locali ora sono fissi", "🍔 Adiciona os teus artigos; os locais agora são fixos", "🍔 Добавляй свои блюда; заведения теперь фиксированы", "🍔 أضف أصنافك؛ الأماكن أصبحت ثابتة", "🍔 可添加自己的菜品；店铺现已固定", "🍔 アイテムは追加OK、お店は固定になりました"],
 w37_5:["🏷️ Version et date affichées en bas de l’intro", "🏷️ Version and date shown at the bottom of the intro", "🏷️ Versión y fecha al pie de la intro", "🏷️ Version und Datum unten im Intro", "🏷️ Versione e data in fondo all’intro", "🏷️ Versão e data no fundo da intro", "🏷️ Версия и дата внизу интро", "🏷️ الإصدار والتاريخ أسفل المقدمة", "🏷️ 开场底部显示版本和日期", "🏷️ イントロ下部にバージョンと日付"],
 n_items:["{n} article(s)", "{n} item(s)", "{n} artículo(s)", "{n} Artikel", "{n} articoli", "{n} artigo(s)", "{n} поз.", "{n} صنف", "{n} 项", "{n}品"],
-t_used:["{m} déjà ouvert aujourd’hui : reviens dans {h} h", "{m} already opened today: come back in {h} h", "{m} ya abierto hoy: vuelve en {h} h", "{m} heute schon geöffnet: komm in {h} Std. wieder", "{m} già aperto oggi: torna tra {h} h", "{m} já aberto hoje: volta daqui a {h} h", "{m} уже открыт сегодня: приходи через {h} ч", "{m} مفتوح اليوم: عد بعد {h} ساعة", "今天已开过{m}：{h}小时后再来", "{m}は今日開封済み：{h}時間後にまた来てね"],
-t_allused:["Les 4 boosters du jour sont ouverts : reviens dans {h} h", "All 4 boosters opened today: come back in {h} h", "Los 4 sobres de hoy están abiertos: vuelve en {h} h", "Alle 4 Booster heute geöffnet: komm in {h} Std. wieder", "Tutti e 4 i booster di oggi aperti: torna tra {h} h", "Os 4 boosters de hoje estão abertos: volta daqui a {h} h", "Все 4 бустера открыты: приходи через {h} ч", "فُتحت البوسترات الأربعة اليوم: عد بعد {h} ساعة", "今天4个包都开完了：{h}小时后再来", "本日の4パックは開封済み：{h}時間後にまた来てね"],
-come_back:["Reviens dans {h} h", "Come back in {h} h", "Vuelve en {h} h", "In {h} Std. wieder", "Torna tra {h} h", "Volta daqui a {h} h", "Через {h} ч", "عد بعد {h} ساعة", "{h}小时后再来", "{h}時間後にまた"],
 reroll_pay:["relance à 🪙 {n} (1 gratuite par jour)", "reroll for 🪙 {n} (1 free per day)", "tirada por 🪙 {n} (1 gratis al día)", "Neuzug für 🪙 {n} (1 gratis pro Tag)", "ripescata a 🪙 {n} (1 gratis al giorno)", "tirada por 🪙 {n} (1 grátis por dia)", "перебросок за 🪙 {n} (1 бесплатный в день)", "إعادة سحب مقابل 🪙 {n} (واحدة مجانية يوميًا)", "重抽需🪙{n}（每天1次免费）", "引き直し🪙{n}（1日1回無料）"],
 t_rrcost:["Il te faut {n} pièces pour relancer, ou attends demain", "You need {n} coins to reroll, or wait until tomorrow", "Necesitas {n} monedas para repetir, o espera a mañana", "Du brauchst {n} Münzen zum Neuziehen oder warte bis morgen", "Servono {n} monete per ripescare, o aspetta domani", "Precisas de {n} moedas para repetir, ou espera até amanhã", "Нужно {n} монет для переброса, или жди до завтра", "تحتاج {n} عملة لإعادة السحب أو انتظر حتى الغد", "重抽需要{n}金币，或等到明天", "引き直しには{n}コイン必要、または明日まで待とう"],
 w38_1:["🎟️ 1 booster par moment et par jour (le ×4 aussi)", "🎟️ 1 booster per moment per day (the ×4 too)", "🎟️ 1 sobre por momento y día (el ×4 también)", "🎟️ 1 Booster pro Moment und Tag (auch ×4)", "🎟️ 1 booster per momento al giorno (anche il ×4)", "🎟️ 1 booster por momento e por dia (o ×4 também)", "🎟️ 1 бустер на время суток в день (×4 тоже)", "🎟️ بوستر واحد لكل وقت يوميًا (وكذلك ×4)", "🎟️ 每个时段每天1包（×4也一样）", "🎟️ 時間帯ごとに1日1パック（×4も同様）"],
@@ -982,9 +995,15 @@ w38_3:["📂 Catalogue en accordéons et ajout d’établissements", "📂 Accor
 w39_1:["✏️ Nom corrigé : Tarpin Faim", "✏️ Name fixed: Tarpin Faim", "✏️ Nombre corregido: Tarpin Faim", "✏️ Name korrigiert: Tarpin Faim", "✏️ Nome corretto: Tarpin Faim", "✏️ Nome corrigido: Tarpin Faim", "✏️ Название исправлено: Tarpin Faim", "✏️ تم تصحيح الاسم: Tarpin Faim", "✏️ 名称已更正：Tarpin Faim", "✏️ 名前を修正：Tarpin Faim"],
 w39_2:["📱💻 Mise en page adaptée au mobile, à la tablette et à l’ordinateur", "📱💻 Layout adapted to phone, tablet and computer", "📱💻 Diseño adaptado a móvil, tableta y ordenador", "📱💻 Layout für Handy, Tablet und Computer", "📱💻 Layout adattato a telefono, tablet e computer", "📱💻 Layout adaptado a telemóvel, tablet e computador", "📱💻 Адаптация под телефон, планшет и компьютер", "📱💻 تصميم متوافق مع الهاتف واللوحي والحاسوب", "📱💻 适配手机、平板和电脑", "📱💻 スマホ・タブレット・PCに対応"],
 w39_3:["🏠 Possibilité de lancer l’app en local sur ton PC", "🏠 You can now run the app locally on your PC", "🏠 Ya puedes ejecutar la app en local en tu PC", "🏠 Die App läuft jetzt auch lokal auf deinem PC", "🏠 Ora puoi avviare l’app in locale sul tuo PC", "🏠 Já podes executar a app localmente no teu PC", "🏠 Теперь приложение можно запускать локально на ПК", "🏠 يمكنك الآن تشغيل التطبيق محليًا على حاسوبك", "🏠 现在可在电脑本地运行", "🏠 PCでローカル起動できるようになりました"],
+come_back:["Prochain booster dans", "Next booster in", "Próximo sobre en", "Nächster Booster in", "Prossimo booster tra", "Próximo booster em", "Следующий бустер через", "البوستر القادم بعد", "下一包还有", "次のパックまで"],
+t_used:["{m} déjà ouvert aujourd’hui : prochain booster dans {h}", "{m} already opened today: next booster in {h}", "{m} ya abierto hoy: próximo sobre en {h}", "{m} heute schon geöffnet: nächster Booster in {h}", "{m} già aperto oggi: prossimo booster tra {h}", "{m} já aberto hoje: próximo booster em {h}", "{m} уже открыт сегодня: следующий через {h}", "{m} مفتوح اليوم: البوستر القادم بعد {h}", "今天已开过{m}：下一包还有{h}", "{m}は今日開封済み：次のパックまで{h}"],
+t_allused:["Les 4 boosters du jour sont ouverts : prochain dans {h}", "All 4 boosters opened today: next one in {h}", "Los 4 sobres de hoy están abiertos: el próximo en {h}", "Alle 4 Booster heute geöffnet: nächster in {h}", "Tutti e 4 i booster di oggi aperti: il prossimo tra {h}", "Os 4 boosters de hoje estão abertos: o próximo em {h}", "Все 4 бустера открыты: следующий через {h}", "فُتحت البوسترات الأربعة اليوم: التالي بعد {h}", "今天4个包都开完了：下一次还有{h}", "本日の4パックは開封済み：次まで{h}"],
+w40_1:["⏳ Compte à rebours jusqu’au prochain booster (HH:MM:SS)", "⏳ Countdown to the next booster (HH:MM:SS)", "⏳ Cuenta atrás hasta el próximo sobre (HH:MM:SS)", "⏳ Countdown bis zum nächsten Booster (HH:MM:SS)", "⏳ Conto alla rovescia al prossimo booster (HH:MM:SS)", "⏳ Contagem decrescente até ao próximo booster (HH:MM:SS)", "⏳ Обратный отсчёт до следующего бустера (ЧЧ:ММ:СС)", "⏳ عدّ تنازلي للبوستر القادم (HH:MM:SS)", "⏳ 距离下一包的倒计时（HH:MM:SS）", "⏳ 次のパックまでカウントダウン（HH:MM:SS）"],
+w40_2:["🎟️ Le ×4 enchaîne les 4 boosters du jour, chacun avec son tirage normal", "🎟️ The ×4 chains the 4 boosters of the day, each with its normal draw", "🎟️ El ×4 encadena los 4 sobres del día, cada uno con su tirada normal", "🎟️ Das ×4 verkettet die 4 Tages-Booster, jeder mit normaler Ziehung", "🎟️ Il ×4 concatena i 4 booster del giorno, ognuno con la sua estrazione normale", "🎟️ O ×4 encadeia os 4 boosters do dia, cada um com o seu sorteio normal", "🎟️ ×4 запускает 4 бустера дня подряд, каждый с обычным розыгрышем", "🎟️ ×4 يفتح بوسترات اليوم الأربعة تباعًا، لكل منها سحبها العادي", "🎟️ ×4 会连续开启当天4个包，每个都是正常抽取", "🎟️ ×4は1日4パックを連続開封、それぞれ通常の抽選"],
+w40_3:["✖️ Plus de question pendant l’ouverture : retire ce que tu ne veux pas dans le récap", "✖️ No more questions while opening: remove what you don’t want in the recap", "✖️ Sin preguntas al abrir: quita lo que no quieras en el resumen", "✖️ Keine Fragen mehr beim Öffnen: Unerwünschtes in der Übersicht entfernen", "✖️ Niente più domande all’apertura: rimuovi ciò che non vuoi nel riepilogo", "✖️ Sem perguntas ao abrir: remove o que não queres no resumo", "✖️ Больше никаких вопросов при открытии: убирай лишнее в итоге", "✖️ لا أسئلة أثناء الفتح: احذف ما لا تريده في الملخص", "✖️ 开包时不再提问：在总结里删掉不想要的", "✖️ 開封中の質問は廃止：不要なものはまとめで削除"],
 };
 
-const LS='gachamidi_v1',APP_V='3.9',V_NAME='Pain aux raisins',V_DATE='2026-11-20';
+const LS='gachamidi_v1',APP_V='4.0',V_NAME='Éclair',V_DATE='2026-11-20';
 const RL=['B','A','S'],rv={B:0,A:1,S:2};
 const RK={B:{stars:3,c:'#3f8cff'},A:{stars:4,c:'#a55cf2'},S:{stars:5,c:'#ff9a1f'}};
 const CK=['boisson','entree','plat','dessert'];
@@ -1169,7 +1188,7 @@ function drawEntry(m,full){
   const order=[Mo.main,...Mo.must.filter(k=>k!=Mo.main)];let spent=0;
   order.forEach((k,j)=>{const rest=order.slice(j+1).reduce((a,x)=>a+minPrice(place.id,x,m),0);const it=pickSlot(place.id,k,j==0?(f||'B'):'B',B-spent-rest,m);slots[k]=it;spent+=pr(it)});
   if(f&&(!slots[Mo.main]||rv[slots[Mo.main].rank]<rv[f])){for(const k of order.slice(1)){const d=pickSlot(place.id,k,f,B-(spent-pr(slots[k])),m);if(d&&rv[d.rank]>=rv[f]){spent+=pr(d)-pr(slots[k]);slots[k]=d;break}}}
-  if(full)CK.filter(k=>!slots[k]&&!Mo.must.includes(k)).forEach(k=>{const it=pickSlot(place.id,k,'B',B-spent,m);if(it){slots[k]=it;spent+=pr(it)}});
+  Mo.opt.filter(k=>!slots[k]).forEach(k=>{const it=pickSlot(place.id,k,'B',B-spent,m);if(it){slots[k]=it;spent+=pr(it)}});
   const e={id:uid(),t:Date.now(),mode:m,budget:S.settings.budgets[m],place:{id:place.id,name:place.name,emoji:place.emoji,rank:place.rank},slots:{},forced:f,pb};
   CK.forEach(k=>e.slots[k]=snap(slots[k]));
   const best=bestOf([place.rank,...Object.values(slots).map(x=>x&&x.rank)]);
@@ -1177,28 +1196,31 @@ function drawEntry(m,full){
   S.history.unshift(e);S.history=S.history.slice(0,300);S.opened++;save();
   return{e,best};
 }
-const stepsFor=m=>{const Mo=MODES[m],s=['pack','place'];CK.forEach(k=>{if(Mo.must.includes(k))s.push(k);else if(Mo.opt.includes(k))s.push('ask:'+k)});s.push('recap');return s};
+const ORD={matin:['plat','boisson'],midi:['entree','plat','boisson','dessert'],gouter:['boisson','dessert'],soir:['entree','plat','boisson','dessert']};
+const stepsFor=e=>{const Mo=MODES[e.mode];return ['pack','place',...ORD[e.mode].filter(k=>Mo.must.includes(k)||e.slots[k]),'recap']};
 const rrFree=()=>{const g=S.game,k=dayKey();return g.rr&&g.rr.day==k?Math.max(0,1-g.rr.used):1};
 const rrLeft=()=>rrFree()+(S.game.rrBonus||0);
 const RR_COST=40;
 const dayUsed=()=>{const g=S.game,k=dayKey();if(!g.day||g.day.k!=k)g.day={k,m:[]};return g.day.m};
 const isUsed=m=>dayUsed().includes(m);
 const markUsed=m=>{const u=dayUsed();if(!u.includes(m))u.push(m);save()};
+const msLeft=()=>{const n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1);return Math.max(0,e-n)};
+const fmtCd=()=>{const s=Math.ceil(msLeft()/1000),p=x=>String(x).padStart(2,'0');return `${p(Math.floor(s/3600))}:${p(Math.floor(s%3600/60))}:${p(s%60)}`};
 const hoursLeft=()=>{const n=new Date(),e=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1);return Math.max(1,Math.ceil((e-n)/36e5))};
 const vName=()=>t('v_name',{v:APP_V,n:V_NAME,d:new Date(V_DATE+'T12:00').toLocaleDateString(loc(),{day:'numeric',month:'long',year:'numeric'})});
 const entryBest=e=>bestOf([e.place.rank,...CK.map(k=>e.slots[k]&&e.slots[k].rank)]);
 function openBooster(){
   S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
-  const m=curMode(),Mo=MODES[m];if(isUsed(m))return toast(t('t_used',{m:mL(m),h:hoursLeft()}));
+  const m=curMode(),Mo=MODES[m];if(isUsed(m))return toast(t('t_used',{m:mL(m),h:fmtCd()}));
   const r=drawEntry(m);if(r.err)return toast(r.err);markUsed(m);
-  SFX.open();const e=r.e,best=r.best,steps=stepsFor(m);
+  SFX.open();const e=r.e,best=r.best,steps=stepsFor(e);
   seq={e,i:0,best,steps};
   ov.hidden=false;document.body.style.overflow='hidden';ovRender();
 }
 function openDay(){
   S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
-  const todo=MO.filter(m=>!isUsed(m));if(!todo.length)return toast(t('t_allused',{h:hoursLeft()}));
-  const res=todo.map(m=>({m,r:drawEntry(m,true)})),ok=res.filter(x=>x.r.e),ko=res.filter(x=>!x.r.e);
+  const todo=MO.filter(m=>!isUsed(m));if(!todo.length)return toast(t('t_allused',{h:fmtCd()}));
+  const res=todo.map(m=>({m,r:drawEntry(m)})),ok=res.filter(x=>x.r.e),ko=res.filter(x=>!x.r.e);
   if(!ok.length)return toast(ko[0].r.err);ok.forEach(x=>markUsed(x.m));
   if(ok.length==4){const st=S.game.stats;st.d4=(st.d4||0)+1}
   if(ko.length)setTimeout(()=>toast(t('t_skipped',{m:ko.map(x=>mL(x.m)).join(', ')})),300);
@@ -1209,6 +1231,7 @@ function openDay(){
 const DAYART='conic-gradient(from 225deg at 50% 45%,#f5a524 0 25%,#ec6f2c 0 50%,#ee6f92 0 75%,#3a35a8 0)';
 function multiRender(){
   const L=seq.list;
+  seq.still=seq.still&&seq.stage=='recap';
   if(seq.stage=='pack'){ov.innerHTML=`<p class="ovh">${t('pack_day')} · ×${L.length}</p>
     <button class="pack" id="pack" aria-label="${t('open_aria')}"><span class="strip">${t('tear_here')}</span><i class="cut"></i><div class="bhd"><div class="logo">TARPIN FAIM<small>ORIGINAL</small></div></div><div class="bart" style="background:${DAYART}"><div class="burst"></div><div class="dayemo">${L.map(e=>MODES[e.mode].e).join('')}</div><div class="bttl">${t('pack_day')}</div><div class="bsub">×${L.length} · ${L.map(e=>mL(e.mode)).join(' · ')}</div></div></button>
     <p class="swipearrow">${t('tear_hint')} <i>${I.chev}</i></p>`;return}
@@ -1217,9 +1240,9 @@ function multiRender(){
     <div class="face front"><div class="fhd"><span>${MODES[e.mode].e} ${mL(e.mode)}</span><span class="rb" style="--c:${c}">${b}</span></div><div class="fart"><span class="big">${esc(e.place.emoji)}</span><div class="fname"><b>${esc(e.place.name)}</b><small>${main?esc(main.name):''}</small><i class="memo">${CK.map(k=>e.slots[k]).filter(Boolean).map(x=>esc(x.emoji)).join(' ')}</i></div></div></div></div></button>`}).join('')}</div>
     <p class="ovsub">${t('tap_cards')}</p><div class="ovact"><button class="btn ghost" data-act="mflipall">${t('flip_all')}</button><button class="btn" id="mrc" data-act="mrecap" disabled>${t('see_recap')}</button></div>`;return}
   const tot=L.reduce((s,e)=>s+total(e),0);
-  ov.innerHTML=`<div class="recap"><h2>${t('day_recap')}</h2>${L.map((e,j)=>{const c=RK[e.place.rank].c;return `<div class="rr dayr" style="--i:${j};--c:${c}"><div class="dh"><span class="dm">${MODES[e.mode].e} ${mL(e.mode)}</span><b>${esc(e.place.emoji)} ${esc(e.place.name)}</b><span class="rb">${e.place.rank}</span></div><div class="hi">${CK.map(k=>e.slots[k]).filter(Boolean).map(i=>`<span class="tag" style="--c:${RK[i.rank].c}">${icon(i.emoji,imgOf(i.id),'ti')} ${esc(i.name)}${S.game.seen[i.id]?'':` <span class="newb">${t('new_card')}</span>`}</span>`).join('')||`<span class="note">${t('h_nothing')}</span>`}</div><div class="dt">${eur(total(e))}</div></div>`}).join('')}
+  ov.innerHTML=`<div class="recap ${seq.still?'still':''}"><h2>${t('day_recap')}</h2>${L.map((e,j)=>{const c=RK[e.place.rank].c;return `<div class="rr dayr" style="--i:${j};--c:${c}"><div class="dh"><span class="dm">${MODES[e.mode].e} ${mL(e.mode)}</span><b>${esc(e.place.emoji)} ${esc(e.place.name)}</b><span class="rb">${e.place.rank}</span></div><div class="hi">${CK.filter(k=>e.slots[k]).map(k=>({...e.slots[k],k})).map(i=>`<span class="tag" style="--c:${RK[i.rank].c}">${icon(i.emoji,imgOf(i.id),'ti')} ${esc(i.name)}${S.game.seen[i.id]?'':` <span class="newb">${t('new_card')}</span>`}<button class="tx" data-act="rmitem" data-j="${j}" data-k="${i.k}" aria-label="${t('s_remove')}">✕</button></span>`).join('')||`<span class="note">${t('h_nothing')}</span>`}</div><div class="dt">${eur(total(e))}</div></div>`}).join('')}
   <div class="rtot"><span>${t('day_total')}</span><span>${eur(tot)}</span></div><div class="rbtns"><button class="btn ghost" data-act="shareday">${I.share} ${t('share_jpg')}</button><button class="btn" data-act="closeov">${t('bon_app')}</button></div></div>`;
-  SFX.recap();if(seq.best=='S')confetti(100);
+  if(!seq.still){SFX.recap();if(seq.best=='S')confetti(100)}
 }
 function mCheck(){const n=document.querySelectorAll('.mflip.on').length,b=$('#mrc');if(b&&n>=seq.list.length)b.disabled=false}
 
@@ -1272,19 +1295,17 @@ function cardData(k){const e=seq.e;if(k=='place')return{t:e.place.name,s:t('est'
   return{t:it.name,s:l+(it.price?' · '+eur(it.price):''),r:it.rank,em:it.emoji,img:imgOf(it.id)}}
 const ASK={entree:'🥗',dessert:'🍰',boisson:'🥤',plat:'🍽️'};
 function ovRender(){
-  if(seq.multi)return multiRender();
+  if(seq.multi&&seq.stage!='run')return multiRender();
   const st=seq.steps[seq.i],m=seq.e.mode,Mo=MODES[m];
-  const flow=seq.steps.filter(s=>!s.startsWith('ask')&&s!='pack'&&s!='recap'),pos=flow.indexOf(st);
+  const flow=seq.steps.filter(s=>s!='pack'&&s!='recap'),pos=flow.indexOf(st);
   const dots=`<div class="dots">${flow.map((s,j)=>`<i class="${pos<0||j<pos?'done':j==pos?'on':''}"></i>`).join('')}</div>`;
   if(st=='pack'){const f=seq.e.forced;ov.innerHTML=`<p class="ovh">${Mo.e} ${t('mt_'+m).replace('<br>',' ')}${f?` · <span style="color:${RK[f].c}">${t('guarantee',{r:f})}</span>`:''}</p>
     <button class="pack" id="pack" aria-label="${t('open_aria')}"><span class="strip">${t('tear_here')}</span><i class="cut"></i><div class="bhd"><div class="logo">TARPIN FAIM<small>ORIGINAL</small></div></div><div class="bart" style="background:${Mo.art}">${floats(m)}<div class="bttl">${t('mt_'+m)}</div></div></button>
     <p class="swipearrow">${t('tear_hint')} <i>${I.chev}</i></p>`;return}
-  if(st=='recap'){ov.innerHTML=recapHTML();SFX.recap();if(seq.best=='S')confetti(90);return}
-  if(st.startsWith('ask:')){const k=st.slice(4),rm=remOf(seq.e);
-    if(!poolOf(seq.e.place.id,k,m).some(i=>pr(i)<=rm+1e-9)){seq.i++;return ovRender()}
-    ov.innerHTML=`${dots}<div class="ask"><div style="font-size:64px;line-height:1">${ASK[k]}</div><h2>${t('ask_'+k)}</h2><p>${t('ask_'+k+'_s')}${rm<Infinity?`<br><b style="color:var(--gInk)">${t('ask_left',{p:eur(rm)})}</b>`:''}</p><div class="askb"><button class="btn ghost" data-act="ask" data-v="0">${t('no_thanks')}</button><button class="btn" data-act="ask" data-v="1">${t('yes_draw')}</button></div></div><button class="lnk" data-act="skip">${t('skip')}</button>`;return}
+  if(st=='recap'&&seq.multi){if(seq.q<seq.list.length-1)startQ(seq.q+1);else{seq.still=false;seq.stage='recap';ovRender()}return}
+  if(st=='recap'){seq.still=false;ov.innerHTML=recapHTML();SFX.recap();if(seq.best=='S')confetti(90);return}
   const d=cardData(st),c=d.r?RK[d.r].c:'#6b7a70';
-  ov.innerHTML=`${dots}<p class="ovh">${st=='place'?t('where'):catL(st,m)}</p>
+  ov.innerHTML=`${dots}<p class="ovh">${seq.multi?`<span class="qtag">${Mo.e} ${mL(m)} · ${seq.q+1}/${seq.list.length}</span><br>`:''}${st=='place'?t('where'):catL(st,m)}</p>
   <button class="flip r${d.r||'X'}" id="flip" style="--c:${c}">${d.r&&d.r!='B'?'<div class="rays"></div>':''}<div class="in">
    <div class="face back"><div class="logo">TARPIN FAIM<small>ORIGINAL</small></div></div>
    <div class="face front"><div class="fhd"><span style="color:${c}">${d.r?t('rank',{r:d.r}):t('empty_rank')}</span><span class="stars">${d.r?Array.from({length:RK[d.r].stars},(_,i)=>`<span style="--i:${i}">${STAR}</span>`).join(''):''}</span></div>
@@ -1299,15 +1320,18 @@ function flipCard(f){if(f.classList.contains('on'))return;f.classList.add('on');
   if(f.classList.contains('rS'))setTimeout(()=>confetti(70),500);
   setTimeout(()=>{const nx=$('#nx');if(nx){nx.disabled=false;nx.focus({preventScroll:true})}},reduce?0:700)}
 function goNext(){const f=$('#flip');if(f&&!reduce){f.classList.add('out');SFX.swipe();setTimeout(()=>{seq.i++;ovRender()},260)}else{seq.i++;ovRender()}}
+function startQ(q){seq.q=q;seq.e=seq.list[q];seq.steps=stepsFor(seq.e);seq.i=1;seq.stage='inter';const m=seq.e.mode;
+  ov.innerHTML=`<div class="inter"><div class="ie">${MODES[m].e}</div><h2>${t('mt_'+m).replace('<br>',' ')}</h2><p>${q+1} / ${seq.list.length}</p></div>`;SFX.open();
+  setTimeout(()=>{if(!seq||seq.stage!='inter'||seq.q!=q)return;seq.stage='run';ovRender()},reduce?200:1100)}
 function tear(p){if(p.classList.contains('open'))return;p.style.setProperty('--cut',1);p.classList.add('open');SFX.tear(seq.best);
   const fx=document.createElement('div');fx.className='fx';fx.style.setProperty('--c',RK[seq.best].c);const nsp=seq.best=='S'?26:seq.best=='A'?16:9;let spx='';for(let i=0;i<nsp;i++){const an=Math.random()*6.283,d=120+Math.random()*190;spx+=`<i class="sp" style="--x:${Math.cos(an)*d}px;--y:${Math.sin(an)*d}px;animation-delay:${Math.random()*.15}s"></i>`}
   fx.innerHTML='<i class="streak"></i><i class="flash"></i><i class="ring"></i><i class="ring r2"></i>'+spx;
   if(!reduce&&seq.best!='B'){ov.classList.remove('shk');void ov.offsetWidth;setTimeout(()=>ov.classList.add('shk'),450);vib([30,30,60])}
-  setTimeout(()=>ov.appendChild(fx),reduce?0:450);setTimeout(()=>{if(seq.multi)seq.stage='grid';else seq.i++;ovRender()},reduce?300:1750)}
+  setTimeout(()=>ov.appendChild(fx),reduce?0:450);setTimeout(()=>{if(seq.multi)startQ(0);else{seq.i++;ovRender()}},reduce?300:1750)}
 function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
-  const keys=['place',...CK.filter(k=>seq.steps.includes(k))];
-  const rows=keys.map((k,j)=>{const d=cardData(k),c=d.r?RK[d.r].c:'#6b7a70',it=k!='place'&&e.slots[k],nw=it&&!S.game.seen[it.id];return `<div class="rr" style="--i:${j};--c:${c}"><div class="ico">${icon(d.em,d.img)}</div><div class="rm"><b>${esc(d.t)}${nw?` <span class="newb">${t('new_card')}</span>`:''}</b><small>${esc(d.s)}</small></div>${d.r?`<span class="rb">${d.r}</span>`:''}</div>`}).join('');
-  return `<div class="recap"><h2>${MODES[e.mode].e} ${t('mr_'+e.mode)}</h2>${rows}<div class="rtot"><span>${t('total')}</span><span>${eur(total(e))}</span></div>${e.budget!=null?`<p class="rp">${t('b_left',{b:eur(e.budget),r:`<b style="color:var(--gInk)">${eur(remOf(e))}</b>`})}</p>`:''}
+  const rm=e.rm||[],keys=['place',...seq.steps.filter(k=>CK.includes(k)&&!rm.includes(k))];
+  const rows=keys.map((k,j)=>{const d=cardData(k),c=d.r?RK[d.r].c:'#6b7a70',it=k!='place'&&e.slots[k],nw=it&&!S.game.seen[it.id];return `<div class="rr" style="--i:${j};--c:${c}"><div class="ico">${icon(d.em,d.img)}</div><div class="rm"><b>${esc(d.t)}${nw?` <span class="newb">${t('new_card')}</span>`:''}</b><small>${esc(d.s)}</small></div>${d.r?`<span class="rb">${d.r}</span>`:''}${k!='place'?`<button class="rx" data-act="rmitem" data-k="${k}" aria-label="${t('s_remove')}" title="${t('s_remove')}">✕</button>`:''}</div>`}).join('');
+  return `<div class="recap ${seq.still?'still':''}"><h2>${MODES[e.mode].e} ${t('mr_'+e.mode)}</h2>${rows}<div class="rtot"><span>${t('total')}</span><span>${eur(total(e))}</span></div>${e.budget!=null?`<p class="rp">${t('b_left',{b:eur(e.budget),r:`<b style="color:var(--gInk)">${eur(remOf(e))}</b>`})}</p>`:''}
   <p class="rp">${t('pity_line',{a:pt.a,am:s.pityA,s:pt.s,sm:s.pityS})}${e.forced?' · '+t('guar_used',{r:e.forced}):''}</p>
   <div class="rbtns"><button class="btn ghost" data-act="share" data-id="${e.id}">${I.share} ${t('share_jpg')}</button><button class="btn" data-act="closeov">${t('bon_app')}</button></div>
   <button class="lnk" data-act="reroll" style="justify-self:center">🔁 ${t('reroll')} · ${rrLeft()>0?t('reroll_left',{n:rrLeft()}):t('reroll_pay',{n:RR_COST})}</button></div>`}
@@ -1350,15 +1374,15 @@ function home(){
   const tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0),bi=budgetInfo(m),[bh,bad]=budgetHint(m),b=s.budgets[m];
   const lastRow=last?`<button class="lastm" data-act="tab" data-v="hist" style="--c:${RK[last.place.rank].c}"><div class="ico">${esc(last.place.emoji)}</div><div class="rm"><small>${t('last_meal',{d:fdate(last.t)})}</small><b>${esc(last.place.name)} ${CK.map(k=>last.slots[k]).filter(Boolean).map(i=>esc(i.emoji)).join(' ')}</b></div><strong>${eur(total(last))}</strong></button>`:'';
   const ed=enterDir;enterDir='';
-  return `<div class="hgrid"><div class="hm">${modeBar()}</div><div class="hc"><section class="hero" style="--glow:${f?RK[f].c:Mo.glow}"><div class="bwrap"><button class="bst ${f?'f':''} ${ed}" id="bst" data-act="open" style="--c:${f?RK[f].c:'#fff'}" aria-label="${t('open_aria')}">
+  return `<div class="hgrid"><div class="hm">${modeBar()}</div><div class="hc"><section class="hero" style="--glow:${f?RK[f].c:Mo.glow}"><div class="bwrap"><button class="bst ${f?'f':''} ${isUsed(m)?'locked':''} ${ed}" id="bst" data-act="open" style="--c:${f?RK[f].c:'#fff'}" aria-label="${t('open_aria')}">
     <div class="bart" style="background:${Mo.art}"><div class="burst"></div>${orbs}<div class="btop"><span class="tchip" data-act="rates">${I.info} ${t('rates')}</span><span class="nb">N°${String(S.opened+1).padStart(3,'0')}</span></div>
       <div class="plate" id="plate"><span>${esc(src[0])}</span></div>
-      <div class="bttl">${t('mt_'+m)}</div><div class="bsub">${t('place_w')} · ${Mo.must.map(k=>catL(k,m)).join(' · ')}</div>${f?`<div class="gchip" style="--c:${RK[f].c}">${STAR} ${t('guarantee',{r:f})}</div>`:''}<div class="foil"></div></div>
+      <div class="bttl">${t('mt_'+m)}</div><div class="bsub">${t('place_w')} · ${Mo.must.map(k=>catL(k,m)).join(' · ')}</div>${f?`<div class="gchip" style="--c:${RK[f].c}">${STAR} ${t('guarantee',{r:f})}</div>`:''}<div class="foil"></div>${isUsed(m)?`<div class="lockcd">🔒 <b data-cd>${fmtCd()}</b></div>`:''}</div>
   </button></div></section>
   <p class="swh"><span>${I.up} ${t('sw_up')}</span><span>${I.lr} ${t('sw_lr')}</span></p>
   <div class="bud"><div class="bstep"><button data-act="bstep" data-v="-1" aria-label="${t('b_less')}">${I.minus}</button><button class="bval" data-act="bsheet"><small>${t('budget_of',{mode:mLow(m)})}</small>${b==null?t('unlimited'):eur(b)}</button><button data-act="bstep" data-v="1" aria-label="${t('b_more')}">${I.plus}</button></div></div>
   <p class="bhint ${bad?'bad':''}">${bh}${skipIds().length?` · <button class="lnk" data-act="rates" style="min-height:0;font-size:12.5px">🚫 ${t('skipped_n',{n:skipIds().length})}</button>`:''}</p>
-  <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none||isUsed(m)?'disabled':''}>${isUsed(m)?t('come_back',{h:hoursLeft()}):t('open')}</button><button class="btn ghost play4" data-act="open4" ${MO.every(isUsed)?'disabled':''} aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
+  <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none||isUsed(m)?'disabled':''}>${isUsed(m)?`<small>${t('come_back')}</small><b data-cd>${fmtCd()}</b>`:t('open')}</button><button class="btn ghost play4" data-act="open4" ${MO.every(isUsed)?'disabled':''} aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
   </div><div class="hr">${chestHTML()}${questsHTML()}
   <section class="box"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}</div></div>`;
 }
@@ -1535,7 +1559,7 @@ function openChest(){const g=S.game;if(g.chest==dayKey())return;g.chest=dayKey()
   SFX.open();vib([20,40,20,40,20]);
   setTimeout(()=>{const b=$('#bch');if(!b)return;b.textContent='✨';b.classList.add('pop2');SFX.level();confetti(110);$('#chres').innerHTML=`<b>+${xp} XP</b><b>🪙 ${t('coins_gain',{n:co})}</b>`;$('#chok').hidden=false;hdr();if(view=='home')render()},reduce?0:1100)}
 function whatsNew(){if(S.seenV==APP_V)return;S.seenV=APP_V;save();
-  sheet(`<h2>✨ ${t('whatsnew')}</h2><p class="pc" translate="no">Tarpin Faim · ${vName()}</p><ul class="wn">${[1,2,3].map(n=>`<li>${t('w39_'+n)}</li>`).join('')}</ul><div class="sact"><button class="btn play" data-act="close">${t('lets_go')}</button></div>`)}
+  sheet(`<h2>✨ ${t('whatsnew')}</h2><p class="pc" translate="no">Tarpin Faim · ${vName()}</p><ul class="wn">${[1,2,3].map(n=>`<li>${t('w40_'+n)}</li>`).join('')}</ul><div class="sact"><button class="btn play" data-act="close">${t('lets_go')}</button></div>`)}
 function resize(file,max){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*k));c.height=Math.max(1,Math.round(im.height*k));c.getContext('2d').drawImage(im,0,0,c.width,c.height);let u=c.toDataURL('image/webp',.82);if(!u.startsWith('data:image/webp'))u=c.toDataURL('image/png');res(u)};im.onerror=rej;im.src=r.result};r.onerror=rej;r.readAsDataURL(file)})}
 function doImport(txt){try{const d=JSON.parse(txt);if(!Array.isArray(d.places)||!Array.isArray(d.items))throw 0;S=fix(d);setLang();save(true);applyTheme();render();toast(t('t_imported'))}catch(e){toast(t('t_invalid'))}}
 
@@ -1695,7 +1719,7 @@ const A={
   reroll:()=>{const e=seq&&seq.e;if(!e)return;const g=S.game,k=dayKey();if(rrLeft()<1){if((g.coins||0)<RR_COST)return toast(t('t_rrcost',{n:RR_COST}));g.coins-=RR_COST;hdr()}else if(rrFree()>0){g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++}else g.rrBonus--;g.stats.rr=(g.stats.rr||0)+1;
     S.history=S.history.filter(h=>h.id!=e.id);if(e.pb)Object.assign(PT(e.mode),e.pb);S.opened=Math.max(0,S.opened-1);
     if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};if(!S.skip.ids.includes(e.place.id))S.skip.ids.push(e.place.id);
-    const r=drawEntry(e.mode);if(r.err){save();toast(r.err);return A.rewclose()}SFX.open();seq={e:r.e,i:0,best:r.best,steps:stepsFor(e.mode)};ovRender()},
+    const r=drawEntry(e.mode);if(r.err){save();toast(r.err);return A.rewclose()}SFX.open();seq={e:r.e,i:0,best:r.best,steps:stepsFor(r.e)};ovRender()},
   skipp:b=>{const k=dayKey(),id=b.dataset.id;if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};const L=S.skip.ids;L.includes(id)?L.splice(L.indexOf(id),1):L.push(id);SFX.soft();save();ratesSheet();if(view=='home')render()},
   shop:()=>{SFX.soft();shopSheet()},
   coll:()=>{SFX.soft();collSheet()},
@@ -1706,8 +1730,8 @@ const A={
     g.stats.buys=(g.stats.buys||0)+1;const ach=checkAch();save();SFX.yes();toast(v=='pity'?t('t_spark'):t('t_bought'));if(ach.length){confetti(80);SFX.level()}applyFrame();hdr();shopSheet()},
   equip:b=>{S.game.frame=b.dataset.v;save();SFX.soft();applyFrame();shopSheet()},
   next:()=>{SFX.tap();goNext()},
-  skip:()=>{SFX.soft();seq.i=seq.steps.length-1;ovRender()},
-  ask:b=>{b.dataset.v=='1'?SFX.yes():SFX.soft();const k=seq.steps[seq.i].slice(4);if(b.dataset.v=='1'){const it=pickSlot(seq.e.place.id,k,'B',remOf(seq.e),seq.e.mode);seq.e.slots[k]=snap(it);if(it)bump(it.rank,seq.e.mode);save();seq.steps.splice(seq.i+1,0,k)}seq.i++;ovRender()},
+  rmitem:b=>{if(!seq)return;const e=b.dataset.j!=null?seq.list[+b.dataset.j]:seq.e,k=b.dataset.k;if(!e||!e.slots[k]&&b.dataset.j!=null)return;e.slots[k]=null;e.rm=[...(e.rm||[]),k];save();SFX.soft();vib(15);seq.still=true;ov.innerHTML=(seq.multi?null:recapHTML())||'';if(seq.multi)multiRender()},
+  skip:()=>{SFX.soft();if(seq.multi){seq.still=false;seq.stage='recap';ovRender();return}seq.i=seq.steps.length-1;ovRender()},
   closeov:()=>{SFX.tap();if(seq.multi){const rs=seq.list.slice().reverse().map(e=>reward(e)).filter(Boolean);if(!rs.length)return A.rewclose();rewardScreen({before:rs[0].before,after:S.game.xp,done:rs.flatMap(r=>r.done),ach:rs.flatMap(r=>r.ach),streak:rs[rs.length-1].streak,up:rs.some(r=>r.up),best:bestOf(rs.map(r=>r.best)),coins:rs.reduce((s,r)=>s+r.coins,0),froze:rs.some(r=>r.froze)});return}const r=reward(seq.e);if(r){rewardScreen(r)}else A.rewclose()},
   rewclose:()=>{if(window.__reload){location.reload();return}ov.hidden=true;ov.innerHTML='';document.body.style.overflow='';seq=null;view='home';render();scrollTo(0,0)}
 };
@@ -1779,6 +1803,7 @@ function intro(){if(reduce){setTimeout(whatsNew,300);return}const el=document.cr
   el.innerHTML=`<div class="irays"></div>${spk}<div class="ifan">${fan}</div><div class="ilogo">${word('TARPIN',.45)}<br>${word('FAIM',.85)}</div><p class="itag">${t('intro_tag')}</p><p class="iver" translate="no">${vName()}</p><p class="iskip">${t('tap_skip')}</p>`;
   document.body.appendChild(el);let done=false;const end=()=>{if(done)return;done=true;el.classList.add('out');setTimeout(()=>{el.remove();whatsNew()},450)};
   el.addEventListener('click',end);setTimeout(end,2900)}
+setInterval(()=>{const c=fmtCd();document.querySelectorAll('[data-cd]').forEach(el=>{el.textContent=c});if(msLeft()<1100&&view=='home'&&!seq)setTimeout(render,1200)},1000);
 intro();
 applyTheme();render();
 }
