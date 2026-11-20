@@ -389,6 +389,23 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .iskip{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));margin:0;font:600 13px Outfit,system-ui,sans-serif;color:var(--mut);opacity:0;animation:rise .5s 1.4s forwards}
 @keyframes fanin{from{transform:translateX(0) rotate(0) scale(.3);opacity:0}}
 @keyframes drop{from{transform:translateY(-50px) scale(.5);opacity:0}}
+
+.bst .bart{border-radius:22px}
+.bst{box-shadow:0 26px 46px -14px rgba(0,0,0,.55),inset 0 0 0 3px rgba(255,255,255,.18)}
+.btop{position:absolute;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;z-index:3}
+.btop .tchip{background:rgba(0,0,0,.38);border:1px solid rgba(255,255,255,.28);height:34px;padding:0 14px 0 8px;font-size:13.5px;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.btop .nb{color:#fff;opacity:.92;font-size:22px;text-shadow:0 2px 8px rgba(0,0,0,.35)}
+.gchip{position:relative;display:inline-flex;align-items:center;gap:5px;margin-top:2px;padding:5px 14px;border-radius:999px;background:var(--c);color:#fff;font:800 12.5px Outfit,system-ui,sans-serif;text-transform:uppercase;box-shadow:0 0 18px var(--c),0 3px 0 rgba(0,0,0,.2);animation:pulse 1.8s ease-in-out infinite}
+.bst .plate{width:48%;margin-top:6%}
+.langsel{position:relative}
+.langsel select{appearance:none;-webkit-appearance:none;padding-right:44px;font-weight:700;cursor:pointer}
+.langsel::after{content:"";position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2.5px solid var(--mut);border-bottom:2.5px solid var(--mut);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.srch{margin:2px 0 10px}
+.skipl{display:flex;flex-wrap:wrap;gap:8px}
+.skipl button{min-height:40px;padding:0 14px;border-radius:999px;border:2px solid var(--line);background:var(--card2);font:700 14px Outfit,system-ui,sans-serif;cursor:pointer;color:var(--ink)}
+.skipl button.on{border-color:#e5484d;background:color-mix(in srgb,#e5484d 14%,var(--card2));color:#c0303a;text-decoration:line-through}
+.wk{margin:-4px 0 14px;font:700 14px Outfit,system-ui,sans-serif;color:var(--mut)}
+[dir=rtl] .bpre.l,[dir=rtl] .chips{direction:rtl}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-1deg)}}
 @keyframes float{50%{transform:translateY(-8px)}}
 @keyframes pulse{50%{opacity:.55;transform:scale(.93)}}
@@ -443,318 +460,315 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 <div id="toast" role="status"></div>
 <script>
 {
-/* ---------- Traductions : [fr, en, es, ru, ja] ---------- */
-const LANGS=[['fr','Français','🇫🇷','fr-FR'],['en','English','🇬🇧','en-GB'],['es','Español','🇪🇸','es-ES'],['ru','Русский','🇷🇺','ru-RU'],['ja','日本語','🇯🇵','ja-JP']];
+/* ---------- Traductions ---------- */
+const LANGS=[["fr", "Français", "🇫🇷", "fr-FR"], ["en", "English", "🇬🇧", "en-GB"], ["es", "Español", "🇪🇸", "es-ES"], ["de", "Deutsch", "🇩🇪", "de-DE"], ["it", "Italiano", "🇮🇹", "it-IT"], ["pt", "Português", "🇵🇹", "pt-PT"], ["ru", "Русский", "🇷🇺", "ru-RU"], ["ar", "العربية", "🇸🇦", "ar-u-nu-latn"], ["zh", "中文", "🇨🇳", "zh-CN"], ["ja", "日本語", "🇯🇵", "ja-JP"]];
 const D={
-tab_home:["Accueil","Home","Inicio","Главная","ホーム"],
-tab_cat:["Catalogue","Catalogue","Catálogo","Каталог","カタログ"],
-tab_explore:["Explorer","Explore","Explorar","Обзор","探す"],
-tab_hist:["Historique","History","Historial","История","履歴"],
-tab_set:["Réglages","Settings","Ajustes","Настройки","設定"],
-lvl:["Niv. {n}","Lv. {n}","Niv. {n}","Ур. {n}","Lv.{n}"],
-theme_btn:["Changer de thème","Switch theme","Cambiar tema","Сменить тему","テーマ切替"],
-m_matin:["Petit-déj","Breakfast","Desayuno","Завтрак","朝ごはん"],
-m_midi:["Midi","Lunch","Almuerzo","Обед","ランチ"],
-m_gouter:["Goûter","Snack","Merienda","Полдник","おやつ"],
-m_soir:["Soir","Dinner","Cena","Ужин","夕ごはん"],
-mt_matin:["Booster<br>du matin","Breakfast<br>booster","Sobre del<br>desayuno","Бустер<br>завтрака","朝ごはん<br>ブースター"],
-mt_midi:["Booster<br>du midi","Lunch<br>booster","Sobre del<br>almuerzo","Бустер<br>обеда","ランチ<br>ブースター"],
-mt_gouter:["Booster<br>du goûter","Snack<br>booster","Sobre de la<br>merienda","Бустер<br>полдника","おやつ<br>ブースター"],
-mt_soir:["Booster<br>du soir","Dinner<br>booster","Sobre de<br>la cena","Бустер<br>ужина","夕ごはん<br>ブースター"],
-mr_matin:["Ton p’tit-déj","Your breakfast","Tu desayuno","Твой завтрак","今日の朝ごはん"],
-mr_midi:["Ton midi","Your lunch","Tu almuerzo","Твой обед","今日のランチ"],
-mr_gouter:["Ton goûter","Your snack","Tu merienda","Твой полдник","今日のおやつ"],
-mr_soir:["Ton dîner","Your dinner","Tu cena","Твой ужин","今日の夕ごはん"],
-md_matin:["CE MATIN, DIRECTION","THIS MORNING, HEADING TO","ESTA MAÑANA, RUMBO A","СЕГОДНЯ УТРОМ ИДУ В","今朝の行き先"],
-md_midi:["CE MIDI, DIRECTION","LUNCH TODAY AT","HOY ALMUERZO EN","СЕГОДНЯ ОБЕДАЮ В","今日のランチは"],
-md_gouter:["POUR LE GOÛTER, DIRECTION","SNACK TIME AT","MERIENDA EN","ПОЛДНИК В","おやつはここ"],
-md_soir:["CE SOIR, DIRECTION","TONIGHT, DINNER AT","ESTA NOCHE, CENA EN","СЕГОДНЯ УЖИНАЮ В","今夜の夕ごはんは"],
-cat_boisson:["Boisson","Drink","Bebida","Напиток","ドリンク"],
-cat_entree:["Entrée","Starter","Entrante","Закуска","前菜"],
-cat_plat:["Plat","Main","Plato","Основное","メイン"],
-cat_dessert:["Dessert","Dessert","Postre","Десерт","デザート"],
-lab_pastry:["Viennoiserie","Pastry","Bollería","Выпечка","パン"],
-lab_snack:["Goûter","Snack","Merienda","Перекус","おやつ"],
-rank:["Rang {r}","Rank {r}","Rango {r}","Ранг {r}","ランク{r}"],
-empty_rank:["Vide","Empty","Vacío","Пусто","なし"],
-auto_hint:["Auto · il est {time}, c’est l’heure du {mode}","Auto · it’s {time}, {mode} time","Auto · son las {time}, hora de {mode}","Авто · {time}, время: {mode}","自動 · {time}、{mode}の時間"],
-manual:["Choix manuel ·","Manual pick ·","Elección manual ·","Выбрано вручную ·","手動選択 ·"],
-back_auto:["revenir à l’auto ({mode})","back to auto ({mode})","volver al auto ({mode})","вернуть авто ({mode})","自動に戻す（{mode}）"],
-sw_up:["Glisse vers le haut pour ouvrir","Swipe up to open","Desliza hacia arriba para abrir","Смахни вверх, чтобы открыть","上にスワイプで開封"],
-sw_lr:["Sur le côté pour changer de moment","Sideways to change meal","De lado para cambiar de momento","В сторону — смена времени","横スワイプで時間帯を変更"],
-open:["Ouvrir","Open","Abrir","Открыть","開封"],
-open_aria:["Ouvrir le booster","Open the booster","Abrir el sobre","Открыть бустер","ブースターを開封"],
-rates:["Taux","Rates","Tasas","Шансы","確率"],
-place_w:["Lieu","Place","Lugar","Место","お店"],
-budget_of:["Budget {mode}","{mode} budget","Presupuesto {mode}","Бюджет: {mode}","{mode}の予算"],
-unlimited:["Illimité","Unlimited","Ilimitado","Без лимита","無制限"],
-b_less:["Baisser le budget","Lower budget","Bajar presupuesto","Уменьшить бюджет","予算を下げる"],
-b_more:["Augmenter le budget","Raise budget","Subir presupuesto","Увеличить бюджет","予算を上げる"],
-b_none:["Aucun lieu avec des aliments pour ce moment.","No place with food for this meal yet.","Ningún lugar con comida para este momento.","Нет мест с едой для этого времени.","この時間帯のお店がまだありません。"],
-b_unl:["Pas de limite : tous les lieux sont possibles.","No limit: every place can drop.","Sin límite: todos los lugares pueden salir.","Без лимита: возможны все места.","上限なし：全てのお店が出ます。"],
-b_tight:["Trop serré : il faut au moins {p}.","Too tight: you need at least {p}.","Muy justo: necesitas al menos {p}.","Слишком мало: нужно минимум {p}.","足りません：最低{p}必要です。"],
-b_out:["Hors budget : {l}","Over budget: {l}","Fuera de presupuesto: {l}","Вне бюджета: {l}","予算オーバー：{l}"],
-b_all:["Tous les lieux rentrent dans ton budget.","Every place fits your budget.","Todos los lugares caben en tu presupuesto.","Все места в рамках бюджета.","全てのお店が予算内です。"],
-budget_sheet:["Budget · {mode}","Budget · {mode}","Presupuesto · {mode}","Бюджет · {mode}","予算 · {mode}"],
-custom:["Montant perso (€)","Custom amount (€)","Importe personalizado (€)","Своя сумма (€)","金額を指定（€）"],
-apply:["Valider","Apply","Aplicar","Применить","決定"],
-quests:["Défis du jour","Daily quests","Retos del día","Задания дня","今日のクエスト"],
-q_open2:["Ouvre 2 boosters","Open 2 boosters","Abre 2 sobres","Открой 2 бустера","ブースターを2回開封"],
-q_rankA:["Obtiens une carte A ou mieux","Pull an A card or better","Consigue una carta A o mejor","Получи карту A или выше","A以上のカードを引く"],
-q_rankS:["Obtiens une carte S","Pull an S card","Consigue una carta S","Получи карту S","Sカードを引く"],
-q_budget:["Reste sous ton budget","Stay under budget","No pases tu presupuesto","Уложись в бюджет","予算内に収める"],
-q_opt:["Ajoute une entrée ou un dessert","Add a starter or a dessert","Añade un entrante o un postre","Добавь закуску или десерт","前菜かデザートを追加"],
-q_share:["Partage un résultat","Share a result","Comparte un resultado","Поделись результатом","結果をシェア"],
-q_modes:["Ouvre des boosters à 2 moments","Open boosters at 2 meals","Abre sobres en 2 momentos","Открой бустеры в 2 приёма пищи","2つの時間帯で開封"],
-q_done:["Défi réussi !","Quest complete!","¡Reto superado!","Задание выполнено!","クエスト達成！"],
-mas_idle:["J’ai tarpin faim…","I’m sooo hungry…","Tengo un hambre…","Я ужасно голоден…","お腹ぺこぺこ…"],
-mas_S:["TARPIN BON !!","SO GOOD!!","¡¡BRUTAL!!","ОБАЛДЕТЬ!!","最高ーっ!!"],
-mas_A:["Ça c’est un bon tirage !","Nice pull!","¡Buena tirada!","Отличный выбор!","いい引き！"],
-mas_B:["Simple mais efficace.","Simple but solid.","Sencillo pero eficaz.","Просто, но надёжно.","シンプルでいいね。"],
-mas_empty:["Hmm… y’a rien ici.","Hmm… nothing here.","Mmm… aquí no hay nada.","Хм… тут пусто.","うーん…何もない。"],
-pity_t:["Garanties · {mode}","Guarantees · {mode}","Garantías · {mode}","Гарантии · {mode}","天井 · {mode}"],
-pity_next:["Au prochain booster !","Next booster!","¡En el próximo sobre!","В следующем бустере!","次で確定！"],
-pity_in:["Dans {n} boosters","In {n} boosters","En {n} sobres","Через {n}","あと{n}回"],
-pity_sub:["{n}/{m} sans {r}","{n}/{m} without {r}","{n}/{m} sin {r}","{n}/{m} без {r}","{r}なし {n}/{m}"],
-last_meal:["Dernier repas · {d}","Last meal · {d}","Última comida · {d}","Последний приём пищи · {d}","前回の食事 · {d}"],
-t_noplace:["Aucun lieu pour ce moment : coche-le sur un établissement dans Réglages","No place for this meal: tick it on a place in Settings","Ningún lugar para este momento: márcalo en Ajustes","Нет мест для этого времени: отметь его в Настройках","この時間帯のお店がありません：設定でチェックしてください"],
-t_nomain:["Rien au catalogue pour ce moment : ajoutes-en dans Catalogue","Nothing in your catalogue for this meal: add some","Nada en tu catálogo para este momento: añade algo","В каталоге ничего нет для этого времени","この時間帯のメニューがありません：カタログに追加して"],
-t_tight:["Budget trop serré : il faut au moins {p}","Budget too tight: you need at least {p}","Presupuesto muy justo: mínimo {p}","Мало бюджета: нужно минимум {p}","予算不足：最低{p}"],
-tear_here:["DÉCHIRER ICI","TEAR HERE","RASGAR AQUÍ","РВАТЬ ЗДЕСЬ","ここを切る"],
-tear_hint:["Glisse le doigt sur la bande pour déchirer","Swipe across the strip to tear it","Desliza el dedo por la tira para rasgarla","Проведи по полоске, чтобы разорвать","帯をスワイプして開けよう"],
-where:["Où tu manges","Where you eat","Dónde comes","Где ты ешь","どこで食べる？"],
-est:["Établissement","Place","Lugar","Заведение","お店"],
-tap_card:["Touche la carte, puis glisse vers la gauche pour continuer","Tap the card, then swipe left to continue","Toca la carta y desliza a la izquierda para seguir","Нажми на карту, затем смахни влево","カードをタップして左にスワイプ"],
-next:["Suivant","Next","Siguiente","Далее","次へ"],
-skip:["Passer au récap","Skip to recap","Ir al resumen","К итогам","結果へスキップ"],
-empty_t:["Rien ici","Nothing here","Nada aquí","Здесь пусто","なし"],
-empty_s:["Pas de {c} à {p} (catalogue ou budget)","No {c} at {p} (catalogue or budget)","Sin {c} en {p} (catálogo o presupuesto)","Нет: {c} в «{p}» (каталог или бюджет)","{p}に{c}なし（カタログか予算）"],
-ask_entree:["Une entrée ?","A starter?","¿Un entrante?","Закуску?","前菜は？"],
-ask_entree_s:["Petite faim ou grosse dalle ?","Peckish or starving?","¿Hambre ligera o tremenda?","Чуть-чуть или сильно голоден?","ちょっと空腹？それともペコペコ？"],
-ask_dessert:["Un dessert ?","A dessert?","¿Un postre?","Десерт?","デザートは？"],
-ask_dessert_s:["On finit en douceur ?","End on a sweet note?","¿Terminamos con algo dulce?","Закончим сладким?","甘いもので締める？"],
-ask_boisson:["Une boisson ?","A drink?","¿Una bebida?","Напиток?","ドリンクは？"],
-ask_boisson_s:["Un petit verre avec ça ?","Something to drink with it?","¿Algo de beber?","Что-нибудь попить?","何か飲む？"],
-ask_left:["Il te reste {p} de budget","You have {p} left","Te quedan {p}","Осталось {p}","残り予算 {p}"],
-no_thanks:["Non merci","No thanks","No, gracias","Нет, спасибо","いらない"],
-yes_draw:["Oui, je tire","Yes, draw","Sí, tiro","Да, тяну","引く！"],
-total:["Total estimé","Estimated total","Total estimado","Итого примерно","合計（目安）"],
-b_left:["Budget {b} · reste {r}","Budget {b} · {r} left","Presupuesto {b} · quedan {r}","Бюджет {b} · осталось {r}","予算{b} · 残り{r}"],
-pity_line:["Pity A {a}/{am} · S {s}/{sm}","Pity A {a}/{am} · S {s}/{sm}","Pity A {a}/{am} · S {s}/{sm}","Пити A {a}/{am} · S {s}/{sm}","天井 A {a}/{am} · S {s}/{sm}"],
-guar_used:["garantie {r} utilisée","{r} guarantee used","garantía {r} usada","гарантия {r} сработала","{r}確定を使用"],
-guarantee:["Garantie {r}","{r} guaranteed","Garantía {r}","Гарантия {r}","{r}確定"],
-share_jpg:["Partager (JPG)","Share (JPG)","Compartir (JPG)","Поделиться (JPG)","シェア（JPG）"],
-bon_app:["Bon appétit !","Enjoy your meal!","¡Buen provecho!","Приятного аппетита!","いただきます！"],
-continue:["Continuer","Continue","Continuar","Продолжить","続ける"],
-level_up:["Niveau {n} !","Level {n}!","¡Nivel {n}!","Уровень {n}!","レベル{n}！"],
-streak_up:["Série de {n} jour(s) !","{n}-day streak!","¡Racha de {n} día(s)!","Серия: {n} дн.!","{n}日連続！"],
-streak_keep:["Série : {n} jour(s)","Streak: {n} day(s)","Racha: {n} día(s)","Серия: {n} дн.","連続 {n}日"],
-streak_sub:["Reviens demain pour la garder","Come back tomorrow to keep it","Vuelve mañana para mantenerla","Возвращайся завтра","明日も来て記録を伸ばそう"],
-new_ach:["Succès débloqué","Achievement unlocked","Logro desbloqueado","Достижение открыто","実績解除"],
-a_first:["Premier booster","First booster","Primer sobre","Первый бустер","初めての開封"],
-a_first_d:["Ouvre ton premier booster","Open your first booster","Abre tu primer sobre","Открой первый бустер","初めてブースターを開封"],
-a_s:["Jackpot","Jackpot","Jackpot","Джекпот","大当たり"],
-a_s_d:["Obtiens une carte S","Pull an S card","Consigue una carta S","Получи карту S","Sカードを引く"],
-a_st3:["En feu","On fire","En llamas","В ударе","絶好調"],
-a_st3_d:["3 jours de série","3-day streak","Racha de 3 días","Серия 3 дня","3日連続"],
-a_st7:["Inarrêtable","Unstoppable","Imparable","Неудержимый","止まらない"],
-a_st7_d:["7 jours de série","7-day streak","Racha de 7 días","Серия 7 дней","7日連続"],
-a_b10:["Habitué","Regular","Habitual","Завсегдатай","常連"],
-a_b10_d:["Ouvre 10 boosters","Open 10 boosters","Abre 10 sobres","Открой 10 бустеров","10回開封"],
-a_b50:["Légende du self","Canteen legend","Leyenda del comedor","Легенда столовой","食堂の伝説"],
-a_b50_d:["Ouvre 50 boosters","Open 50 boosters","Abre 50 sobres","Открой 50 бустеров","50回開封"],
-a_modes:["Toute la journée","All day long","Todo el día","Весь день","一日中"],
-a_modes_d:["Un booster à chaque moment","A booster at every meal","Un sobre en cada momento","Бустер в каждый приём пищи","全時間帯で開封"],
-a_explore:["Explorateur","Explorer","Explorador","Исследователь","探検家"],
-a_explore_d:["Ajoute un lieu depuis Explorer","Add a place from Explore","Añade un lugar desde Explorar","Добавь место из Обзора","探すからお店を追加"],
-a_share:["Influenceur","Influencer","Influencer","Инфлюенсер","インフルエンサー"],
-a_share_d:["Partage un résultat","Share a result","Comparte un resultado","Поделись результатом","結果をシェア"],
-a_budget:["Radin assumé","Proud penny-pincher","Ahorrador orgulloso","Гордый экономист","節約の鬼"],
-a_budget_d:["5 repas sous le budget","5 meals under budget","5 comidas sin pasarte","5 раз в рамках бюджета","予算内で5回"],
-a_lvl5:["Gourmet","Gourmet","Gourmet","Гурман","グルメ"],
-a_lvl5_d:["Atteins le niveau 5","Reach level 5","Llega al nivel 5","Достигни 5 уровня","レベル5到達"],
-prof:["Profil","Profile","Perfil","Профиль","プロフィール"],
-xp_of:["{x} / {y} XP","{x} / {y} XP","{x} / {y} XP","{x} / {y} XP","{x} / {y} XP"],
-best_streak:["Meilleure série","Best streak","Mejor racha","Лучшая серия","最長連続"],
-cur_streak:["Série actuelle","Current streak","Racha actual","Текущая серия","現在の連続"],
-achs:["Succès","Achievements","Logros","Достижения","実績"],
-edit_prof:["Modifier le profil","Edit profile","Editar perfil","Изменить профиль","プロフィール編集"],
-add:["+ Ajouter","+ Add","+ Añadir","+ Добавить","+ 追加"],
-all_m:["Tous les moments","All meals","Todos los momentos","Все приёмы пищи","全ての時間帯"],
-all_p:["Tous les lieux","All places","Todos los lugares","Все места","全てのお店"],
-ex_note:["Les aliments « exemple » ont des prix indicatifs. Corrige-les ou vide-les dans Réglages.","“Example” items have rough prices. Fix them or clear them in Settings.","Los artículos «ejemplo» tienen precios orientativos. Corrígelos o bórralos en Ajustes.","У «примеров» цены примерные. Исправь их или удали в Настройках.","「例」のメニューは参考価格です。設定で修正・削除できます。"],
-no_item:["Aucun aliment ici pour ce moment.","No item here for this meal.","Nada aquí para este momento.","Здесь пока пусто.","この時間帯のメニューなし。"],
-no_place:["Aucun établissement pour ce moment. Coche-le sur un lieu dans Réglages.","No place for this meal. Tick it on a place in Settings.","Ningún lugar para este momento. Márcalo en Ajustes.","Нет мест для этого времени. Отметь в Настройках.","この時間帯のお店なし。設定でチェックしてください。"],
-example:["exemple","example","ejemplo","пример","例"],
-ai_check:["IA · à vérifier","AI · double-check","IA · por verificar","ИИ · проверь","AI・要確認"],
-new_item:["Nouvel aliment","New item","Nuevo artículo","Новая позиция","新しいメニュー"],
-edit_item:["Modifier l’aliment","Edit item","Editar artículo","Изменить позицию","メニュー編集"],
-f_name:["Nom","Name","Nombre","Название","名前"],
-f_name_ph:["Ex. Bo bun poulet","e.g. Chicken bo bun","p. ej. Bo bun de pollo","Напр. бо бун с курицей","例：チキンボーブン"],
-f_place:["Établissement","Place","Lugar","Заведение","お店"],
-f_moments:["Moments où il peut tomber","Meals it can drop at","Momentos en que puede salir","Когда может выпасть","出る時間帯"],
-f_type:["Type","Type","Tipo","Тип","種類"],
-f_type_h:["Au petit-déj, « Plat » = la viennoiserie. Au goûter, « Dessert » = le goûter.","At breakfast, “Main” = pastry. At snack time, “Dessert” = the snack.","En el desayuno, «Plato» = bollería. En la merienda, «Postre» = la merienda.","На завтраке «Основное» = выпечка. На полднике «Десерт» = перекус.","朝は「メイン」＝パン、おやつは「デザート」＝おやつ。"],
-f_rarity:["Rareté","Rarity","Rareza","Редкость","レア度"],
-f_price:["Prix en € (optionnel, sert au budget)","Price in € (optional, used for budget)","Precio en € (opcional, para el presupuesto)","Цена в € (необязательно, для бюджета)","価格€（任意・予算に使用）"],
-f_icon:["Icône","Icon","Icono","Иконка","アイコン"],
-f_img:["Image PNG / JPG","PNG / JPG image","Imagen PNG / JPG","Картинка PNG / JPG","画像 PNG / JPG"],
-f_noimg:["Retirer l’image","Remove image","Quitar imagen","Убрать картинку","画像を削除"],
-f_emo:["Émoji personnalisé","Custom emoji","Emoji personalizado","Свой эмодзи","カスタム絵文字"],
-del:["Supprimer","Delete","Eliminar","Удалить","削除"],
-confirm:["Confirmer","Confirm","Confirmar","Подтвердить","確認"],
-sure:["OK ?","Sure?","¿Seguro?","Точно?","OK？"],
-cancel:["Annuler","Cancel","Cancelar","Отмена","キャンセル"],
-save:["Enregistrer","Save","Guardar","Сохранить","保存"],
-t_saved:["Enregistré","Saved","Guardado","Сохранено","保存しました"],
-t_deleted:["Aliment supprimé","Item deleted","Artículo eliminado","Позиция удалена","削除しました"],
-t_name:["Donne un nom à ton aliment","Give your item a name","Ponle un nombre","Дай название","名前を入力して"],
-t_keep1:["Garde au moins un moment","Keep at least one meal","Deja al menos un momento","Оставь хотя бы одно время","時間帯を1つ以上残して"],
-t_padded:["Enregistré · {p} ajouté à : {m}","Saved · {p} added to: {m}","Guardado · {p} añadido a: {m}","Сохранено · {p} добавлено в: {m}","保存 · {p}を追加：{m}"],
-t_needplace:["Crée d’abord un établissement dans Réglages","Create a place in Settings first","Crea primero un lugar en Ajustes","Сначала создай заведение в Настройках","先に設定でお店を作成して"],
-all:["Tout","All","Todo","Всё","全部"],
-h_boost:["boosters","boosters","sobres","бустеров","回開封"],
-h_spent:["dépensés (estim.)","spent (est.)","gastado (est.)","потрачено (≈)","支出（目安）"],
-h_avg:["par repas","per meal","por comida","за приём пищи","1食あたり"],
-h_where:["Où tu as mangé","Where you ate","Dónde comiste","Где ты ел","食べた場所"],
-h_hint_all:["Choisis un moment pour comparer à ta proba théorique.","Pick a meal to compare with the odds.","Elige un momento para comparar con la probabilidad.","Выбери время, чтобы сравнить с шансами.","時間帯を選ぶと確率と比較できます。"],
-h_hint:["Barre = réel. Trait = proba théorique.","Bar = actual. Line = expected odds.","Barra = real. Línea = probabilidad.","Полоса = факт. Линия = шанс.","バー＝実際、線＝理論値"],
-h_empty:["Aucun booster ici. Va tirer ton premier repas !","No booster yet. Go pull your first meal!","Ningún sobre aún. ¡Ve a abrir el primero!","Пока пусто. Открой первый бустер!","まだ開封なし。最初の1回を引こう！"],
-h_pity:["Pity {r} déclenché","{r} pity triggered","Pity {r} activado","Сработало пити {r}","{r}天井発動"],
-h_nothing:["Rien au catalogue","Nothing in catalogue","Nada en el catálogo","Пусто в каталоге","カタログなし"],
-more:["Voir plus","Show more","Ver más","Показать ещё","もっと見る"],
-s_profile:["Profil","Profile","Perfil","Профиль","プロフィール"],
-s_pseudo:["Pseudo","Nickname","Apodo","Ник","ニックネーム"],
-s_photo:["Photo","Photo","Foto","Фото","写真"],
-s_remove:["Retirer","Remove","Quitar","Убрать","削除"],
-s_avatar:["Émoji d’avatar","Avatar emoji","Emoji de avatar","Эмодзи аватара","アバター絵文字"],
-s_lang:["Langue","Language","Idioma","Язык","言語"],
-s_theme:["Thème","Theme","Tema","Тема","テーマ"],
-s_theme_h:["Cycle : l’app suit l’heure. Aube, ciel bleu, golden hour, nuit étoilée.","Cycle: the app follows the time of day. Dawn, blue sky, golden hour, starry night.","Ciclo: la app sigue la hora. Amanecer, cielo azul, hora dorada, noche estrellada.","Цикл: приложение следует времени суток. Рассвет, небо, закат, ночь.","サイクル：時間に合わせて変化。朝焼け、青空、夕焼け、星空。"],
-th_cycle:["🌗 Cycle","🌗 Cycle","🌗 Ciclo","🌗 Цикл","🌗 サイクル"],
-th_dark:["Sombre","Dark","Oscuro","Тёмная","ダーク"],
-th_light:["Clair","Light","Claro","Светлая","ライト"],
-s_hours:["Horaires des boosters","Booster schedule","Horario de sobres","Расписание бустеров","ブースターの時間"],
-s_hours_h:["Chaque moment commence à l’heure indiquée. Tu peux toujours changer à la main.","Each meal starts at the time shown. You can always switch manually.","Cada momento empieza a la hora indicada. Puedes cambiarlo a mano.","Каждое время начинается в указанный час. Можно сменить вручную.","各時間帯は指定時刻から。手動でも切替可。"],
-from:["{m} dès","{m} from","{m} desde","{m} с","{m}の開始"],
-s_sound:["Son et vibrations","Sound & vibration","Sonido y vibración","Звук и вибрация","サウンドと振動"],
-s_sfx:["Effets sonores","Sound effects","Efectos de sonido","Звуковые эффекты","効果音"],
-s_vol:["Volume","Volume","Volumen","Громкость","音量"],
-s_vib:["Vibrations","Vibration","Vibración","Вибрация","振動"],
-s_vib_no:["Non gérées par ce navigateur (iPhone notamment)","Not supported by this browser (e.g. iPhone)","No compatible con este navegador (p. ej. iPhone)","Не поддерживается браузером (напр. iPhone)","このブラウザは非対応（iPhone等）"],
-s_test:["Tester un tirage S","Test an S pull","Probar una tirada S","Тест: карта S","Sの演出をテスト"],
-s_places:["Établissements","Places","Lugares","Заведения","お店"],
-s_places_h:["Émoji, nom, rang, poids. Coche les moments où le lieu peut tomber. Poids bas = lieu rare.","Emoji, name, rank, weight. Tick the meals it can drop at. Low weight = rare place.","Emoji, nombre, rango, peso. Marca los momentos. Peso bajo = lugar raro.","Эмодзи, название, ранг, вес. Отметь время. Малый вес = редкое место.","絵文字・名前・ランク・重み。出る時間帯を選択。重みが小さいほどレア。"],
-s_nomode:["Aucun moment coché","No meal ticked","Ningún momento marcado","Время не выбрано","時間帯なし"],
-s_addplace:["+ Établissement","+ Place","+ Lugar","+ Заведение","+ お店"],
-new_place:["Nouveau lieu","New place","Nuevo lugar","Новое место","新しいお店"],
-t_delplace:["Ça supprimera aussi {n} aliment(s)","This also deletes {n} item(s)","También se borrarán {n} artículo(s)","Также удалится позиций: {n}","{n}件のメニューも削除されます"],
-s_rates:["Taux par carte","Card rates","Tasas por carta","Шансы карт","カード確率"],
-s_rates_h:["Chaque carte tire son rang. Si le rang n’existe pas pour ce lieu, l’app prend le plus proche (vers le bas en priorité).","Each card rolls its rank. If missing at that place, the closest one is used (lower first).","Cada carta tira su rango. Si no existe, se usa el más cercano (primero el inferior).","Каждая карта получает ранг. Если его нет — берётся ближайший (сначала ниже).","各カードがランクを抽選。無い場合は近いランク（下優先）。"],
-s_pity:["Pity","Pity","Pity","Пити","天井"],
-s_pityA:["Rang A garanti au bout de","A guaranteed after","A garantizado tras","A гарантирован через","A確定まで"],
-s_pityS:["Rang S garanti au bout de","S guaranteed after","S garantizado tras","S гарантирован через","S確定まで"],
-s_pity_h:["Chaque moment a son compteur. Un A ou un S naturel remet à zéro.","Each meal has its own counter. A natural A or S resets it.","Cada momento tiene su contador. Un A o S natural lo reinicia.","У каждого времени свой счётчик. Естественный A или S сбрасывает его.","時間帯ごとにカウント。自然にA/Sが出るとリセット。"],
-s_data:["Données","Data","Datos","Данные","データ"],
-s_data_h:["Tout est stocké sur cet appareil. Copie ta sauvegarde de temps en temps.","Everything is stored on this device. Back it up now and then.","Todo se guarda en este dispositivo. Haz copias de vez en cuando.","Всё хранится на устройстве. Иногда делай копию.","データはこの端末に保存。時々バックアップを。"],
-s_copy:["Copier la sauvegarde","Copy backup","Copiar copia","Скопировать копию","バックアップをコピー"],
-s_dl:["Télécharger (.json)","Download (.json)","Descargar (.json)","Скачать (.json)","ダウンロード（.json）"],
-s_impf:["Importer un fichier","Import a file","Importar archivo","Импорт файла","ファイルを読み込む"],
-s_paste:["…ou colle une sauvegarde ici","…or paste a backup here","…o pega una copia aquí","…или вставь копию сюда","…またはここに貼り付け"],
-s_imp:["Importer le texte collé","Import pasted text","Importar texto pegado","Импорт текста","貼り付けを読み込む"],
-s_clearex:["Vider les exemples","Clear examples","Borrar ejemplos","Удалить примеры","例を削除"],
-s_clearhist:["Effacer l’historique","Clear history","Borrar historial","Очистить историю","履歴を削除"],
-s_reset:["Tout réinitialiser","Reset everything","Restablecer todo","Сбросить всё","全てリセット"],
-s_reset_s:["Sûr ? Tout effacer","Sure? Erase all","¿Seguro? Borrar todo","Точно? Стереть всё","本当に全消去？"],
-t_copied:["Sauvegarde copiée","Backup copied","Copia copiada","Копия скопирована","コピーしました"],
-t_copyfail:["Copie bloquée : sélectionne le texte","Copy blocked: select the text","Copia bloqueada: selecciona el texto","Копирование заблокировано","コピー不可：テキストを選択して"],
-t_paste:["Colle une sauvegarde d’abord","Paste a backup first","Pega una copia primero","Сначала вставь копию","先に貼り付けて"],
-t_imported:["Sauvegarde importée","Backup imported","Copia importada","Копия импортирована","読み込みました"],
-t_invalid:["Sauvegarde invalide","Invalid backup","Copia no válida","Неверная копия","無効なデータ"],
-t_exrem:["Exemples supprimés","Examples cleared","Ejemplos borrados","Примеры удалены","例を削除しました"],
-t_histcl:["Historique effacé","History cleared","Historial borrado","История очищена","履歴を削除しました"],
-t_reset:["Tout est remis à zéro","Everything reset","Todo restablecido","Всё сброшено","リセットしました"],
-t_storage:["Stockage plein : retire quelques images","Storage full: remove some images","Almacenamiento lleno: quita imágenes","Память заполнена: убери картинки","容量不足：画像を減らして"],
-t_file:["Impossible de lire ce fichier","Can’t read this file","No se puede leer el archivo","Не удалось прочитать файл","ファイルを読めません"],
-t_dl:["Sauvegarde téléchargée","Backup downloaded","Copia descargada","Копия скачана","ダウンロードしました"],
-t_dlfail:["Téléchargement impossible ici","Download not possible here","Descarga no posible aquí","Скачивание недоступно","ここではダウンロード不可"],
-r_title:["Taux · {mode}","Rates · {mode}","Tasas · {mode}","Шансы · {mode}","確率 · {mode}"],
-r_card:["Rang de chaque carte","Rank of each card","Rango de cada carta","Ранг каждой карты","各カードのランク"],
-r_none:["Aucun lieu pour ce moment.","No place for this meal.","Ningún lugar para este momento.","Нет мест.","お店なし。"],
-r_pity:["Rang A garanti au {a}e booster sans A (lieu mieux qu’Intermarché + carte principale A). Rang S garanti au {s}e sans S. Compteurs : A {ca}/{a}, S {cs}/{s}. Les aliments tirés aux 2 derniers repas ont moins de chances de retomber.","A guaranteed on booster #{a} without A (better place + A main card). S guaranteed on #{s} without S. Counters: A {ca}/{a}, S {cs}/{s}. Items from your last 2 meals are less likely.","A garantizado en el sobre n.º {a} sin A. S garantizado en el n.º {s} sin S. Contadores: A {ca}/{a}, S {cs}/{s}. Lo de tus 2 últimas comidas sale menos.","A гарантирован на {a}-м бустере без A. S — на {s}-м без S. Счётчики: A {ca}/{a}, S {cs}/{s}. Блюда двух последних раз выпадают реже.","Aなし{a}回目でA確定、Sなし{s}回目でS確定。カウント：A {ca}/{a}、S {cs}/{s}。直近2回のメニューは出にくい。"],
-edit:["Modifier","Edit","Editar","Изменить","編集"],
-got_it:["Compris","Got it","Entendido","Понятно","OK"],
-sh_title:["Partager ton repas","Share your meal","Comparte tu comida","Поделись едой","食事をシェア"],
-sh_hint:["Dans l’app Claude, « Enregistrer » ouvre le menu de partage. Sinon, appui long sur l’image.","In the Claude app, “Save” opens the share menu. Otherwise, long-press the image.","En la app de Claude, «Guardar» abre el menú. Si no, mantén pulsada la imagen.","В приложении Claude «Сохранить» открывает меню. Иначе — долгое нажатие.","Claudeアプリでは保存で共有メニュー。それ以外は画像を長押し。"],
-sh_save:["Enregistrer le JPG","Save JPG","Guardar JPG","Сохранить JPG","JPGを保存"],
-close:["Fermer","Close","Cerrar","Закрыть","閉じる"],
-t_making:["Création de l’image…","Creating image…","Creando imagen…","Создаю картинку…","画像を作成中…"],
-t_imgfail:["Impossible de créer l’image","Couldn’t create the image","No se pudo crear la imagen","Не удалось создать","画像を作れません"],
-t_imgsaved:["Image enregistrée","Image saved","Imagen guardada","Картинка сохранена","保存しました"],
-t_imgdl:["Image téléchargée","Image downloaded","Imagen descargada","Картинка скачана","ダウンロードしました"],
-t_savecancel:["Enregistrement annulé","Save cancelled","Guardado cancelado","Отменено","キャンセルしました"],
-t_busy:["Une demande est déjà ouverte","A request is already open","Ya hay una solicitud abierta","Запрос уже открыт","処理中です"],
-t_long:["Appuie longuement sur l’image pour l’enregistrer","Long-press the image to save it","Mantén pulsada la imagen para guardarla","Нажми и удерживай картинку","画像を長押しで保存"],
-img_budget:["sur un budget de {b}","on a {b} budget","con un presupuesto de {b}","при бюджете {b}","予算{b}"],
-img_foot:["Tiré au sort sur Tarpaing Faim · zéro choix, zéro regret","Drawn on Tarpaing Faim · no choices, no regrets","Sorteado en Tarpaing Faim · cero dudas","Выбрано в Tarpaing Faim · без сомнений","Tarpaing Faimで抽選 ・ 迷いゼロ"],
-ex_ai:["🤖 Cet onglet utilise l’IA (Claude). Elle propose des lieux à partir de ses connaissances, sans GPS ni internet en direct : adresses, horaires et prix peuvent être faux. Vérifie sur Maps avant d’ajouter. Chaque analyse consomme un peu de ton quota Claude. Rien n’entre dans ton catalogue sans ton clic.","🤖 This tab uses AI (Claude). It suggests places from what it knows, without GPS or live internet: addresses, hours and prices may be wrong. Check on Maps before adding. Each scan uses a bit of your Claude quota. Nothing enters your catalogue without your tap.","🤖 Esta pestaña usa IA (Claude). Propone lugares según lo que sabe, sin GPS ni internet en directo: direcciones, horarios y precios pueden fallar. Verifica en Maps. Cada análisis usa un poco de tu cuota de Claude. Nada entra en tu catálogo sin tu toque.","🤖 Здесь работает ИИ (Claude). Он предлагает места по своим знаниям, без GPS и интернета: адреса, часы и цены могут быть неточны. Проверяй в Картах. Каждый анализ тратит немного лимита Claude. Ничего не добавится без твоего нажатия.","🤖 このタブはAI（Claude）を使います。GPSやリアルタイムのネットなしで知識から提案するため、住所・営業時間・価格が違う場合があります。追加前にMapsで確認を。分析ごとにClaudeの利用枠を少し使います。タップしない限りカタログには入りません。"],
-ex_noai:["🗺️ Version installée : l’analyse IA ne marche que dans Claude. Utilise la recherche Maps ci-dessous (gratuite, à jour).","🗺️ Installed version: AI scan only works inside Claude. Use the Maps search below (free, up to date).","🗺️ Versión instalada: el análisis IA solo funciona en Claude. Usa la búsqueda de Maps (gratis, actual).","🗺️ Установленная версия: ИИ работает только в Claude. Используй поиск в Картах ниже.","🗺️ インストール版：AI分析はClaude内のみ。下のMaps検索を使ってね（無料・最新）。"],
-ex_origin:["Point de départ","Starting point","Punto de partida","Точка отсчёта","出発地点"],
-ex_origin_ph:["Adresse de ton école, rue, quartier…","Your school address, street, area…","Dirección de tu escuela, calle, barrio…","Адрес школы, улица, район…","学校の住所、通り、エリア…"],
-ex_gps:["📍 Utiliser ma position","📍 Use my location","📍 Usar mi ubicación","📍 Моё местоположение","📍 現在地を使う"],
-ex_radius:["Rayon","Radius","Radio","Радиус","範囲"],
-ex_moment:["Pour quel moment ?","For which meal?","¿Para qué momento?","Для какого времени?","どの時間帯？"],
-ex_wish:["Envies (optionnel)","Cravings (optional)","Antojos (opcional)","Пожелания (необязательно)","気分（任意）"],
-ex_wish_ph:["Ex. tacos, healthy, pas cher…","e.g. tacos, healthy, cheap…","p. ej. tacos, sano, barato…","Напр. тако, полезно, дёшево…","例：タコス、ヘルシー、安い…"],
-ex_maps:["Recherche rapide sur Maps (sans IA)","Quick Maps search (no AI)","Búsqueda rápida en Maps (sin IA)","Быстрый поиск в Картах (без ИИ)","Mapsでクイック検索（AIなし）"],
-ex_budget:["Budget pris en compte : {b}","Budget used: {b}","Presupuesto usado: {b}","Учтённый бюджет: {b}","使用する予算：{b}"],
-ex_scan:["✨ Analyser avec l’IA","✨ Scan with AI","✨ Analizar con IA","✨ Анализ с ИИ","✨ AIで分析"],
-ex_rescan:["Relancer","Rescan","Repetir","Повторить","再分析"],
-ex_busy:["L’IA analyse le quartier…","AI is scanning the area…","La IA analiza la zona…","ИИ изучает район…","AIがエリアを分析中…"],
-stop:["Stop","Stop","Parar","Стоп","停止"],
-ex_found:["{n} lieu(x) proposé(s)","{n} place(s) suggested","{n} lugar(es) sugerido(s)","Предложено мест: {n}","{n}件の提案"],
-ex_around:["{r} autour de {o}","{r} around {o}","{r} alrededor de {o}","{r} вокруг: {o}","{o}から{r}"],
-ex_conf:["Fiabilité IA : {c}","AI confidence: {c}","Fiabilidad IA: {c}","Надёжность ИИ: {c}","AI信頼度：{c}"],
-conf_haute:["haute","high","alta","высокая","高"],
-conf_moyenne:["moyenne","medium","media","средняя","中"],
-conf_faible:["faible","low","baja","низкая","低"],
-ex_verify:["Vérifier sur Maps","Check on Maps","Ver en Maps","Проверить в Картах","Mapsで確認"],
-ex_already:["Déjà dans ton catalogue","Already in your catalogue","Ya en tu catálogo","Уже в каталоге","カタログに登録済み"],
-ex_foot:["Un lieu ajouté arrive avec le badge « IA · à vérifier », pour le moment choisi uniquement.","Added places get the “AI · double-check” badge, for the chosen meal only.","Los lugares añadidos llevan la etiqueta «IA · por verificar», solo para ese momento.","Добавленные места получают метку «ИИ · проверь» только для выбранного времени.","追加したお店には「AI・要確認」が付き、選んだ時間帯のみ有効です。"],
-e_noai:["L’IA n’est pas disponible ici : ouvre l’app depuis Claude.","AI isn’t available here: open the app from Claude.","La IA no está disponible aquí: abre la app desde Claude.","ИИ недоступен: открой приложение в Claude.","ここではAIを使えません：Claudeから開いて。"],
-e_denied:["Accès à l’IA refusé ou indisponible pour ce compte.","AI access refused or unavailable for this account.","Acceso a la IA denegado o no disponible.","Доступ к ИИ запрещён или недоступен.","AIの利用が拒否されたか利用できません。"],
-e_rate:["Trop de demandes ou quota atteint : réessaie plus tard.","Too many requests or quota reached: try later.","Demasiadas solicitudes: inténtalo más tarde.","Слишком много запросов: попробуй позже.","リクエスト過多：後で再試行して。"],
-e_json:["Réponse illisible : relance l’analyse.","Unreadable answer: run the scan again.","Respuesta ilegible: vuelve a analizar.","Неразборчивый ответ: повтори.","読み取れない回答：再分析して。"],
-e_session:["Session expirée : reconnecte-toi à Claude.","Session expired: sign in to Claude again.","Sesión caducada: vuelve a entrar en Claude.","Сессия истекла: войди в Claude снова.","セッション切れ：Claudeに再ログイン。"],
-e_fail:["L’analyse a échoué, réessaie.","The scan failed, try again.","El análisis falló, inténtalo de nuevo.","Анализ не удался, повтори.","分析に失敗しました。再試行して。"],
-e_empty:["Rien de fiable trouvé. Élargis le rayon ou précise l’adresse.","Nothing reliable found. Widen the radius or refine the address.","Nada fiable. Amplía el radio o precisa la dirección.","Ничего надёжного. Увеличь радиус или уточни адрес.","信頼できる結果なし。範囲を広げるか住所を詳しく。"],
-t_origin:["Indique un point de départ","Enter a starting point","Indica un punto de partida","Укажи точку отсчёта","出発地点を入力して"],
-t_found:["{n} lieu(x) trouvé(s)","{n} place(s) found","{n} lugar(es) encontrado(s)","Найдено мест: {n}","{n}件見つかりました"],
-t_xadded:["{p} ajouté · {n} aliment(s)","{p} added · {n} item(s)","{p} añadido · {n} artículo(s)","{p} добавлено · позиций: {n}","{p}を追加・{n}件"],
-t_gpsno:["GPS indisponible sur cet appareil","GPS unavailable on this device","GPS no disponible","GPS недоступен","GPSが使えません"],
-t_gpsgo:["Recherche de ta position…","Finding your location…","Buscando tu ubicación…","Определяю местоположение…","現在地を検索中…"],
-t_gpsok:["Position trouvée","Location found","Ubicación encontrada","Местоположение найдено","現在地を取得しました"],
-t_gpserr:["Position refusée ou bloquée (dans Claude, le GPS est bloqué : tape ton adresse)","Location refused or blocked (GPS is blocked inside Claude: type your address)","Ubicación bloqueada (en Claude el GPS está bloqueado: escribe tu dirección)","Доступ к GPS запрещён (в Claude он заблокирован: введи адрес)","位置情報がブロックされました（Claude内では不可：住所を入力）"],
-my_pos:["Ma position","My location","Mi ubicación","Моё местоположение","現在地"],
-kw_matin:["boulangerie|café","bakery|café","panadería|cafetería","пекарня|кофейня","パン屋|カフェ"],
-kw_midi:["snack|boulangerie|fast food","snack bar|bakery|fast food","bar|panadería|comida rápida","закусочная|пекарня|фастфуд","軽食|パン屋|ファストフード"],
-kw_gouter:["boulangerie|pâtisserie|glacier","bakery|pastry shop|ice cream","panadería|pastelería|heladería","пекарня|кондитерская|мороженое","パン屋|ケーキ屋|アイス"],
-kw_soir:["restaurant|tacos|pizza|sushi","restaurant|tacos|pizza|sushi","restaurante|tacos|pizza|sushi","ресторан|тако|пицца|суши","レストラン|タコス|ピザ|寿司"],
-near:["près de","near","cerca de","рядом с","付近"],
-pack_day:["Pack journée","Day pack","Pack del día","Пак на день","1日パック"],
-open4_aria:["Ouvrir les 4 boosters de la journée","Open all 4 boosters of the day","Abrir los 4 sobres del día","Открыть 4 бустера дня","1日分の4ブースターを開封"],
-flip_all:["Tout retourner","Flip all","Girar todas","Открыть все","全部めくる"],
-see_recap:["Voir le récap","See recap","Ver resumen","К итогам","結果を見る"],
-tap_cards:["Touche chaque carte pour la retourner","Tap each card to flip it","Toca cada carta para girarla","Нажимай на карты, чтобы открыть","カードをタップしてめくろう"],
-day_recap:["Ta journée","Your day","Tu día","Твой день","今日の食事"],
-day_total:["Total de la journée","Day total","Total del día","Итого за день","1日の合計"],
-t_skipped:["Pas de booster possible pour : {m}","No booster possible for: {m}","Sin sobre posible para: {m}","Нет бустера для: {m}","開封できない時間帯：{m}"],
-intro_tag:["Tire au sort ton repas","Let fate pick your meal","Sortea tu comida","Пусть судьба выберет еду","ごはんをガチャで決めよう"],
-tap_skip:["Touche pour passer","Tap to skip","Toca para saltar","Нажми, чтобы пропустить","タップでスキップ"],
-ai_lang:["français","English","español","русский","日本語"]
+tab_cat:["Catalogue", "Catalogue", "Catálogo", "Katalog", "Catalogo", "Catálogo", "Каталог", "القائمة", "菜单库", "カタログ"],
+tab_explore:["Explorer", "Explore", "Explorar", "Entdecken", "Esplora", "Explorar", "Обзор", "استكشاف", "探索", "探す"],
+tab_hist:["Historique", "History", "Historial", "Verlauf", "Cronologia", "Histórico", "История", "السجل", "记录", "履歴"],
+tab_set:["Réglages", "Settings", "Ajustes", "Einstellungen", "Impostazioni", "Definições", "Настройки", "الإعدادات", "设置", "設定"],
+lvl:["Niv. {n}", "Lv. {n}", "Niv. {n}", "Lv. {n}", "Liv. {n}", "Nív. {n}", "Ур. {n}", "المستوى {n}", "Lv.{n}", "Lv.{n}"],
+m_matin:["Petit-déj", "Breakfast", "Desayuno", "Frühstück", "Colazione", "Pequeno-almoço", "Завтрак", "الفطور", "早餐", "朝ごはん"],
+m_midi:["Midi", "Lunch", "Almuerzo", "Mittag", "Pranzo", "Almoço", "Обед", "الغداء", "午餐", "ランチ"],
+m_gouter:["Goûter", "Snack", "Merienda", "Snack", "Merenda", "Lanche", "Полдник", "وجبة خفيفة", "下午茶", "おやつ"],
+m_soir:["Soir", "Dinner", "Cena", "Abend", "Cena", "Jantar", "Ужин", "العشاء", "晚餐", "夕ごはん"],
+mt_matin:["Booster<br>du matin", "Breakfast<br>booster", "Sobre del<br>desayuno", "Frühstücks-<br>Booster", "Booster<br>colazione", "Booster do<br>pequeno-almoço", "Бустер<br>завтрака", "بوستر<br>الفطور", "早餐<br>卡包", "朝ごはん<br>ブースター"],
+mt_midi:["Booster<br>du midi", "Lunch<br>booster", "Sobre del<br>almuerzo", "Mittags-<br>Booster", "Booster<br>pranzo", "Booster<br>do almoço", "Бустер<br>обеда", "بوستر<br>الغداء", "午餐<br>卡包", "ランチ<br>ブースター"],
+mt_gouter:["Booster<br>du goûter", "Snack<br>booster", "Sobre de la<br>merienda", "Snack-<br>Booster", "Booster<br>merenda", "Booster<br>do lanche", "Бустер<br>полдника", "بوستر<br>الوجبة الخفيفة", "下午茶<br>卡包", "おやつ<br>ブースター"],
+mt_soir:["Booster<br>du soir", "Dinner<br>booster", "Sobre de<br>la cena", "Abend-<br>Booster", "Booster<br>cena", "Booster<br>do jantar", "Бустер<br>ужина", "بوستر<br>العشاء", "晚餐<br>卡包", "夕ごはん<br>ブースター"],
+mr_matin:["Ton p’tit-déj", "Your breakfast", "Tu desayuno", "Dein Frühstück", "La tua colazione", "O teu pequeno-almoço", "Твой завтрак", "فطورك", "你的早餐", "今日の朝ごはん"],
+mr_midi:["Ton midi", "Your lunch", "Tu almuerzo", "Dein Mittagessen", "Il tuo pranzo", "O teu almoço", "Твой обед", "غداؤك", "你的午餐", "今日のランチ"],
+mr_gouter:["Ton goûter", "Your snack", "Tu merienda", "Dein Snack", "La tua merenda", "O teu lanche", "Твой полдник", "وجبتك الخفيفة", "你的下午茶", "今日のおやつ"],
+mr_soir:["Ton dîner", "Your dinner", "Tu cena", "Dein Abendessen", "La tua cena", "O teu jantar", "Твой ужин", "عشاؤك", "你的晚餐", "今日の夕ごはん"],
+md_matin:["CE MATIN, DIRECTION", "THIS MORNING, HEADING TO", "ESTA MAÑANA, RUMBO A", "HEUTE MORGEN GEHT’S ZU", "STAMATTINA SI VA DA", "ESTA MANHÃ, VAMOS A", "СЕГОДНЯ УТРОМ ИДУ В", "هذا الصباح، الوجهة", "今天早上去", "今朝の行き先"],
+md_midi:["CE MIDI, DIRECTION", "LUNCH TODAY AT", "HOY ALMUERZO EN", "HEUTE MITTAG GEHT’S ZU", "OGGI A PRANZO DA", "HOJE ALMOÇO EM", "СЕГОДНЯ ОБЕДАЮ В", "غداء اليوم في", "今天午餐去", "今日のランチは"],
+md_gouter:["POUR LE GOÛTER, DIRECTION", "SNACK TIME AT", "MERIENDA EN", "SNACKPAUSE BEI", "MERENDA DA", "LANCHE EM", "ПОЛДНИК В", "الوجبة الخفيفة في", "下午茶去", "おやつはここ"],
+md_soir:["CE SOIR, DIRECTION", "TONIGHT, DINNER AT", "ESTA NOCHE, CENA EN", "HEUTE ABEND GEHT’S ZU", "STASERA A CENA DA", "HOJE À NOITE, JANTAR EM", "СЕГОДНЯ УЖИНАЮ В", "هذا المساء، العشاء في", "今晚晚餐去", "今夜の夕ごはんは"],
+cat_boisson:["Boisson", "Drink", "Bebida", "Getränk", "Bevanda", "Bebida", "Напиток", "مشروب", "饮品", "ドリンク"],
+cat_entree:["Entrée", "Starter", "Entrante", "Vorspeise", "Antipasto", "Entrada", "Закуска", "مقبلات", "前菜", "前菜"],
+cat_plat:["Plat", "Main", "Plato", "Hauptgericht", "Piatto", "Prato", "Основное", "طبق رئيسي", "主食", "メイン"],
+cat_dessert:["Dessert", "Dessert", "Postre", "Dessert", "Dolce", "Sobremesa", "Десерт", "حلوى", "甜点", "デザート"],
+lab_pastry:["Viennoiserie", "Pastry", "Bollería", "Gebäck", "Brioche", "Pastelaria", "Выпечка", "معجنات", "面包", "パン"],
+lab_snack:["Goûter", "Snack", "Merienda", "Snack", "Merenda", "Lanche", "Перекус", "وجبة خفيفة", "点心", "おやつ"],
+rank:["Rang {r}", "Rank {r}", "Rango {r}", "Rang {r}", "Rango {r}", "Nível {r}", "Ранг {r}", "الرتبة {r}", "{r}级", "ランク{r}"],
+empty_rank:["Vide", "Empty", "Vacío", "Leer", "Vuoto", "Vazio", "Пусто", "فارغ", "空", "なし"],
+auto_hint:["Auto · il est {time}, c’est l’heure du {mode}", "Auto · it’s {time}, {mode} time", "Auto · son las {time}, hora de {mode}", "Auto · es ist {time}, Zeit für: {mode}", "Auto · sono le {time}, ora di: {mode}", "Auto · são {time}, hora de: {mode}", "Авто · {time}, время: {mode}", "تلقائي · الساعة {time}، وقت {mode}", "自动 · 现在{time}，{mode}时间", "自動 · {time}、{mode}の時間"],
+manual:["Choix manuel ·", "Manual pick ·", "Elección manual ·", "Manuell gewählt ·", "Scelta manuale ·", "Escolha manual ·", "Выбрано вручную ·", "اختيار يدوي ·", "手动选择 ·", "手動選択 ·"],
+back_auto:["revenir à l’auto ({mode})", "back to auto ({mode})", "volver al auto ({mode})", "zurück zu Auto ({mode})", "torna all’auto ({mode})", "voltar ao auto ({mode})", "вернуть авто ({mode})", "العودة إلى التلقائي ({mode})", "恢复自动（{mode}）", "自動に戻す（{mode}）"],
+sw_up:["Glisse vers le haut pour ouvrir", "Swipe up to open", "Desliza hacia arriba para abrir", "Nach oben wischen zum Öffnen", "Scorri in alto per aprire", "Desliza para cima para abrir", "Смахни вверх, чтобы открыть", "اسحب للأعلى للفتح", "向上滑动打开", "上にスワイプで開封"],
+sw_lr:["Sur le côté pour changer de moment", "Sideways to change meal", "De lado para cambiar de momento", "Seitlich wischen für andere Mahlzeit", "Di lato per cambiare pasto", "Para o lado para mudar de refeição", "В сторону — смена времени", "اسحب جانبيًا لتغيير الوجبة", "左右滑动切换餐次", "横スワイプで時間帯を変更"],
+open:["Ouvrir", "Open", "Abrir", "Öffnen", "Apri", "Abrir", "Открыть", "افتح", "打开", "開封"],
+open_aria:["Ouvrir le booster", "Open the booster", "Abrir el sobre", "Booster öffnen", "Apri il booster", "Abrir o booster", "Открыть бустер", "افتح البوستر", "打开卡包", "ブースターを開封"],
+rates:["Infos", "Info", "Info", "Infos", "Info", "Info", "Инфо", "معلومات", "说明", "情報"],
+place_w:["Lieu", "Place", "Lugar", "Ort", "Locale", "Local", "Место", "المكان", "店铺", "お店"],
+budget_of:["Budget {mode}", "{mode} budget", "Presupuesto {mode}", "Budget: {mode}", "Budget {mode}", "Orçamento {mode}", "Бюджет: {mode}", "ميزانية {mode}", "{mode}预算", "{mode}の予算"],
+unlimited:["Illimité", "Unlimited", "Ilimitado", "Unbegrenzt", "Illimitato", "Ilimitado", "Без лимита", "غير محدودة", "不限", "無制限"],
+b_less:["Baisser le budget", "Lower budget", "Bajar presupuesto", "Budget senken", "Riduci budget", "Baixar orçamento", "Уменьшить бюджет", "خفّض الميزانية", "降低预算", "予算を下げる"],
+b_more:["Augmenter le budget", "Raise budget", "Subir presupuesto", "Budget erhöhen", "Aumenta budget", "Subir orçamento", "Увеличить бюджет", "زِد الميزانية", "提高预算", "予算を上げる"],
+b_none:["Aucun lieu avec des aliments pour ce moment.", "No place with food for this meal yet.", "Ningún lugar con comida para este momento.", "Noch kein Ort mit Essen für diese Mahlzeit.", "Nessun locale con cibo per questo pasto.", "Nenhum local com comida para esta refeição.", "Нет мест с едой для этого времени.", "لا يوجد مكان بطعام لهذه الوجبة بعد.", "这一餐还没有可选店铺。", "この時間帯のお店がまだありません。"],
+b_unl:["Pas de limite : tous les lieux sont possibles.", "No limit: every place can drop.", "Sin límite: todos los lugares pueden salir.", "Kein Limit: alle Orte möglich.", "Nessun limite: tutti i locali possibili.", "Sem limite: todos os locais possíveis.", "Без лимита: возможны все места.", "بلا حد: كل الأماكن ممكنة.", "不限：所有店铺都可能出现。", "上限なし：全てのお店が出ます。"],
+b_tight:["Trop serré : il faut au moins {p}.", "Too tight: you need at least {p}.", "Muy justo: necesitas al menos {p}.", "Zu knapp: mindestens {p} nötig.", "Troppo poco: servono almeno {p}.", "Muito apertado: precisas de pelo menos {p}.", "Слишком мало: нужно минимум {p}.", "الميزانية قليلة: تحتاج {p} على الأقل.", "预算不足：至少需要{p}。", "足りません：最低{p}必要です。"],
+b_out:["Hors budget : {l}", "Over budget: {l}", "Fuera de presupuesto: {l}", "Über Budget: {l}", "Fuori budget: {l}", "Fora do orçamento: {l}", "Вне бюджета: {l}", "خارج الميزانية: {l}", "超出预算：{l}", "予算オーバー：{l}"],
+b_all:["Tous les lieux rentrent dans ton budget.", "Every place fits your budget.", "Todos los lugares caben en tu presupuesto.", "Alle Orte passen ins Budget.", "Tutti i locali rientrano nel budget.", "Todos os locais cabem no orçamento.", "Все места в рамках бюджета.", "كل الأماكن ضمن ميزانيتك.", "所有店铺都在预算内。", "全てのお店が予算内です。"],
+budget_sheet:["Budget · {mode}", "Budget · {mode}", "Presupuesto · {mode}", "Budget · {mode}", "Budget · {mode}", "Orçamento · {mode}", "Бюджет · {mode}", "الميزانية · {mode}", "预算 · {mode}", "予算 · {mode}"],
+custom:["Montant perso (€)", "Custom amount (€)", "Importe personalizado (€)", "Eigener Betrag (€)", "Importo personalizzato (€)", "Valor personalizado (€)", "Своя сумма (€)", "مبلغ مخصص (€)", "自定义金额（€）", "金額を指定（€）"],
+apply:["Valider", "Apply", "Aplicar", "Übernehmen", "Applica", "Aplicar", "Применить", "تطبيق", "确定", "決定"],
+quests:["Défis du jour", "Daily quests", "Retos del día", "Tagesaufgaben", "Sfide del giorno", "Desafios do dia", "Задания дня", "تحديات اليوم", "每日任务", "今日のクエスト"],
+q_open2:["Ouvre 2 boosters", "Open 2 boosters", "Abre 2 sobres", "Öffne 2 Booster", "Apri 2 booster", "Abre 2 boosters", "Открой 2 бустера", "افتح بوسترين", "打开2个卡包", "ブースターを2回開封"],
+q_rankA:["Obtiens une carte A ou mieux", "Pull an A card or better", "Consigue una carta A o mejor", "Ziehe eine A-Karte oder besser", "Trova una carta A o superiore", "Tira uma carta A ou melhor", "Получи карту A или выше", "احصل على بطاقة A أو أفضل", "抽到A级或以上", "A以上のカードを引く"],
+q_rankS:["Obtiens une carte S", "Pull an S card", "Consigue una carta S", "Ziehe eine S-Karte", "Trova una carta S", "Tira uma carta S", "Получи карту S", "احصل على بطاقة S", "抽到S级", "Sカードを引く"],
+q_budget:["Reste sous ton budget", "Stay under budget", "No pases tu presupuesto", "Bleib im Budget", "Resta nel budget", "Fica dentro do orçamento", "Уложись в бюджет", "ابقَ ضمن الميزانية", "不超预算", "予算内に収める"],
+q_opt:["Ajoute une entrée ou un dessert", "Add a starter or a dessert", "Añade un entrante o un postre", "Nimm Vorspeise oder Dessert dazu", "Aggiungi antipasto o dolce", "Junta uma entrada ou sobremesa", "Добавь закуску или десерт", "أضف مقبلات أو حلوى", "加一份前菜或甜点", "前菜かデザートを追加"],
+q_share:["Partage un résultat", "Share a result", "Comparte un resultado", "Teile ein Ergebnis", "Condividi un risultato", "Partilha um resultado", "Поделись результатом", "شارك نتيجة", "分享一次结果", "結果をシェア"],
+q_modes:["Ouvre des boosters à 2 moments", "Open boosters at 2 meals", "Abre sobres en 2 momentos", "Öffne Booster zu 2 Mahlzeiten", "Apri booster in 2 pasti", "Abre boosters em 2 refeições", "Открой бустеры в 2 приёма пищи", "افتح بوسترات في وجبتين", "在2个餐次打开卡包", "2つの時間帯で開封"],
+q_done:["Défi réussi !", "Quest complete!", "¡Reto superado!", "Aufgabe geschafft!", "Sfida completata!", "Desafio concluído!", "Задание выполнено!", "تم التحدي!", "任务完成！", "クエスト達成！"],
+pity_t:["Garanties · {mode}", "Guarantees · {mode}", "Garantías · {mode}", "Garantien · {mode}", "Garanzie · {mode}", "Garantias · {mode}", "Гарантии · {mode}", "الضمانات · {mode}", "保底 · {mode}", "天井 · {mode}"],
+pity_next:["Au prochain booster !", "Next booster!", "¡En el próximo sobre!", "Beim nächsten Booster!", "Al prossimo booster!", "No próximo booster!", "В следующем бустере!", "في البوستر القادم!", "下一包必出！", "次で確定！"],
+pity_in:["Dans {n} boosters", "In {n} boosters", "En {n} sobres", "In {n} Boostern", "Tra {n} booster", "Daqui a {n} boosters", "Через {n}", "بعد {n} بوسترات", "还差{n}包", "あと{n}回"],
+pity_sub:["{n}/{m} sans {r}", "{n}/{m} without {r}", "{n}/{m} sin {r}", "{n}/{m} ohne {r}", "{n}/{m} senza {r}", "{n}/{m} sem {r}", "{n}/{m} без {r}", "{n}/{m} بدون {r}", "{n}/{m} 未出{r}", "{r}なし {n}/{m}"],
+last_meal:["Dernier repas · {d}", "Last meal · {d}", "Última comida · {d}", "Letzte Mahlzeit · {d}", "Ultimo pasto · {d}", "Última refeição · {d}", "Последний приём пищи · {d}", "آخر وجبة · {d}", "上一餐 · {d}", "前回の食事 · {d}"],
+t_noplace:["Aucun lieu pour ce moment : coche-le sur un établissement dans Réglages", "No place for this meal: tick it on a place in Settings", "Ningún lugar para este momento: márcalo en Ajustes", "Kein Ort für diese Mahlzeit: in den Einstellungen anhaken", "Nessun locale per questo pasto: spuntalo nelle Impostazioni", "Nenhum local para esta refeição: marca-o nas Definições", "Нет мест для этого времени: отметь его в Настройках", "لا يوجد مكان لهذه الوجبة: فعّله في الإعدادات", "这一餐没有店铺：请在设置中勾选", "この時間帯のお店がありません：設定でチェックしてください"],
+t_nomain:["Rien au catalogue pour ce moment : ajoutes-en dans Catalogue", "Nothing in your catalogue for this meal: add some", "Nada en tu catálogo para este momento: añade algo", "Nichts im Katalog für diese Mahlzeit: füge etwas hinzu", "Niente in catalogo per questo pasto: aggiungi qualcosa", "Nada no catálogo para esta refeição: adiciona algo", "В каталоге ничего нет для этого времени", "لا شيء في القائمة لهذه الوجبة: أضف شيئًا", "菜单库里没有这一餐的东西：去添加吧", "この時間帯のメニューがありません：カタログに追加して"],
+t_tight:["Budget trop serré : il faut au moins {p}", "Budget too tight: you need at least {p}", "Presupuesto muy justo: mínimo {p}", "Budget zu knapp: mindestens {p}", "Budget troppo basso: servono almeno {p}", "Orçamento curto: precisas de pelo menos {p}", "Мало бюджета: нужно минимум {p}", "الميزانية قليلة: تحتاج {p} على الأقل", "预算不足：至少需要{p}", "予算不足：最低{p}"],
+tear_here:["DÉCHIRER ICI", "TEAR HERE", "RASGAR AQUÍ", "HIER AUFREISSEN", "STRAPPA QUI", "RASGAR AQUI", "РВАТЬ ЗДЕСЬ", "مزّق هنا", "从这里撕开", "ここを切る"],
+tear_hint:["Glisse le doigt sur la bande pour déchirer", "Swipe across the strip to tear it", "Desliza el dedo por la tira para rasgarla", "Wische über den Streifen zum Aufreißen", "Scorri sulla striscia per strapparla", "Desliza o dedo na tira para rasgar", "Проведи по полоске, чтобы разорвать", "اسحب إصبعك على الشريط لتمزيقه", "手指划过封条撕开卡包", "帯をスワイプして開けよう"],
+where:["Où tu manges", "Where you eat", "Dónde comes", "Wo du isst", "Dove mangi", "Onde comes", "Где ты ешь", "أين ستأكل", "去哪吃", "どこで食べる？"],
+est:["Établissement", "Place", "Lugar", "Ort", "Locale", "Local", "Заведение", "المكان", "店铺", "お店"],
+tap_card:["Touche la carte, puis glisse vers la gauche pour continuer", "Tap the card, then swipe left to continue", "Toca la carta y desliza a la izquierda para seguir", "Tippe auf die Karte, dann nach links wischen", "Tocca la carta, poi scorri a sinistra", "Toca na carta e desliza para a esquerda", "Нажми на карту, затем смахни влево", "المس البطاقة ثم اسحب لليسار", "点击卡片，再向左滑继续", "カードをタップして左にスワイプ"],
+next:["Suivant", "Next", "Siguiente", "Weiter", "Avanti", "Seguinte", "Далее", "التالي", "下一步", "次へ"],
+skip:["Passer au récap", "Skip to recap", "Ir al resumen", "Zur Übersicht", "Vai al riepilogo", "Ir ao resumo", "К итогам", "إلى الملخص", "跳到总结", "結果へスキップ"],
+empty_t:["Rien ici", "Nothing here", "Nada aquí", "Nichts hier", "Niente qui", "Nada aqui", "Здесь пусто", "لا شيء هنا", "这里没有", "なし"],
+empty_s:["Pas de {c} à {p} (catalogue ou budget)", "No {c} at {p} (catalogue or budget)", "Sin {c} en {p} (catálogo o presupuesto)", "Kein(e) {c} bei {p} (Katalog oder Budget)", "Nessun(a) {c} da {p} (catalogo o budget)", "Sem {c} em {p} (catálogo ou orçamento)", "Нет: {c} в «{p}» (каталог или бюджет)", "لا {c} في {p} (القائمة أو الميزانية)", "{p}没有{c}（菜单库或预算）", "{p}に{c}なし（カタログか予算）"],
+ask_entree:["Une entrée ?", "A starter?", "¿Un entrante?", "Eine Vorspeise?", "Un antipasto?", "Uma entrada?", "Закуску?", "مقبلات؟", "来份前菜？", "前菜は？"],
+ask_entree_s:["Petite faim ou grosse dalle ?", "Peckish or starving?", "¿Hambre ligera o tremenda?", "Kleiner oder großer Hunger?", "Fame piccola o grande?", "Fome pequena ou grande?", "Чуть-чуть или сильно голоден?", "جوع خفيف أم شديد؟", "小饿还是很饿？", "ちょっと空腹？それともペコペコ？"],
+ask_dessert:["Un dessert ?", "A dessert?", "¿Un postre?", "Ein Dessert?", "Un dolce?", "Uma sobremesa?", "Десерт?", "حلوى؟", "来份甜点？", "デザートは？"],
+ask_dessert_s:["On finit en douceur ?", "End on a sweet note?", "¿Terminamos con algo dulce?", "Süß zum Abschluss?", "Chiudiamo in dolcezza?", "Acabamos com um doce?", "Закончим сладким?", "نختم بشيء حلو؟", "用甜点收尾？", "甘いもので締める？"],
+ask_boisson:["Une boisson ?", "A drink?", "¿Una bebida?", "Ein Getränk?", "Una bevanda?", "Uma bebida?", "Напиток?", "مشروب؟", "来杯饮品？", "ドリンクは？"],
+ask_boisson_s:["Un petit verre avec ça ?", "Something to drink with it?", "¿Algo de beber?", "Etwas zu trinken dazu?", "Qualcosa da bere?", "Algo para beber?", "Что-нибудь попить?", "شيء تشربه معه؟", "要喝点什么吗？", "何か飲む？"],
+ask_left:["Il te reste {p} de budget", "You have {p} left", "Te quedan {p}", "Noch {p} Budget übrig", "Ti restano {p}", "Restam-te {p}", "Осталось {p}", "تبقّى لك {p}", "预算还剩{p}", "残り予算 {p}"],
+no_thanks:["Non merci", "No thanks", "No, gracias", "Nein danke", "No grazie", "Não, obrigado", "Нет, спасибо", "لا شكرًا", "不用了", "いらない"],
+yes_draw:["Oui, je tire", "Yes, draw", "Sí, tiro", "Ja, ziehen", "Sì, pesco", "Sim, tirar", "Да, тяну", "نعم، اسحب", "好，抽！", "引く！"],
+total:["Total estimé", "Estimated total", "Total estimado", "Geschätzte Summe", "Totale stimato", "Total estimado", "Итого примерно", "المجموع التقديري", "预计总价", "合計（目安）"],
+b_left:["Budget {b} · reste {r}", "Budget {b} · {r} left", "Presupuesto {b} · quedan {r}", "Budget {b} · {r} übrig", "Budget {b} · restano {r}", "Orçamento {b} · restam {r}", "Бюджет {b} · осталось {r}", "الميزانية {b} · تبقّى {r}", "预算{b} · 剩余{r}", "予算{b} · 残り{r}"],
+pity_line:["Pity A {a}/{am} · S {s}/{sm}", "Pity A {a}/{am} · S {s}/{sm}", "Pity A {a}/{am} · S {s}/{sm}", "Pity A {a}/{am} · S {s}/{sm}", "Pity A {a}/{am} · S {s}/{sm}", "Pity A {a}/{am} · S {s}/{sm}", "Пити A {a}/{am} · S {s}/{sm}", "ضمان A {a}/{am} · S {s}/{sm}", "保底 A {a}/{am} · S {s}/{sm}", "天井 A {a}/{am} · S {s}/{sm}"],
+guar_used:["garantie {r} utilisée", "{r} guarantee used", "garantía {r} usada", "{r}-Garantie genutzt", "garanzia {r} usata", "garantia {r} usada", "гарантия {r} сработала", "استُخدم ضمان {r}", "已使用{r}保底", "{r}確定を使用"],
+guarantee:["Garantie {r}", "{r} guaranteed", "Garantía {r}", "{r} garantiert", "{r} garantito", "{r} garantido", "Гарантия {r}", "{r} مضمون", "{r}保底", "{r}確定"],
+share_jpg:["Partager (JPG)", "Share (JPG)", "Compartir (JPG)", "Teilen (JPG)", "Condividi (JPG)", "Partilhar (JPG)", "Поделиться (JPG)", "مشاركة (JPG)", "分享（JPG）", "シェア（JPG）"],
+bon_app:["Bon appétit !", "Enjoy your meal!", "¡Buen provecho!", "Guten Appetit!", "Buon appetito!", "Bom apetite!", "Приятного аппетита!", "بالهناء والشفاء!", "开饭啦！", "いただきます！"],
+continue:["Continuer", "Continue", "Continuar", "Weiter", "Continua", "Continuar", "Продолжить", "متابعة", "继续", "続ける"],
+level_up:["Niveau {n} !", "Level {n}!", "¡Nivel {n}!", "Level {n}!", "Livello {n}!", "Nível {n}!", "Уровень {n}!", "المستوى {n}!", "升到{n}级！", "レベル{n}！"],
+streak_up:["Série de {n} jour(s) !", "{n}-day streak!", "¡Racha de {n} día(s)!", "{n} Tage in Folge!", "Serie di {n} giorni!", "Série de {n} dias!", "Серия: {n} дн.!", "سلسلة {n} يوم!", "连续{n}天！", "{n}日連続！"],
+streak_keep:["Série : {n} jour(s)", "Streak: {n} day(s)", "Racha: {n} día(s)", "Serie: {n} Tag(e)", "Serie: {n} giorno/i", "Série: {n} dia(s)", "Серия: {n} дн.", "السلسلة: {n} يوم", "连续：{n}天", "連続 {n}日"],
+streak_sub:["Reviens demain pour la garder", "Come back tomorrow to keep it", "Vuelve mañana para mantenerla", "Komm morgen wieder, um sie zu halten", "Torna domani per mantenerla", "Volta amanhã para a manter", "Возвращайся завтра", "عد غدًا للحفاظ عليها", "明天再来保持连续", "明日も来て記録を伸ばそう"],
+new_ach:["Succès débloqué", "Achievement unlocked", "Logro desbloqueado", "Erfolg freigeschaltet", "Obiettivo sbloccato", "Conquista desbloqueada", "Достижение открыто", "إنجاز جديد", "解锁成就", "実績解除"],
+a_first:["Premier booster", "First booster", "Primer sobre", "Erster Booster", "Primo booster", "Primeiro booster", "Первый бустер", "أول بوستر", "第一包", "初めての開封"],
+a_first_d:["Ouvre ton premier booster", "Open your first booster", "Abre tu primer sobre", "Öffne deinen ersten Booster", "Apri il tuo primo booster", "Abre o teu primeiro booster", "Открой первый бустер", "افتح أول بوستر لك", "打开你的第一个卡包", "初めてブースターを開封"],
+a_s:["Jackpot", "Jackpot", "Jackpot", "Jackpot", "Jackpot", "Jackpot", "Джекпот", "الجائزة الكبرى", "大奖", "大当たり"],
+a_s_d:["Obtiens une carte S", "Pull an S card", "Consigue una carta S", "Ziehe eine S-Karte", "Trova una carta S", "Tira uma carta S", "Получи карту S", "احصل على بطاقة S", "抽到S级", "Sカードを引く"],
+a_st3:["En feu", "On fire", "En llamas", "In Flammen", "In fiamme", "Em chamas", "В ударе", "مشتعل", "火热", "絶好調"],
+a_st3_d:["3 jours de série", "3-day streak", "Racha de 3 días", "3 Tage in Folge", "Serie di 3 giorni", "Série de 3 dias", "Серия 3 дня", "سلسلة 3 أيام", "连续3天", "3日連続"],
+a_st7:["Inarrêtable", "Unstoppable", "Imparable", "Unaufhaltsam", "Inarrestabile", "Imparável", "Неудержимый", "لا يُوقف", "势不可挡", "止まらない"],
+a_st7_d:["7 jours de série", "7-day streak", "Racha de 7 días", "7 Tage in Folge", "Serie di 7 giorni", "Série de 7 dias", "Серия 7 дней", "سلسلة 7 أيام", "连续7天", "7日連続"],
+a_b10:["Habitué", "Regular", "Habitual", "Stammgast", "Habitué", "Habitué", "Завсегдатай", "زبون دائم", "常客", "常連"],
+a_b10_d:["Ouvre 10 boosters", "Open 10 boosters", "Abre 10 sobres", "Öffne 10 Booster", "Apri 10 booster", "Abre 10 boosters", "Открой 10 бустеров", "افتح 10 بوسترات", "打开10个卡包", "10回開封"],
+a_b50:["Légende du self", "Canteen legend", "Leyenda del comedor", "Kantinen-Legende", "Leggenda della mensa", "Lenda da cantina", "Легенда столовой", "أسطورة المطعم", "食堂传奇", "食堂の伝説"],
+a_b50_d:["Ouvre 50 boosters", "Open 50 boosters", "Abre 50 sobres", "Öffne 50 Booster", "Apri 50 booster", "Abre 50 boosters", "Открой 50 бустеров", "افتح 50 بوسترًا", "打开50个卡包", "50回開封"],
+a_modes:["Toute la journée", "All day long", "Todo el día", "Den ganzen Tag", "Tutto il giorno", "O dia inteiro", "Весь день", "طوال اليوم", "全天候", "一日中"],
+a_modes_d:["Un booster à chaque moment", "A booster at every meal", "Un sobre en cada momento", "Ein Booster zu jeder Mahlzeit", "Un booster a ogni pasto", "Um booster em cada refeição", "Бустер в каждый приём пищи", "بوستر في كل وجبة", "每个餐次都开一包", "全時間帯で開封"],
+a_explore:["Explorateur", "Explorer", "Explorador", "Entdecker", "Esploratore", "Explorador", "Исследователь", "مستكشف", "探险家", "探検家"],
+a_explore_d:["Ajoute un lieu depuis Explorer", "Add a place from Explore", "Añade un lugar desde Explorar", "Füge einen Ort über Entdecken hinzu", "Aggiungi un locale da Esplora", "Adiciona um local pelo Explorar", "Добавь место из Обзора", "أضف مكانًا من الاستكشاف", "从探索中添加店铺", "探すからお店を追加"],
+a_share:["Influenceur", "Influencer", "Influencer", "Influencer", "Influencer", "Influencer", "Инфлюенсер", "مؤثر", "网红", "インフルエンサー"],
+a_share_d:["Partage un résultat", "Share a result", "Comparte un resultado", "Teile ein Ergebnis", "Condividi un risultato", "Partilha um resultado", "Поделись результатом", "شارك نتيجة", "分享一次结果", "結果をシェア"],
+a_budget:["Radin assumé", "Proud penny-pincher", "Ahorrador orgulloso", "Stolzer Sparfuchs", "Risparmiatore fiero", "Poupado assumido", "Гордый экономист", "مقتصد فخور", "精打细算", "節約の鬼"],
+a_budget_d:["5 repas sous le budget", "5 meals under budget", "5 comidas sin pasarte", "5 Mahlzeiten im Budget", "5 pasti nel budget", "5 refeições dentro do orçamento", "5 раз в рамках бюджета", "5 وجبات ضمن الميزانية", "5餐不超预算", "予算内で5回"],
+a_lvl5:["Gourmet", "Gourmet", "Gourmet", "Gourmet", "Gourmet", "Gourmet", "Гурман", "ذوّاق", "美食家", "グルメ"],
+a_lvl5_d:["Atteins le niveau 5", "Reach level 5", "Llega al nivel 5", "Erreiche Level 5", "Raggiungi il livello 5", "Chega ao nível 5", "Достигни 5 уровня", "بلغ المستوى 5", "达到5级", "レベル5到達"],
+xp_of:["{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP", "{x} / {y} XP"],
+best_streak:["Meilleure série", "Best streak", "Mejor racha", "Beste Serie", "Serie migliore", "Melhor série", "Лучшая серия", "أفضل سلسلة", "最长连续", "最長連続"],
+cur_streak:["Série actuelle", "Current streak", "Racha actual", "Aktuelle Serie", "Serie attuale", "Série atual", "Текущая серия", "السلسلة الحالية", "当前连续", "現在の連続"],
+achs:["Succès", "Achievements", "Logros", "Erfolge", "Obiettivi", "Conquistas", "Достижения", "الإنجازات", "成就", "実績"],
+edit_prof:["Modifier le profil", "Edit profile", "Editar perfil", "Profil bearbeiten", "Modifica profilo", "Editar perfil", "Изменить профиль", "تعديل الملف", "编辑资料", "プロフィール編集"],
+add:["+ Ajouter", "+ Add", "+ Añadir", "+ Hinzufügen", "+ Aggiungi", "+ Adicionar", "+ Добавить", "+ إضافة", "+ 添加", "+ 追加"],
+all_m:["Tous les moments", "All meals", "Todos los momentos", "Alle Mahlzeiten", "Tutti i pasti", "Todas as refeições", "Все приёмы пищи", "كل الوجبات", "全部餐次", "全ての時間帯"],
+all_p:["Tous les lieux", "All places", "Todos los lugares", "Alle Orte", "Tutti i locali", "Todos os locais", "Все места", "كل الأماكن", "全部店铺", "全てのお店"],
+ex_note:["Les aliments « exemple » ont des prix indicatifs. Corrige-les ou vide-les dans Réglages.", "“Example” items have rough prices. Fix them or clear them in Settings.", "Los artículos «ejemplo» tienen precios orientativos. Corrígelos o bórralos en Ajustes.", "„Beispiel“-Einträge haben grobe Preise. Korrigiere oder lösche sie in den Einstellungen.", "Gli articoli «esempio» hanno prezzi indicativi. Correggili o cancellali nelle Impostazioni.", "Os artigos «exemplo» têm preços indicativos. Corrige-os ou apaga-os nas Definições.", "У «примеров» цены примерные. Исправь их или удали в Настройках.", "أسعار عناصر «مثال» تقريبية. صحّحها أو احذفها من الإعدادات.", "“示例”项目的价格仅供参考，可在设置中修改或清除。", "「例」のメニューは参考価格です。設定で修正・削除できます。"],
+no_item:["Aucun aliment ici pour ce moment.", "No item here for this meal.", "Nada aquí para este momento.", "Hier nichts für diese Mahlzeit.", "Niente qui per questo pasto.", "Nada aqui para esta refeição.", "Здесь пока пусто.", "لا شيء هنا لهذه الوجبة.", "这一餐这里没有东西。", "この時間帯のメニューなし。"],
+no_place:["Aucun établissement pour ce moment. Coche-le sur un lieu dans Réglages.", "No place for this meal. Tick it on a place in Settings.", "Ningún lugar para este momento. Márcalo en Ajustes.", "Kein Ort für diese Mahlzeit. In den Einstellungen anhaken.", "Nessun locale per questo pasto. Spuntalo nelle Impostazioni.", "Nenhum local para esta refeição. Marca-o nas Definições.", "Нет мест для этого времени. Отметь в Настройках.", "لا يوجد مكان لهذه الوجبة. فعّله في الإعدادات.", "这一餐没有店铺，请在设置中勾选。", "この時間帯のお店なし。設定でチェックしてください。"],
+example:["exemple", "example", "ejemplo", "Beispiel", "esempio", "exemplo", "пример", "مثال", "示例", "例"],
+ai_check:["IA · à vérifier", "AI · double-check", "IA · por verificar", "KI · prüfen", "IA · da verificare", "IA · a verificar", "ИИ · проверь", "ذكاء اصطناعي · للتحقق", "AI · 待核实", "AI・要確認"],
+new_item:["Nouvel aliment", "New item", "Nuevo artículo", "Neuer Eintrag", "Nuovo articolo", "Novo artigo", "Новая позиция", "عنصر جديد", "新项目", "新しいメニュー"],
+edit_item:["Modifier l’aliment", "Edit item", "Editar artículo", "Eintrag bearbeiten", "Modifica articolo", "Editar artigo", "Изменить позицию", "تعديل العنصر", "编辑项目", "メニュー編集"],
+f_name:["Nom", "Name", "Nombre", "Name", "Nome", "Nome", "Название", "الاسم", "名称", "名前"],
+f_name_ph:["Ex. Bo bun poulet", "e.g. Chicken bo bun", "p. ej. Bo bun de pollo", "z. B. Bo Bun mit Hähnchen", "Es. bo bun di pollo", "Ex. bo bun de frango", "Напр. бо бун с курицей", "مثال: بو بون بالدجاج", "例：鸡肉米粉", "例：チキンボーブン"],
+f_place:["Établissement", "Place", "Lugar", "Ort", "Locale", "Local", "Заведение", "المكان", "店铺", "お店"],
+f_moments:["Moments où il peut tomber", "Meals it can drop at", "Momentos en que puede salir", "Mahlzeiten, bei denen er kommen kann", "Pasti in cui può uscire", "Refeições em que pode sair", "Когда может выпасть", "الوجبات التي قد يظهر فيها", "可出现的餐次", "出る時間帯"],
+f_type:["Type", "Type", "Tipo", "Art", "Tipo", "Tipo", "Тип", "النوع", "类型", "種類"],
+f_type_h:["Au petit-déj, « Plat » = la viennoiserie. Au goûter, « Dessert » = le goûter.", "At breakfast, “Main” = pastry. At snack time, “Dessert” = the snack.", "En el desayuno, «Plato» = bollería. En la merienda, «Postre» = la merienda.", "Beim Frühstück ist „Hauptgericht“ das Gebäck, beim Snack ist „Dessert“ der Snack.", "A colazione «Piatto» = brioche. A merenda «Dolce» = la merenda.", "Ao pequeno-almoço, «Prato» = pastelaria. Ao lanche, «Sobremesa» = o lanche.", "На завтраке «Основное» = выпечка. На полднике «Десерт» = перекус.", "في الفطور «الطبق الرئيسي» = المعجنات. في الوجبة الخفيفة «الحلوى» = الوجبة الخفيفة.", "早餐时“主食”= 面包；下午茶时“甜点”= 点心。", "朝は「メイン」＝パン、おやつは「デザート」＝おやつ。"],
+f_rarity:["Rareté", "Rarity", "Rareza", "Seltenheit", "Rarità", "Raridade", "Редкость", "الندرة", "稀有度", "レア度"],
+f_price:["Prix en € (optionnel, sert au budget)", "Price in € (optional, used for budget)", "Precio en € (opcional, para el presupuesto)", "Preis in € (optional, fürs Budget)", "Prezzo in € (opzionale, per il budget)", "Preço em € (opcional, para o orçamento)", "Цена в € (необязательно, для бюджета)", "السعر باليورو (اختياري، للميزانية)", "价格（€，可选，用于预算）", "価格€（任意・予算に使用）"],
+f_icon:["Icône", "Icon", "Icono", "Symbol", "Icona", "Ícone", "Иконка", "الأيقونة", "图标", "アイコン"],
+f_img:["Image PNG / JPG", "PNG / JPG image", "Imagen PNG / JPG", "PNG- / JPG-Bild", "Immagine PNG / JPG", "Imagem PNG / JPG", "Картинка PNG / JPG", "صورة PNG / JPG", "PNG / JPG 图片", "画像 PNG / JPG"],
+f_noimg:["Retirer l’image", "Remove image", "Quitar imagen", "Bild entfernen", "Rimuovi immagine", "Remover imagem", "Убрать картинку", "إزالة الصورة", "移除图片", "画像を削除"],
+f_emo:["Émoji personnalisé", "Custom emoji", "Emoji personalizado", "Eigenes Emoji", "Emoji personalizzata", "Emoji personalizado", "Свой эмодзи", "إيموجي مخصص", "自定义表情", "カスタム絵文字"],
+del:["Supprimer", "Delete", "Eliminar", "Löschen", "Elimina", "Apagar", "Удалить", "حذف", "删除", "削除"],
+confirm:["Confirmer", "Confirm", "Confirmar", "Bestätigen", "Conferma", "Confirmar", "Подтвердить", "تأكيد", "确认", "確認"],
+sure:["OK ?", "Sure?", "¿Seguro?", "Sicher?", "Sicuro?", "Certeza?", "Точно?", "متأكد؟", "确定？", "OK？"],
+cancel:["Annuler", "Cancel", "Cancelar", "Abbrechen", "Annulla", "Cancelar", "Отмена", "إلغاء", "取消", "キャンセル"],
+save:["Enregistrer", "Save", "Guardar", "Speichern", "Salva", "Guardar", "Сохранить", "حفظ", "保存", "保存"],
+t_saved:["Enregistré", "Saved", "Guardado", "Gespeichert", "Salvato", "Guardado", "Сохранено", "تم الحفظ", "已保存", "保存しました"],
+t_deleted:["Aliment supprimé", "Item deleted", "Artículo eliminado", "Eintrag gelöscht", "Articolo eliminato", "Artigo apagado", "Позиция удалена", "تم حذف العنصر", "已删除", "削除しました"],
+t_name:["Donne un nom à ton aliment", "Give your item a name", "Ponle un nombre", "Gib dem Eintrag einen Namen", "Dai un nome all’articolo", "Dá um nome ao artigo", "Дай название", "أعطِ العنصر اسمًا", "给项目起个名字", "名前を入力して"],
+t_keep1:["Garde au moins un moment", "Keep at least one meal", "Deja al menos un momento", "Behalte mindestens eine Mahlzeit", "Tieni almeno un pasto", "Mantém pelo menos uma refeição", "Оставь хотя бы одно время", "أبقِ وجبة واحدة على الأقل", "至少保留一个餐次", "時間帯を1つ以上残して"],
+t_padded:["Enregistré · {p} ajouté à : {m}", "Saved · {p} added to: {m}", "Guardado · {p} añadido a: {m}", "Gespeichert · {p} hinzugefügt zu: {m}", "Salvato · {p} aggiunto a: {m}", "Guardado · {p} adicionado a: {m}", "Сохранено · {p} добавлено в: {m}", "تم الحفظ · أُضيف {p} إلى: {m}", "已保存 · {p}已加入：{m}", "保存 · {p}を追加：{m}"],
+t_needplace:["Crée d’abord un établissement dans Réglages", "Create a place in Settings first", "Crea primero un lugar en Ajustes", "Lege zuerst einen Ort in den Einstellungen an", "Crea prima un locale nelle Impostazioni", "Cria primeiro um local nas Definições", "Сначала создай заведение в Настройках", "أنشئ مكانًا في الإعدادات أولًا", "请先在设置中创建店铺", "先に設定でお店を作成して"],
+all:["Tout", "All", "Todo", "Alle", "Tutto", "Tudo", "Всё", "الكل", "全部", "全部"],
+h_boost:["boosters", "boosters", "sobres", "Booster", "booster", "boosters", "бустеров", "بوسترات", "个卡包", "回開封"],
+h_spent:["dépensés (estim.)", "spent (est.)", "gastado (est.)", "ausgegeben (ca.)", "spesi (stima)", "gastos (estim.)", "потрачено (≈)", "مصروف (تقديري)", "花费（估计）", "支出（目安）"],
+h_avg:["par repas", "per meal", "por comida", "pro Mahlzeit", "a pasto", "por refeição", "за приём пищи", "لكل وجبة", "每餐", "1食あたり"],
+h_where:["Où tu as mangé", "Where you ate", "Dónde comiste", "Wo du gegessen hast", "Dove hai mangiato", "Onde comeste", "Где ты ел", "أين أكلت", "你吃过的地方", "食べた場所"],
+h_hint_all:["Choisis un moment pour comparer à ta proba théorique.", "Pick a meal to compare with the odds.", "Elige un momento para comparar con la probabilidad.", "Wähle eine Mahlzeit, um mit den Chancen zu vergleichen.", "Scegli un pasto per confrontare con le probabilità.", "Escolhe uma refeição para comparar com a probabilidade.", "Выбери время, чтобы сравнить с шансами.", "اختر وجبة للمقارنة مع الاحتمالات.", "选择一个餐次来对比概率。", "時間帯を選ぶと確率と比較できます。"],
+h_hint:["Barre = réel. Trait = proba théorique.", "Bar = actual. Line = expected odds.", "Barra = real. Línea = probabilidad.", "Balken = echt. Linie = erwartete Chance.", "Barra = reale. Linea = probabilità teorica.", "Barra = real. Linha = probabilidade teórica.", "Полоса = факт. Линия = шанс.", "الشريط = الواقع. الخط = الاحتمال المتوقع.", "条形 = 实际，竖线 = 理论概率。", "バー＝実際、線＝理論値"],
+h_empty:["Aucun booster ici. Va tirer ton premier repas !", "No booster yet. Go pull your first meal!", "Ningún sobre aún. ¡Ve a abrir el primero!", "Noch kein Booster. Zieh deine erste Mahlzeit!", "Ancora nessun booster. Pesca il tuo primo pasto!", "Ainda nenhum booster. Vai tirar a tua primeira refeição!", "Пока пусто. Открой первый бустер!", "لا بوستر بعد. اسحب أول وجبة لك!", "还没有卡包，去抽第一餐吧！", "まだ開封なし。最初の1回を引こう！"],
+h_pity:["Pity {r} déclenché", "{r} pity triggered", "Pity {r} activado", "{r}-Pity ausgelöst", "Pity {r} attivato", "Pity {r} ativado", "Сработало пити {r}", "تفعّل ضمان {r}", "触发{r}保底", "{r}天井発動"],
+h_nothing:["Rien au catalogue", "Nothing in catalogue", "Nada en el catálogo", "Nichts im Katalog", "Niente in catalogo", "Nada no catálogo", "Пусто в каталоге", "لا شيء في القائمة", "菜单库为空", "カタログなし"],
+more:["Voir plus", "Show more", "Ver más", "Mehr anzeigen", "Mostra altro", "Ver mais", "Показать ещё", "عرض المزيد", "显示更多", "もっと見る"],
+s_profile:["Profil", "Profile", "Perfil", "Profil", "Profilo", "Perfil", "Профиль", "الملف الشخصي", "个人资料", "プロフィール"],
+s_pseudo:["Pseudo", "Nickname", "Apodo", "Spitzname", "Nickname", "Alcunha", "Ник", "الاسم المستعار", "昵称", "ニックネーム"],
+s_photo:["Photo", "Photo", "Foto", "Foto", "Foto", "Foto", "Фото", "صورة", "照片", "写真"],
+s_remove:["Retirer", "Remove", "Quitar", "Entfernen", "Rimuovi", "Remover", "Убрать", "إزالة", "移除", "削除"],
+s_avatar:["Émoji d’avatar", "Avatar emoji", "Emoji de avatar", "Avatar-Emoji", "Emoji avatar", "Emoji do avatar", "Эмодзи аватара", "إيموجي الصورة الرمزية", "头像表情", "アバター絵文字"],
+s_lang:["Langue", "Language", "Idioma", "Sprache", "Lingua", "Idioma", "Язык", "اللغة", "语言", "言語"],
+s_hours:["Horaires des boosters", "Booster schedule", "Horario de sobres", "Booster-Zeiten", "Orari dei booster", "Horário dos boosters", "Расписание бустеров", "مواعيد البوسترات", "卡包时间", "ブースターの時間"],
+s_hours_h:["Chaque moment commence à l’heure indiquée. Tu peux toujours changer à la main.", "Each meal starts at the time shown. You can always switch manually.", "Cada momento empieza a la hora indicada. Puedes cambiarlo a mano.", "Jede Mahlzeit beginnt zur angegebenen Uhrzeit. Du kannst jederzeit manuell wechseln.", "Ogni pasto inizia all’ora indicata. Puoi sempre cambiare a mano.", "Cada refeição começa à hora indicada. Podes sempre mudar à mão.", "Каждое время начинается в указанный час. Можно сменить вручную.", "تبدأ كل وجبة في الوقت المحدد. يمكنك التبديل يدويًا دائمًا.", "每个餐次从设定时间开始，你也可以随时手动切换。", "各時間帯は指定時刻から。手動でも切替可。"],
+from:["{m} dès", "{m} from", "{m} desde", "{m} ab", "{m} dalle", "{m} a partir das", "{m} с", "{m} من", "{m}开始于", "{m}の開始"],
+s_sound:["Son et vibrations", "Sound & vibration", "Sonido y vibración", "Ton & Vibration", "Suono e vibrazione", "Som e vibração", "Звук и вибрация", "الصوت والاهتزاز", "声音与振动", "サウンドと振動"],
+s_sfx:["Effets sonores", "Sound effects", "Efectos de sonido", "Soundeffekte", "Effetti sonori", "Efeitos sonoros", "Звуковые эффекты", "المؤثرات الصوتية", "音效", "効果音"],
+s_vol:["Volume", "Volume", "Volumen", "Lautstärke", "Volume", "Volume", "Громкость", "مستوى الصوت", "音量", "音量"],
+s_vib:["Vibrations", "Vibration", "Vibración", "Vibration", "Vibrazione", "Vibração", "Вибрация", "الاهتزاز", "振动", "振動"],
+s_vib_no:["Non gérées par ce navigateur (iPhone notamment)", "Not supported by this browser (e.g. iPhone)", "No compatible con este navegador (p. ej. iPhone)", "Von diesem Browser nicht unterstützt (z. B. iPhone)", "Non supportata da questo browser (es. iPhone)", "Não suportada por este navegador (ex. iPhone)", "Не поддерживается браузером (напр. iPhone)", "غير مدعوم في هذا المتصفح (مثل iPhone)", "此浏览器不支持（如 iPhone）", "このブラウザは非対応（iPhone等）"],
+s_test:["Tester un tirage S", "Test an S pull", "Probar una tirada S", "S-Zug testen", "Prova una pesca S", "Testar uma tirada S", "Тест: карта S", "جرّب سحبة S", "测试S级抽卡", "Sの演出をテスト"],
+s_places:["Établissements", "Places", "Lugares", "Orte", "Locali", "Locais", "Заведения", "الأماكن", "店铺", "お店"],
+s_places_h:["Émoji, nom, rang, poids. Coche les moments où le lieu peut tomber. Poids bas = lieu rare.", "Emoji, name, rank, weight. Tick the meals it can drop at. Low weight = rare place.", "Emoji, nombre, rango, peso. Marca los momentos. Peso bajo = lugar raro.", "Emoji, Name, Rang, Gewicht. Hake die Mahlzeiten an. Wenig Gewicht = seltener Ort.", "Emoji, nome, rango, peso. Spunta i pasti. Peso basso = locale raro.", "Emoji, nome, nível, peso. Marca as refeições. Peso baixo = local raro.", "Эмодзи, название, ранг, вес. Отметь время. Малый вес = редкое место.", "إيموجي، اسم، رتبة، وزن. حدّد الوجبات. وزن قليل = مكان نادر.", "表情、名称、等级、权重。勾选可出现的餐次。权重越低越稀有。", "絵文字・名前・ランク・重み。出る時間帯を選択。重みが小さいほどレア。"],
+s_nomode:["Aucun moment coché", "No meal ticked", "Ningún momento marcado", "Keine Mahlzeit angehakt", "Nessun pasto spuntato", "Nenhuma refeição marcada", "Время не выбрано", "لا وجبة محددة", "未勾选餐次", "時間帯なし"],
+s_addplace:["+ Établissement", "+ Place", "+ Lugar", "+ Ort", "+ Locale", "+ Local", "+ Заведение", "+ مكان", "+ 店铺", "+ お店"],
+new_place:["Nouveau lieu", "New place", "Nuevo lugar", "Neuer Ort", "Nuovo locale", "Novo local", "Новое место", "مكان جديد", "新店铺", "新しいお店"],
+t_delplace:["Ça supprimera aussi {n} aliment(s)", "This also deletes {n} item(s)", "También se borrarán {n} artículo(s)", "Löscht auch {n} Eintrag/Einträge", "Eliminerà anche {n} articolo/i", "Também apaga {n} artigo(s)", "Также удалится позиций: {n}", "سيُحذف أيضًا {n} عنصر", "同时删除{n}个项目", "{n}件のメニューも削除されます"],
+s_rates:["Taux par carte", "Card rates", "Tasas por carta", "Kartenchancen", "Probabilità carte", "Probabilidade das cartas", "Шансы карт", "احتمالات البطاقات", "卡片概率", "カード確率"],
+s_rates_h:["Chaque carte tire son rang. Si le rang n’existe pas pour ce lieu, l’app prend le plus proche (vers le bas en priorité).", "Each card rolls its rank. If missing at that place, the closest one is used (lower first).", "Cada carta tira su rango. Si no existe, se usa el más cercano (primero el inferior).", "Jede Karte zieht ihren Rang. Fehlt er an dem Ort, wird der nächste genommen (niedriger zuerst).", "Ogni carta pesca il suo rango. Se manca in quel locale, si usa il più vicino (prima il più basso).", "Cada carta tira o seu nível. Se não existir nesse local, usa-se o mais próximo (primeiro o mais baixo).", "Каждая карта получает ранг. Если его нет — берётся ближайший (сначала ниже).", "كل بطاقة تسحب رتبتها. إن لم توجد في المكان، تُستخدم الأقرب (الأدنى أولًا).", "每张卡单独抽等级。若该店没有此等级，取最接近的（优先更低）。", "各カードがランクを抽選。無い場合は近いランク（下優先）。"],
+s_pity:["Pity", "Pity", "Pity", "Pity", "Pity", "Pity", "Пити", "الضمان", "保底", "天井"],
+s_pityA:["Rang A garanti au bout de", "A guaranteed after", "A garantizado tras", "A garantiert nach", "A garantito dopo", "A garantido após", "A гарантирован через", "A مضمون بعد", "A级保底次数", "A確定まで"],
+s_pityS:["Rang S garanti au bout de", "S guaranteed after", "S garantizado tras", "S garantiert nach", "S garantito dopo", "S garantido após", "S гарантирован через", "S مضمون بعد", "S级保底次数", "S確定まで"],
+s_pity_h:["Chaque moment a son compteur. Un A ou un S naturel remet à zéro.", "Each meal has its own counter. A natural A or S resets it.", "Cada momento tiene su contador. Un A o S natural lo reinicia.", "Jede Mahlzeit hat ihren eigenen Zähler. Ein natürliches A oder S setzt ihn zurück.", "Ogni pasto ha il suo contatore. Un A o S naturale lo azzera.", "Cada refeição tem o seu contador. Um A ou S natural reinicia-o.", "У каждого времени свой счётчик. Естественный A или S сбрасывает его.", "لكل وجبة عدّاد خاص. ظهور A أو S طبيعيًا يعيد ضبطه.", "每个餐次单独计数。自然抽出A或S会重置。", "時間帯ごとにカウント。自然にA/Sが出るとリセット。"],
+s_data:["Données", "Data", "Datos", "Daten", "Dati", "Dados", "Данные", "البيانات", "数据", "データ"],
+s_data_h:["Tout est stocké sur cet appareil. Copie ta sauvegarde de temps en temps.", "Everything is stored on this device. Back it up now and then.", "Todo se guarda en este dispositivo. Haz copias de vez en cuando.", "Alles wird auf diesem Gerät gespeichert. Mach ab und zu ein Backup.", "Tutto è salvato su questo dispositivo. Fai un backup ogni tanto.", "Tudo fica guardado neste dispositivo. Faz uma cópia de vez em quando.", "Всё хранится на устройстве. Иногда делай копию.", "كل شيء محفوظ على هذا الجهاز. خذ نسخة احتياطية من حين لآخر.", "所有数据都保存在本设备上，记得偶尔备份。", "データはこの端末に保存。時々バックアップを。"],
+s_copy:["Copier la sauvegarde", "Copy backup", "Copiar copia", "Backup kopieren", "Copia backup", "Copiar cópia", "Скопировать копию", "نسخ النسخة الاحتياطية", "复制备份", "バックアップをコピー"],
+s_dl:["Télécharger (.json)", "Download (.json)", "Descargar (.json)", "Herunterladen (.json)", "Scarica (.json)", "Transferir (.json)", "Скачать (.json)", "تنزيل (.json)", "下载（.json）", "ダウンロード（.json）"],
+s_impf:["Importer un fichier", "Import a file", "Importar archivo", "Datei importieren", "Importa un file", "Importar ficheiro", "Импорт файла", "استيراد ملف", "导入文件", "ファイルを読み込む"],
+s_paste:["…ou colle une sauvegarde ici", "…or paste a backup here", "…o pega una copia aquí", "…oder Backup hier einfügen", "…o incolla un backup qui", "…ou cola uma cópia aqui", "…или вставь копию сюда", "…أو الصق نسخة احتياطية هنا", "…或在这里粘贴备份", "…またはここに貼り付け"],
+s_imp:["Importer le texte collé", "Import pasted text", "Importar texto pegado", "Eingefügten Text importieren", "Importa il testo incollato", "Importar texto colado", "Импорт текста", "استيراد النص الملصق", "导入粘贴内容", "貼り付けを読み込む"],
+s_clearex:["Vider les exemples", "Clear examples", "Borrar ejemplos", "Beispiele löschen", "Cancella esempi", "Apagar exemplos", "Удалить примеры", "حذف الأمثلة", "清除示例", "例を削除"],
+s_clearhist:["Effacer l’historique", "Clear history", "Borrar historial", "Verlauf löschen", "Cancella cronologia", "Apagar histórico", "Очистить историю", "مسح السجل", "清空记录", "履歴を削除"],
+s_reset:["Tout réinitialiser", "Reset everything", "Restablecer todo", "Alles zurücksetzen", "Reimposta tutto", "Repor tudo", "Сбросить всё", "إعادة ضبط كل شيء", "全部重置", "全てリセット"],
+s_reset_s:["Sûr ? Tout effacer", "Sure? Erase all", "¿Seguro? Borrar todo", "Sicher? Alles löschen", "Sicuro? Cancella tutto", "Certeza? Apagar tudo", "Точно? Стереть всё", "متأكد؟ امسح الكل", "确定？全部清除", "本当に全消去？"],
+t_copied:["Sauvegarde copiée", "Backup copied", "Copia copiada", "Backup kopiert", "Backup copiato", "Cópia copiada", "Копия скопирована", "تم نسخ النسخة الاحتياطية", "备份已复制", "コピーしました"],
+t_copyfail:["Copie bloquée : sélectionne le texte", "Copy blocked: select the text", "Copia bloqueada: selecciona el texto", "Kopieren blockiert: markiere den Text", "Copia bloccata: seleziona il testo", "Cópia bloqueada: seleciona o texto", "Копирование заблокировано", "النسخ محظور: حدّد النص", "无法复制：请选中文本", "コピー不可：テキストを選択して"],
+t_paste:["Colle une sauvegarde d’abord", "Paste a backup first", "Pega una copia primero", "Füge zuerst ein Backup ein", "Incolla prima un backup", "Cola primeiro uma cópia", "Сначала вставь копию", "الصق نسخة احتياطية أولًا", "请先粘贴备份", "先に貼り付けて"],
+t_imported:["Sauvegarde importée", "Backup imported", "Copia importada", "Backup importiert", "Backup importato", "Cópia importada", "Копия импортирована", "تم الاستيراد", "备份已导入", "読み込みました"],
+t_invalid:["Sauvegarde invalide", "Invalid backup", "Copia no válida", "Ungültiges Backup", "Backup non valido", "Cópia inválida", "Неверная копия", "نسخة غير صالحة", "备份无效", "無効なデータ"],
+t_exrem:["Exemples supprimés", "Examples cleared", "Ejemplos borrados", "Beispiele gelöscht", "Esempi cancellati", "Exemplos apagados", "Примеры удалены", "تم حذف الأمثلة", "示例已清除", "例を削除しました"],
+t_histcl:["Historique effacé", "History cleared", "Historial borrado", "Verlauf gelöscht", "Cronologia cancellata", "Histórico apagado", "История очищена", "تم مسح السجل", "记录已清空", "履歴を削除しました"],
+t_reset:["Tout est remis à zéro", "Everything reset", "Todo restablecido", "Alles zurückgesetzt", "Tutto reimpostato", "Tudo reposto", "Всё сброшено", "تمت إعادة الضبط", "已全部重置", "リセットしました"],
+t_storage:["Stockage plein : retire quelques images", "Storage full: remove some images", "Almacenamiento lleno: quita imágenes", "Speicher voll: entferne einige Bilder", "Memoria piena: rimuovi qualche immagine", "Memória cheia: remove algumas imagens", "Память заполнена: убери картинки", "الذاكرة ممتلئة: احذف بعض الصور", "存储已满：请删除一些图片", "容量不足：画像を減らして"],
+t_file:["Impossible de lire ce fichier", "Can’t read this file", "No se puede leer el archivo", "Datei kann nicht gelesen werden", "Impossibile leggere il file", "Não foi possível ler o ficheiro", "Не удалось прочитать файл", "تعذّرت قراءة الملف", "无法读取该文件", "ファイルを読めません"],
+t_dl:["Sauvegarde téléchargée", "Backup downloaded", "Copia descargada", "Backup heruntergeladen", "Backup scaricato", "Cópia transferida", "Копия скачана", "تم تنزيل النسخة الاحتياطية", "备份已下载", "ダウンロードしました"],
+t_dlfail:["Téléchargement impossible ici", "Download not possible here", "Descarga no posible aquí", "Download hier nicht möglich", "Download non possibile qui", "Transferência impossível aqui", "Скачивание недоступно", "التنزيل غير ممكن هنا", "此处无法下载", "ここではダウンロード不可"],
+r_title:["Infos · {mode}", "Info · {mode}", "Info · {mode}", "Infos · {mode}", "Info · {mode}", "Info · {mode}", "Инфо · {mode}", "معلومات · {mode}", "说明 · {mode}", "情報 · {mode}"],
+r_card:["Rang de chaque carte", "Rank of each card", "Rango de cada carta", "Rang jeder Karte", "Rango di ogni carta", "Nível de cada carta", "Ранг каждой карты", "رتبة كل بطاقة", "每张卡的等级", "各カードのランク"],
+r_none:["Aucun lieu pour ce moment.", "No place for this meal.", "Ningún lugar para este momento.", "Kein Ort für diese Mahlzeit.", "Nessun locale per questo pasto.", "Nenhum local para esta refeição.", "Нет мест.", "لا يوجد مكان لهذه الوجبة.", "这一餐没有店铺。", "お店なし。"],
+r_pity:["Rang A garanti au {a}e booster sans A (lieu mieux qu’Intermarché + carte principale A). Rang S garanti au {s}e sans S. Compteurs : A {ca}/{a}, S {cs}/{s}. Les aliments tirés aux 2 derniers repas ont moins de chances de retomber.", "A guaranteed on booster #{a} without A (better place + A main card). S guaranteed on #{s} without S. Counters: A {ca}/{a}, S {cs}/{s}. Items from your last 2 meals are less likely.", "A garantizado en el sobre n.º {a} sin A. S garantizado en el n.º {s} sin S. Contadores: A {ca}/{a}, S {cs}/{s}. Lo de tus 2 últimas comidas sale menos.", "A garantiert beim {a}. Booster ohne A (besserer Ort + A-Hauptkarte). S garantiert beim {s}. ohne S. Zähler: A {ca}/{a}, S {cs}/{s}. Einträge deiner letzten 2 Mahlzeiten kommen seltener.", "A garantito al booster n.{a} senza A (locale migliore + carta principale A). S garantito al n.{s} senza S. Contatori: A {ca}/{a}, S {cs}/{s}. Gli articoli degli ultimi 2 pasti escono meno.", "A garantido no booster n.º {a} sem A (local melhor + carta principal A). S garantido no n.º {s} sem S. Contadores: A {ca}/{a}, S {cs}/{s}. Os artigos das tuas 2 últimas refeições saem menos.", "A гарантирован на {a}-м бустере без A. S — на {s}-м без S. Счётчики: A {ca}/{a}, S {cs}/{s}. Блюда двух последних раз выпадают реже.", "A مضمون في البوستر رقم {a} بدون A (مكان أفضل + بطاقة رئيسية A). S مضمون في رقم {s} بدون S. العدّادات: A {ca}/{a}، S {cs}/{s}. عناصر آخر وجبتين تظهر أقل.", "第{a}包未出A时必出A（更好的店 + A级主卡）。第{s}包未出S时必出S。计数：A {ca}/{a}，S {cs}/{s}。最近2餐抽到的项目出现概率更低。", "Aなし{a}回目でA確定、Sなし{s}回目でS確定。カウント：A {ca}/{a}、S {cs}/{s}。直近2回のメニューは出にくい。"],
+edit:["Modifier", "Edit", "Editar", "Bearbeiten", "Modifica", "Editar", "Изменить", "تعديل", "编辑", "編集"],
+got_it:["Compris", "Got it", "Entendido", "Verstanden", "Capito", "Percebi", "Понятно", "فهمت", "知道了", "OK"],
+sh_title:["Partager ton repas", "Share your meal", "Comparte tu comida", "Teile deine Mahlzeit", "Condividi il tuo pasto", "Partilha a tua refeição", "Поделись едой", "شارك وجبتك", "分享你的一餐", "食事をシェア"],
+sh_hint:["Dans l’app Claude, « Enregistrer » ouvre le menu de partage. Sinon, appui long sur l’image.", "In the Claude app, “Save” opens the share menu. Otherwise, long-press the image.", "En la app de Claude, «Guardar» abre el menú. Si no, mantén pulsada la imagen.", "In der Claude-App öffnet „Speichern“ das Teilen-Menü. Sonst lange auf das Bild drücken.", "Nell’app Claude, «Salva» apre il menu di condivisione. Altrimenti tieni premuto sull’immagine.", "Na app Claude, «Guardar» abre o menu de partilha. Senão, mantém a imagem premida.", "В приложении Claude «Сохранить» открывает меню. Иначе — долгое нажатие.", "في تطبيق Claude، «حفظ» يفتح قائمة المشاركة. وإلا اضغط مطولًا على الصورة.", "在 Claude 应用中，“保存”会打开分享菜单。否则请长按图片。", "Claudeアプリでは保存で共有メニュー。それ以外は画像を長押し。"],
+sh_save:["Enregistrer le JPG", "Save JPG", "Guardar JPG", "JPG speichern", "Salva JPG", "Guardar JPG", "Сохранить JPG", "حفظ JPG", "保存 JPG", "JPGを保存"],
+close:["Fermer", "Close", "Cerrar", "Schließen", "Chiudi", "Fechar", "Закрыть", "إغلاق", "关闭", "閉じる"],
+t_making:["Création de l’image…", "Creating image…", "Creando imagen…", "Bild wird erstellt…", "Creazione immagine…", "A criar imagem…", "Создаю картинку…", "جارٍ إنشاء الصورة…", "正在生成图片…", "画像を作成中…"],
+t_imgfail:["Impossible de créer l’image", "Couldn’t create the image", "No se pudo crear la imagen", "Bild konnte nicht erstellt werden", "Impossibile creare l’immagine", "Não foi possível criar a imagem", "Не удалось создать", "تعذّر إنشاء الصورة", "无法生成图片", "画像を作れません"],
+t_imgsaved:["Image enregistrée", "Image saved", "Imagen guardada", "Bild gespeichert", "Immagine salvata", "Imagem guardada", "Картинка сохранена", "تم حفظ الصورة", "图片已保存", "保存しました"],
+t_imgdl:["Image téléchargée", "Image downloaded", "Imagen descargada", "Bild heruntergeladen", "Immagine scaricata", "Imagem transferida", "Картинка скачана", "تم تنزيل الصورة", "图片已下载", "ダウンロードしました"],
+t_savecancel:["Enregistrement annulé", "Save cancelled", "Guardado cancelado", "Speichern abgebrochen", "Salvataggio annullato", "Gravação cancelada", "Отменено", "أُلغي الحفظ", "已取消保存", "キャンセルしました"],
+t_busy:["Une demande est déjà ouverte", "A request is already open", "Ya hay una solicitud abierta", "Eine Anfrage läuft bereits", "Una richiesta è già aperta", "Já há um pedido aberto", "Запрос уже открыт", "يوجد طلب مفتوح بالفعل", "已有请求在进行中", "処理中です"],
+t_long:["Appuie longuement sur l’image pour l’enregistrer", "Long-press the image to save it", "Mantén pulsada la imagen para guardarla", "Lange auf das Bild drücken zum Speichern", "Tieni premuto sull’immagine per salvarla", "Mantém a imagem premida para a guardar", "Нажми и удерживай картинку", "اضغط مطولًا على الصورة لحفظها", "长按图片即可保存", "画像を長押しで保存"],
+img_budget:["sur un budget de {b}", "on a {b} budget", "con un presupuesto de {b}", "bei {b} Budget", "con un budget di {b}", "com um orçamento de {b}", "при бюджете {b}", "بميزانية {b}", "预算{b}", "予算{b}"],
+img_foot:["Tiré au sort sur Tarpaing Faim · zéro choix, zéro regret", "Drawn on Tarpaing Faim · no choices, no regrets", "Sorteado en Tarpaing Faim · cero dudas", "Gezogen mit Tarpaing Faim · keine Wahl, keine Reue", "Estratto su Tarpaing Faim · zero scelte, zero rimpianti", "Sorteado no Tarpaing Faim · zero escolhas, zero arrependimentos", "Выбрано в Tarpaing Faim · без сомнений", "سُحبت على Tarpaing Faim · بلا تردد ولا ندم", "由 Tarpaing Faim 抽出 · 不纠结，不后悔", "Tarpaing Faimで抽選 ・ 迷いゼロ"],
+ex_ai:["🤖 Cet onglet utilise l’IA (Claude). Elle propose des lieux à partir de ses connaissances, sans GPS ni internet en direct : adresses, horaires et prix peuvent être faux. Vérifie sur Maps avant d’ajouter. Chaque analyse consomme un peu de ton quota Claude. Rien n’entre dans ton catalogue sans ton clic.", "🤖 This tab uses AI (Claude). It suggests places from what it knows, without GPS or live internet: addresses, hours and prices may be wrong. Check on Maps before adding. Each scan uses a bit of your Claude quota. Nothing enters your catalogue without your tap.", "🤖 Esta pestaña usa IA (Claude). Propone lugares según lo que sabe, sin GPS ni internet en directo: direcciones, horarios y precios pueden fallar. Verifica en Maps. Cada análisis usa un poco de tu cuota de Claude. Nada entra en tu catálogo sin tu toque.", "🤖 Dieser Tab nutzt KI (Claude). Sie schlägt Orte aus ihrem Wissen vor, ohne GPS und ohne Live-Internet: Adressen, Öffnungszeiten und Preise können falsch sein. Prüfe sie auf Maps. Jede Analyse verbraucht etwas von deinem Claude-Kontingent. Nichts landet ohne deinen Tipp im Katalog.", "🤖 Questa scheda usa l’IA (Claude). Propone locali in base a ciò che sa, senza GPS né internet in tempo reale: indirizzi, orari e prezzi possono essere sbagliati. Verifica su Maps prima di aggiungere. Ogni analisi usa un po’ della tua quota Claude. Nulla entra nel catalogo senza il tuo tocco.", "🤖 Este separador usa IA (Claude). Sugere locais com base no que sabe, sem GPS nem internet em tempo real: moradas, horários e preços podem estar errados. Verifica no Maps antes de adicionar. Cada análise usa um pouco da tua quota Claude. Nada entra no catálogo sem o teu toque.", "🤖 Здесь работает ИИ (Claude). Он предлагает места по своим знаниям, без GPS и интернета: адреса, часы и цены могут быть неточны. Проверяй в Картах. Каждый анализ тратит немного лимита Claude. Ничего не добавится без твоего нажатия.", "🤖 يستخدم هذا القسم الذكاء الاصطناعي (Claude). يقترح أماكن من معرفته، دون GPS أو إنترنت مباشر: قد تكون العناوين والمواعيد والأسعار خاطئة. تحقق على الخرائط قبل الإضافة. كل تحليل يستهلك قليلًا من حصتك في Claude. لا يُضاف شيء إلى قائمتك دون لمستك.", "🤖 此页面使用 AI（Claude）。它根据已有知识推荐店铺，没有 GPS 也不实时联网：地址、营业时间和价格可能有误。添加前请在地图上核实。每次分析会消耗少量 Claude 额度。未经你点击，不会加入菜单库。", "🤖 このタブはAI（Claude）を使います。GPSやリアルタイムのネットなしで知識から提案するため、住所・営業時間・価格が違う場合があります。追加前にMapsで確認を。分析ごとにClaudeの利用枠を少し使います。タップしない限りカタログには入りません。"],
+ex_noai:["🗺️ Version installée : l’analyse IA ne marche que dans Claude. Utilise la recherche Maps ci-dessous (gratuite, à jour).", "🗺️ Installed version: AI scan only works inside Claude. Use the Maps search below (free, up to date).", "🗺️ Versión instalada: el análisis IA solo funciona en Claude. Usa la búsqueda de Maps (gratis, actual).", "🗺️ Installierte Version: Die KI-Analyse funktioniert nur in Claude. Nutze die Maps-Suche unten (kostenlos, aktuell).", "🗺️ Versione installata: l’analisi IA funziona solo in Claude. Usa la ricerca Maps qui sotto (gratis, aggiornata).", "🗺️ Versão instalada: a análise IA só funciona dentro do Claude. Usa a pesquisa do Maps abaixo (grátis, atualizada).", "🗺️ Установленная версия: ИИ работает только в Claude. Используй поиск в Картах ниже.", "🗺️ النسخة المثبتة: تحليل الذكاء الاصطناعي يعمل داخل Claude فقط. استخدم البحث في الخرائط أدناه (مجاني ومحدّث).", "🗺️ 已安装版本：AI 分析只能在 Claude 内使用。请使用下方的地图搜索（免费、实时）。", "🗺️ インストール版：AI分析はClaude内のみ。下のMaps検索を使ってね（無料・最新）。"],
+ex_origin:["Point de départ", "Starting point", "Punto de partida", "Startpunkt", "Punto di partenza", "Ponto de partida", "Точка отсчёта", "نقطة الانطلاق", "出发地点", "出発地点"],
+ex_origin_ph:["Adresse de ton école, rue, quartier…", "Your school address, street, area…", "Dirección de tu escuela, calle, barrio…", "Adresse deiner Schule, Straße, Viertel…", "Indirizzo della scuola, via, quartiere…", "Morada da escola, rua, bairro…", "Адрес школы, улица, район…", "عنوان مدرستك، شارع، حي…", "学校地址、街道、街区…", "学校の住所、通り、エリア…"],
+ex_gps:["📍 Utiliser ma position", "📍 Use my location", "📍 Usar mi ubicación", "📍 Meinen Standort nutzen", "📍 Usa la mia posizione", "📍 Usar a minha localização", "📍 Моё местоположение", "📍 استخدم موقعي", "📍 使用我的位置", "📍 現在地を使う"],
+ex_radius:["Rayon", "Radius", "Radio", "Umkreis", "Raggio", "Raio", "Радиус", "النطاق", "范围", "範囲"],
+ex_moment:["Pour quel moment ?", "For which meal?", "¿Para qué momento?", "Für welche Mahlzeit?", "Per quale pasto?", "Para que refeição?", "Для какого времени?", "لأي وجبة؟", "哪一餐？", "どの時間帯？"],
+ex_wish:["Envies (optionnel)", "Cravings (optional)", "Antojos (opcional)", "Lust auf (optional)", "Voglie (opzionale)", "Desejos (opcional)", "Пожелания (необязательно)", "ما تشتهيه (اختياري)", "想吃什么（可选）", "気分（任意）"],
+ex_wish_ph:["Ex. tacos, healthy, pas cher…", "e.g. tacos, healthy, cheap…", "p. ej. tacos, sano, barato…", "z. B. Tacos, gesund, günstig…", "Es. tacos, sano, economico…", "Ex. tacos, saudável, barato…", "Напр. тако, полезно, дёшево…", "مثال: تاكوس، صحي، رخيص…", "例：塔可、健康、便宜…", "例：タコス、ヘルシー、安い…"],
+ex_maps:["Recherche rapide sur Maps (sans IA)", "Quick Maps search (no AI)", "Búsqueda rápida en Maps (sin IA)", "Schnelle Maps-Suche (ohne KI)", "Ricerca rapida su Maps (senza IA)", "Pesquisa rápida no Maps (sem IA)", "Быстрый поиск в Картах (без ИИ)", "بحث سريع في الخرائط (بدون ذكاء اصطناعي)", "地图快速搜索（无 AI）", "Mapsでクイック検索（AIなし）"],
+ex_budget:["Budget pris en compte : {b}", "Budget used: {b}", "Presupuesto usado: {b}", "Genutztes Budget: {b}", "Budget usato: {b}", "Orçamento usado: {b}", "Учтённый бюджет: {b}", "الميزانية المعتمدة: {b}", "使用预算：{b}", "使用する予算：{b}"],
+ex_scan:["✨ Analyser avec l’IA", "✨ Scan with AI", "✨ Analizar con IA", "✨ Mit KI analysieren", "✨ Analizza con l’IA", "✨ Analisar com IA", "✨ Анализ с ИИ", "✨ حلّل بالذكاء الاصطناعي", "✨ 用 AI 分析", "✨ AIで分析"],
+ex_rescan:["Relancer", "Rescan", "Repetir", "Neu analysieren", "Rianalizza", "Repetir", "Повторить", "أعد التحليل", "重新分析", "再分析"],
+ex_busy:["L’IA analyse le quartier…", "AI is scanning the area…", "La IA analiza la zona…", "Die KI analysiert die Gegend…", "L’IA analizza la zona…", "A IA está a analisar a zona…", "ИИ изучает район…", "الذكاء الاصطناعي يحلل المنطقة…", "AI 正在分析附近…", "AIがエリアを分析中…"],
+stop:["Stop", "Stop", "Parar", "Stopp", "Stop", "Parar", "Стоп", "إيقاف", "停止", "停止"],
+ex_found:["{n} lieu(x) proposé(s)", "{n} place(s) suggested", "{n} lugar(es) sugerido(s)", "{n} Ort(e) vorgeschlagen", "{n} locale/i proposto/i", "{n} local(is) sugerido(s)", "Предложено мест: {n}", "اقتراح {n} مكان", "推荐了{n}家店", "{n}件の提案"],
+ex_around:["{r} autour de {o}", "{r} around {o}", "{r} alrededor de {o}", "{r} um {o}", "{r} intorno a {o}", "{r} à volta de {o}", "{r} вокруг: {o}", "{r} حول {o}", "{o}周边{r}", "{o}から{r}"],
+ex_conf:["Fiabilité IA : {c}", "AI confidence: {c}", "Fiabilidad IA: {c}", "KI-Sicherheit: {c}", "Affidabilità IA: {c}", "Confiança da IA: {c}", "Надёжность ИИ: {c}", "ثقة الذكاء الاصطناعي: {c}", "AI 可信度：{c}", "AI信頼度：{c}"],
+conf_haute:["haute", "high", "alta", "hoch", "alta", "alta", "высокая", "عالية", "高", "高"],
+conf_moyenne:["moyenne", "medium", "media", "mittel", "media", "média", "средняя", "متوسطة", "中", "中"],
+conf_faible:["faible", "low", "baja", "niedrig", "bassa", "baixa", "низкая", "منخفضة", "低", "低"],
+ex_verify:["Vérifier sur Maps", "Check on Maps", "Ver en Maps", "Auf Maps prüfen", "Verifica su Maps", "Verificar no Maps", "Проверить в Картах", "تحقق على الخرائط", "在地图上核实", "Mapsで確認"],
+ex_already:["Déjà dans ton catalogue", "Already in your catalogue", "Ya en tu catálogo", "Schon im Katalog", "Già nel catalogo", "Já está no catálogo", "Уже в каталоге", "موجود في قائمتك", "已在菜单库中", "カタログに登録済み"],
+ex_foot:["Un lieu ajouté arrive avec le badge « IA · à vérifier », pour le moment choisi uniquement.", "Added places get the “AI · double-check” badge, for the chosen meal only.", "Los lugares añadidos llevan la etiqueta «IA · por verificar», solo para ese momento.", "Hinzugefügte Orte tragen das Abzeichen „KI · prüfen“, nur für die gewählte Mahlzeit.", "I locali aggiunti hanno il badge «IA · da verificare», solo per il pasto scelto.", "Os locais adicionados recebem a etiqueta «IA · a verificar», só para a refeição escolhida.", "Добавленные места получают метку «ИИ · проверь» только для выбранного времени.", "الأماكن المضافة تحمل شارة «ذكاء اصطناعي · للتحقق»، للوجبة المختارة فقط.", "添加的店铺会带“AI · 待核实”标记，仅用于所选餐次。", "追加したお店には「AI・要確認」が付き、選んだ時間帯のみ有効です。"],
+e_noai:["L’IA n’est pas disponible ici : ouvre l’app depuis Claude.", "AI isn’t available here: open the app from Claude.", "La IA no está disponible aquí: abre la app desde Claude.", "KI hier nicht verfügbar: öffne die App in Claude.", "IA non disponibile qui: apri l’app da Claude.", "IA indisponível aqui: abre a app a partir do Claude.", "ИИ недоступен: открой приложение в Claude.", "الذكاء الاصطناعي غير متاح هنا: افتح التطبيق من Claude.", "此处无法使用 AI：请在 Claude 中打开应用。", "ここではAIを使えません：Claudeから開いて。"],
+e_denied:["Accès à l’IA refusé ou indisponible pour ce compte.", "AI access refused or unavailable for this account.", "Acceso a la IA denegado o no disponible.", "KI-Zugriff abgelehnt oder für dieses Konto nicht verfügbar.", "Accesso all’IA negato o non disponibile.", "Acesso à IA recusado ou indisponível.", "Доступ к ИИ запрещён или недоступен.", "رُفض الوصول إلى الذكاء الاصطناعي أو غير متاح.", "AI 访问被拒绝或不可用。", "AIの利用が拒否されたか利用できません。"],
+e_rate:["Trop de demandes ou quota atteint : réessaie plus tard.", "Too many requests or quota reached: try later.", "Demasiadas solicitudes: inténtalo más tarde.", "Zu viele Anfragen oder Kontingent erreicht: später erneut.", "Troppe richieste o quota raggiunta: riprova più tardi.", "Demasiados pedidos ou quota atingida: tenta mais tarde.", "Слишком много запросов: попробуй позже.", "طلبات كثيرة أو انتهت الحصة: حاول لاحقًا.", "请求过多或额度已用完：请稍后再试。", "リクエスト過多：後で再試行して。"],
+e_json:["Réponse illisible : relance l’analyse.", "Unreadable answer: run the scan again.", "Respuesta ilegible: vuelve a analizar.", "Unlesbare Antwort: analysiere erneut.", "Risposta illeggibile: rianalizza.", "Resposta ilegível: analisa outra vez.", "Неразборчивый ответ: повтори.", "إجابة غير مقروءة: أعد التحليل.", "回答无法读取：请重新分析。", "読み取れない回答：再分析して。"],
+e_session:["Session expirée : reconnecte-toi à Claude.", "Session expired: sign in to Claude again.", "Sesión caducada: vuelve a entrar en Claude.", "Sitzung abgelaufen: melde dich erneut bei Claude an.", "Sessione scaduta: accedi di nuovo a Claude.", "Sessão expirada: entra de novo no Claude.", "Сессия истекла: войди в Claude снова.", "انتهت الجلسة: سجّل الدخول إلى Claude مجددًا.", "会话已过期：请重新登录 Claude。", "セッション切れ：Claudeに再ログイン。"],
+e_fail:["L’analyse a échoué, réessaie.", "The scan failed, try again.", "El análisis falló, inténtalo de nuevo.", "Analyse fehlgeschlagen, versuch es nochmal.", "Analisi non riuscita, riprova.", "A análise falhou, tenta outra vez.", "Анализ не удался, повтори.", "فشل التحليل، حاول مجددًا.", "分析失败，请重试。", "分析に失敗しました。再試行して。"],
+e_empty:["Rien de fiable trouvé. Élargis le rayon ou précise l’adresse.", "Nothing reliable found. Widen the radius or refine the address.", "Nada fiable. Amplía el radio o precisa la dirección.", "Nichts Verlässliches gefunden. Umkreis vergrößern oder Adresse präzisieren.", "Niente di affidabile. Allarga il raggio o precisa l’indirizzo.", "Nada fiável encontrado. Aumenta o raio ou precisa a morada.", "Ничего надёжного. Увеличь радиус или уточни адрес.", "لم يُعثر على شيء موثوق. وسّع النطاق أو دقّق العنوان.", "没有找到可靠结果。请扩大范围或补充地址。", "信頼できる結果なし。範囲を広げるか住所を詳しく。"],
+t_origin:["Indique un point de départ", "Enter a starting point", "Indica un punto de partida", "Gib einen Startpunkt ein", "Inserisci un punto di partenza", "Indica um ponto de partida", "Укажи точку отсчёта", "أدخل نقطة انطلاق", "请输入出发地点", "出発地点を入力して"],
+t_found:["{n} lieu(x) trouvé(s)", "{n} place(s) found", "{n} lugar(es) encontrado(s)", "{n} Ort(e) gefunden", "{n} locale/i trovato/i", "{n} local(is) encontrado(s)", "Найдено мест: {n}", "تم العثور على {n} مكان", "找到{n}家店", "{n}件見つかりました"],
+t_xadded:["{p} ajouté · {n} aliment(s)", "{p} added · {n} item(s)", "{p} añadido · {n} artículo(s)", "{p} hinzugefügt · {n} Eintrag/Einträge", "{p} aggiunto · {n} articolo/i", "{p} adicionado · {n} artigo(s)", "{p} добавлено · позиций: {n}", "أُضيف {p} · {n} عنصر", "已添加{p} · {n}个项目", "{p}を追加・{n}件"],
+t_gpsno:["GPS indisponible sur cet appareil", "GPS unavailable on this device", "GPS no disponible", "GPS auf diesem Gerät nicht verfügbar", "GPS non disponibile su questo dispositivo", "GPS indisponível neste dispositivo", "GPS недоступен", "GPS غير متاح على هذا الجهاز", "此设备无法使用 GPS", "GPSが使えません"],
+t_gpsgo:["Recherche de ta position…", "Finding your location…", "Buscando tu ubicación…", "Standort wird gesucht…", "Ricerca posizione…", "A procurar a tua localização…", "Определяю местоположение…", "جارٍ تحديد موقعك…", "正在定位…", "現在地を検索中…"],
+t_gpsok:["Position trouvée", "Location found", "Ubicación encontrada", "Standort gefunden", "Posizione trovata", "Localização encontrada", "Местоположение найдено", "تم تحديد الموقع", "定位成功", "現在地を取得しました"],
+t_gpserr:["Position refusée ou bloquée (dans Claude, le GPS est bloqué : tape ton adresse)", "Location refused or blocked (GPS is blocked inside Claude: type your address)", "Ubicación bloqueada (en Claude el GPS está bloqueado: escribe tu dirección)", "Standort abgelehnt oder blockiert (in Claude ist GPS gesperrt: gib deine Adresse ein)", "Posizione negata o bloccata (in Claude il GPS è bloccato: scrivi l’indirizzo)", "Localização recusada ou bloqueada (no Claude o GPS está bloqueado: escreve a morada)", "Доступ к GPS запрещён (в Claude он заблокирован: введи адрес)", "الموقع مرفوض أو محظور (داخل Claude الـGPS محظور: اكتب عنوانك)", "定位被拒绝或被阻止（Claude 内无法使用 GPS：请输入地址）", "位置情報がブロックされました（Claude内では不可：住所を入力）"],
+my_pos:["Ma position", "My location", "Mi ubicación", "Mein Standort", "La mia posizione", "A minha localização", "Моё местоположение", "موقعي", "我的位置", "現在地"],
+kw_matin:["boulangerie|café", "bakery|café", "panadería|cafetería", "Bäckerei|Café", "panetteria|bar", "padaria|café", "пекарня|кофейня", "مخبز|مقهى", "面包店|咖啡馆", "パン屋|カフェ"],
+kw_midi:["snack|boulangerie|fast food", "snack bar|bakery|fast food", "bar|panadería|comida rápida", "Imbiss|Bäckerei|Fast Food", "snack bar|panetteria|fast food", "snack-bar|padaria|fast food", "закусочная|пекарня|фастфуд", "سناك|مخبز|وجبات سريعة", "小吃|面包店|快餐", "軽食|パン屋|ファストフード"],
+kw_gouter:["boulangerie|pâtisserie|glacier", "bakery|pastry shop|ice cream", "panadería|pastelería|heladería", "Bäckerei|Konditorei|Eisdiele", "panetteria|pasticceria|gelateria", "padaria|pastelaria|gelataria", "пекарня|кондитерская|мороженое", "مخبز|حلويات|آيس كريم", "面包店|甜品店|冰淇淋", "パン屋|ケーキ屋|アイス"],
+kw_soir:["restaurant|tacos|pizza|sushi", "restaurant|tacos|pizza|sushi", "restaurante|tacos|pizza|sushi", "Restaurant|Tacos|Pizza|Sushi", "ristorante|tacos|pizza|sushi", "restaurante|tacos|pizza|sushi", "ресторан|тако|пицца|суши", "مطعم|تاكوس|بيتزا|سوشي", "餐厅|塔可|披萨|寿司", "レストラン|タコス|ピザ|寿司"],
+near:["près de", "near", "cerca de", "in der Nähe von", "vicino a", "perto de", "рядом с", "قرب", "附近", "付近"],
+pack_day:["Pack journée", "Day pack", "Pack del día", "Tagespaket", "Pacchetto giornata", "Pack do dia", "Пак на день", "باقة اليوم", "全天卡包", "1日パック"],
+open4_aria:["Ouvrir les 4 boosters de la journée", "Open all 4 boosters of the day", "Abrir los 4 sobres del día", "Alle 4 Booster des Tages öffnen", "Apri i 4 booster della giornata", "Abrir os 4 boosters do dia", "Открыть 4 бустера дня", "افتح بوسترات اليوم الأربعة", "一次打开今天的4个卡包", "1日分の4ブースターを開封"],
+flip_all:["Tout retourner", "Flip all", "Girar todas", "Alle umdrehen", "Gira tutte", "Virar todas", "Открыть все", "اقلب الكل", "全部翻开", "全部めくる"],
+see_recap:["Voir le récap", "See recap", "Ver resumen", "Übersicht ansehen", "Vedi riepilogo", "Ver resumo", "К итогам", "عرض الملخص", "查看总结", "結果を見る"],
+tap_cards:["Touche chaque carte pour la retourner", "Tap each card to flip it", "Toca cada carta para girarla", "Tippe jede Karte an, um sie umzudrehen", "Tocca ogni carta per girarla", "Toca em cada carta para a virar", "Нажимай на карты, чтобы открыть", "المس كل بطاقة لقلبها", "点击每张卡片翻开", "カードをタップしてめくろう"],
+day_recap:["Ta journée", "Your day", "Tu día", "Dein Tag", "La tua giornata", "O teu dia", "Твой день", "يومك", "你的一天", "今日の食事"],
+day_total:["Total de la journée", "Day total", "Total del día", "Tagessumme", "Totale giornata", "Total do dia", "Итого за день", "مجموع اليوم", "全天合计", "1日の合計"],
+t_skipped:["Pas de booster possible pour : {m}", "No booster possible for: {m}", "Sin sobre posible para: {m}", "Kein Booster möglich für: {m}", "Nessun booster possibile per: {m}", "Sem booster possível para: {m}", "Нет бустера для: {m}", "لا بوستر ممكن لـ: {m}", "无法抽取：{m}", "開封できない時間帯：{m}"],
+intro_tag:["Tire au sort ton repas", "Let fate pick your meal", "Sortea tu comida", "Lass das Schicksal dein Essen wählen", "Lascia che il destino scelga il tuo pasto", "Deixa o destino escolher a tua refeição", "Пусть судьба выберет еду", "دع الحظ يختار وجبتك", "让命运决定你吃什么", "ごはんをガチャで決めよう"],
+tap_skip:["Touche pour passer", "Tap to skip", "Toca para saltar", "Tippen zum Überspringen", "Tocca per saltare", "Toca para saltar", "Нажми, чтобы пропустить", "المس للتخطي", "点击跳过", "タップでスキップ"],
+ai_lang:["français", "English", "español", "Deutsch", "italiano", "português", "русский", "العربية", "简体中文", "日本語"],
+skip_today:["Pas envie aujourd’hui", "Not today", "Hoy no me apetece", "Heute nicht", "Oggi no", "Hoje não", "Не сегодня", "ليس اليوم", "今天不想去", "今日はパス"],
+skip_h:["Touche un lieu pour l’exclure jusqu’à demain.", "Tap a place to exclude it until tomorrow.", "Toca un lugar para excluirlo hasta mañana.", "Tippe einen Ort an, um ihn bis morgen auszuschließen.", "Tocca un locale per escluderlo fino a domani.", "Toca num local para o excluir até amanhã.", "Нажми на место, чтобы исключить его до завтра.", "المس مكانًا لاستبعاده حتى الغد.", "点击店铺，明天之前不会抽到它。", "タップすると明日まで除外します。"],
+skipped_n:["{n} lieu(x) exclu(s) aujourd’hui", "{n} place(s) excluded today", "{n} lugar(es) excluido(s) hoy", "{n} Ort(e) heute ausgeschlossen", "{n} locale/i escluso/i oggi", "{n} local(is) excluído(s) hoje", "Исключено сегодня: {n}", "استُبعد {n} مكان اليوم", "今天排除了{n}家店", "今日の除外：{n}件"],
+reroll:["Lieu fermé ? Relancer", "Place closed? Reroll", "¿Cerrado? Volver a tirar", "Geschlossen? Neu ziehen", "Chiuso? Ripesca", "Fechado? Tirar de novo", "Закрыто? Перебросить", "مغلق؟ أعد السحب", "店关门了？重抽", "閉まってる？引き直す"],
+reroll_left:["{n} relance dispo aujourd’hui", "{n} reroll left today", "{n} tirada extra hoy", "Noch {n} Neuzug heute", "{n} ripescata disponibile oggi", "{n} nova tirada disponível hoje", "Осталось перебросов: {n}", "إعادة سحب متبقية اليوم: {n}", "今天还可重抽{n}次", "今日の引き直し：残り{n}"],
+t_noreroll:["Plus de relance aujourd’hui, reviens demain", "No reroll left today, come back tomorrow", "Sin tiradas extra hoy, vuelve mañana", "Heute keine Neuzüge mehr, komm morgen wieder", "Niente più ripescate oggi, torna domani", "Sem novas tiradas hoje, volta amanhã", "Перебросы закончились, приходи завтра", "لا إعادة سحب اليوم، عد غدًا", "今天的重抽次数用完了，明天再来", "今日の引き直しは終了。また明日！"],
+search_ph:["Rechercher un aliment ou un lieu…", "Search an item or a place…", "Buscar un artículo o un lugar…", "Eintrag oder Ort suchen…", "Cerca un articolo o un locale…", "Procurar um artigo ou local…", "Поиск блюда или места…", "ابحث عن عنصر أو مكان…", "搜索项目或店铺…", "メニューやお店を検索…"],
+no_result:["Aucun résultat.", "No results.", "Sin resultados.", "Keine Ergebnisse.", "Nessun risultato.", "Sem resultados.", "Ничего не найдено.", "لا نتائج.", "没有结果。", "該当なし。"],
+week:["Cette semaine : {p} · {n} repas", "This week: {p} · {n} meal(s)", "Esta semana: {p} · {n} comida(s)", "Diese Woche: {p} · {n} Mahlzeit(en)", "Questa settimana: {p} · {n} pasto/i", "Esta semana: {p} · {n} refeição(ões)", "На этой неделе: {p} · приёмов: {n}", "هذا الأسبوع: {p} · {n} وجبة", "本周：{p} · {n}餐", "今週：{p}・{n}食"],
+tab_home:["Accueil", "Home", "Inicio", "Start", "Home", "Início", "Главная", "الرئيسية", "首页", "ホーム"],
 };
 
-const LS='gachamidi_v1',APP_V='3.4';
+const LS='gachamidi_v1',APP_V='3.5';
 const RL=['B','A','S'],rv={B:0,A:1,S:2};
 const RK={B:{stars:3,c:'#3f8cff'},A:{stars:4,c:'#a55cf2'},S:{stars:5,c:'#ff9a1f'}};
 const CK=['boisson','entree','plat','dessert'];
@@ -768,7 +782,7 @@ let LI=0;
 const t=(k,v)=>{const a=D[k];let s=a?(a[LI]??a[0]):k;if(v)for(const x in v)s=s.split('{'+x+'}').join(v[x]);return s};
 const loc=()=>LANGS[LI][3];
 const mL=m=>t('m_'+m);
-const mLow=m=>LI==4?mL(m):mL(m).toLocaleLowerCase(loc());
+const mLow=m=>['ja','zh','ar'].includes(LANGS[LI][0])?mL(m):mL(m).toLocaleLowerCase(loc());
 const catL=(k,m)=>m=='matin'&&k=='plat'?t('lab_pastry'):m=='gouter'&&k=='dessert'?t('lab_snack'):t('cat_'+k);
 const EMO='🍣 🍜 🍚 🍙 🥟 🍤 🍗 🍟 🍔 🥪 🥖 🥐 🍕 🥧 🥗 🌯 🌮 🍝 🧀 🥚 🍩 🍪 🍰 🍫 🍦 🍮 🍎 🍌 🥤 🧃 💧 ☕ 🧋 ⚡ 🍋 🍊'.split(' ');
 const svg=(p,c='')=>`<svg viewBox="0 0 24 24" aria-hidden="true" class="${c}">${p}</svg>`;
@@ -839,8 +853,9 @@ function migrate(d){
 }
 function fix(d){migrate(d);d.settings={...DS,...(d.settings||{})};for(const k of ['rates','budgets','hours','explore'])d.settings[k]={...DS[k],...(d.settings[k]||{})};d.pity={...newPity(),...(d.pity||{})};d.history=d.history||[];d.opened=d.opened||d.history.length||0;d.game={...newGame(),...(d.game||{})};d.game.stats={...newGame().stats,...(d.game.stats||{})};return d}
 function load(){try{const d=JSON.parse(localStorage.getItem(LS));if(d&&Array.isArray(d.places)&&Array.isArray(d.items))return fix(d)}catch(e){}return seed()}
+let catQ='';
 let S=load(),view='home',catFilter='all',catMode='all',histMode='all',histN=40,seq=null,draft=null,pendDel=null,pendReset=false,modeOver=null,enterDir='';
-const setLang=()=>{LI=Math.max(0,LANGS.findIndex(x=>x[0]==S.lang));root.lang=LANGS[LI][0]};setLang();
+const setLang=()=>{LI=Math.max(0,LANGS.findIndex(x=>x[0]==S.lang));root.lang=LANGS[LI][0];root.dir=LANGS[LI][0]=='ar'?'rtl':'ltr'};setLang();
 let saveT;function save(now){clearTimeout(saveT);const w=()=>{try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){toast(t('t_storage'))}};if(now)w();else saveT=setTimeout(w,250)}
 addEventListener('pagehide',()=>save(true));
 save(true);
@@ -903,7 +918,8 @@ const needCost=(pid,m)=>MODES[m].must.reduce((a,k)=>a+minPrice(pid,k,m),0);
 const budgetM=m=>S.settings.budgets[m]==null?Infinity:+S.settings.budgets[m];
 const total=h=>CK.reduce((a,k)=>a+((h.slots[k]&&h.slots[k].price)||0),0);
 const remOf=e=>e.budget==null?Infinity:e.budget-total(e);
-const placesOf=m=>S.places.filter(p=>+p.weight>0&&inMode(p,m));
+const skipIds=()=>S.skip&&S.skip.day==dayKey()?S.skip.ids:[];
+const placesOf=m=>{const sk=skipIds();return S.places.filter(p=>+p.weight>0&&inMode(p,m)&&!sk.includes(p.id))};
 function pickItem(pid,cat,rank,min,cap,m){
   const pool=poolOf(pid,cat,m).filter(i=>pr(i)<=cap+1e-9);if(!pool.length)return null;
   const have=RL.filter(r=>pool.some(i=>i.rank==r));
@@ -923,7 +939,7 @@ function drawEntry(m,full){
   const fed=all.filter(p=>poolOf(p.id,Mo.main,m).length);if(!fed.length)return{err:t('t_nomain')};
   const P=fed.filter(p=>needCost(p.id,m)<=B+1e-9);
   if(!P.length)return{err:t('t_tight',{p:eur(Math.min(...fed.map(p=>needCost(p.id,m))))})};
-  const f=force(m);let c=P;
+  const f=force(m),pb={...PT(m)};let c=P;
   const others=(pid,cat)=>Mo.must.filter(k=>k!=cat).reduce((a,k)=>a+minPrice(pid,k,m),0);
   const goodS=p=>S.items.some(i=>i.placeId==p.id&&inMode(i,m)&&i.rank=='S'&&Mo.must.includes(i.cat)&&pr(i)+others(p.id,i.cat)<=B+1e-9);
   if(f=='S'){c=P.filter(p=>rv[p.rank]>=1&&goodS(p));if(!c.length)c=P.filter(goodS);if(!c.length)c=P.filter(p=>rv[p.rank]>=1)}
@@ -935,19 +951,20 @@ function drawEntry(m,full){
   order.forEach((k,j)=>{const rest=order.slice(j+1).reduce((a,x)=>a+minPrice(place.id,x,m),0);const it=pickSlot(place.id,k,j==0?(f||'B'):'B',B-spent-rest,m);slots[k]=it;spent+=pr(it)});
   if(f&&(!slots[Mo.main]||rv[slots[Mo.main].rank]<rv[f])){for(const k of order.slice(1)){const d=pickSlot(place.id,k,f,B-(spent-pr(slots[k])),m);if(d&&rv[d.rank]>=rv[f]){spent+=pr(d)-pr(slots[k]);slots[k]=d;break}}}
   if(full)CK.filter(k=>!slots[k]&&!Mo.must.includes(k)).forEach(k=>{const it=pickSlot(place.id,k,'B',B-spent,m);if(it){slots[k]=it;spent+=pr(it)}});
-  const e={id:uid(),t:Date.now(),mode:m,budget:S.settings.budgets[m],place:{id:place.id,name:place.name,emoji:place.emoji,rank:place.rank},slots:{},forced:f};
+  const e={id:uid(),t:Date.now(),mode:m,budget:S.settings.budgets[m],place:{id:place.id,name:place.name,emoji:place.emoji,rank:place.rank},slots:{},forced:f,pb};
   CK.forEach(k=>e.slots[k]=snap(slots[k]));
   const best=bestOf([place.rank,...Object.values(slots).map(x=>x&&x.rank)]);
   const p=PT(m);p.a++;p.s++;bump(best,m);
   S.history.unshift(e);S.history=S.history.slice(0,300);S.opened++;save();
   return{e,best};
 }
+const stepsFor=m=>{const Mo=MODES[m],s=['pack','place'];CK.forEach(k=>{if(Mo.must.includes(k))s.push(k);else if(Mo.opt.includes(k))s.push('ask:'+k)});s.push('recap');return s};
+const rrLeft=()=>{const g=S.game,k=dayKey();return g.rr&&g.rr.day==k?Math.max(0,1-g.rr.used):1};
 const entryBest=e=>bestOf([e.place.rank,...CK.map(k=>e.slots[k]&&e.slots[k].rank)]);
 function openBooster(){
   S.history.filter(h=>!h.rewarded).forEach(h=>reward(h,true));
   const m=curMode(),Mo=MODES[m],r=drawEntry(m);if(r.err)return toast(r.err);
-  SFX.open();const e=r.e,best=r.best;
-  const steps=['pack','place'];CK.forEach(k=>{if(Mo.must.includes(k))steps.push(k);else if(Mo.opt.includes(k))steps.push('ask:'+k)});steps.push('recap');
+  SFX.open();const e=r.e,best=r.best,steps=stepsFor(m);
   seq={e,i:0,best,steps};
   ov.hidden=false;document.body.style.overflow='hidden';ovRender();
 }
@@ -1052,7 +1069,8 @@ function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
   const rows=keys.map((k,j)=>{const d=cardData(k),c=d.r?RK[d.r].c:'#6b7a70';return `<div class="rr" style="--i:${j};--c:${c}"><div class="ico">${icon(d.em,d.img)}</div><div class="rm"><b>${esc(d.t)}</b><small>${esc(d.s)}</small></div>${d.r?`<span class="rb">${d.r}</span>`:''}</div>`}).join('');
   return `<div class="recap"><h2>${MODES[e.mode].e} ${t('mr_'+e.mode)}</h2>${rows}<div class="rtot"><span>${t('total')}</span><span>${eur(total(e))}</span></div>${e.budget!=null?`<p class="rp">${t('b_left',{b:eur(e.budget),r:`<b style="color:var(--gInk)">${eur(remOf(e))}</b>`})}</p>`:''}
   <p class="rp">${t('pity_line',{a:pt.a,am:s.pityA,s:pt.s,sm:s.pityS})}${e.forced?' · '+t('guar_used',{r:e.forced}):''}</p>
-  <div class="rbtns"><button class="btn ghost" data-act="share" data-id="${e.id}">${I.share} ${t('share_jpg')}</button><button class="btn" data-act="closeov">${t('bon_app')}</button></div></div>`}
+  <div class="rbtns"><button class="btn ghost" data-act="share" data-id="${e.id}">${I.share} ${t('share_jpg')}</button><button class="btn" data-act="closeov">${t('bon_app')}</button></div>
+  <button class="lnk" data-act="reroll" style="justify-self:center">🔁 ${t('reroll')} · ${t('reroll_left',{n:rrLeft()})}</button></div>`}
 function rewardScreen(r){
   const L0=lvlInfo(r.before),L1=lvlInfo(r.after),gain=r.after-r.before;
   const items=[];
@@ -1089,15 +1107,13 @@ function home(){
   const lastRow=last?`<button class="lastm" data-act="tab" data-v="hist" style="--c:${RK[last.place.rank].c}"><div class="ico">${esc(last.place.emoji)}</div><div class="rm"><small>${t('last_meal',{d:fdate(last.t)})}</small><b>${esc(last.place.name)} ${CK.map(k=>last.slots[k]).filter(Boolean).map(i=>esc(i.emoji)).join(' ')}</b></div><strong>${eur(total(last))}</strong></button>`:'';
   const ed=enterDir;enterDir='';
   return `${modeBar()}<section class="hero" style="--glow:${f?RK[f].c:Mo.glow}"><div class="bwrap"><button class="bst ${f?'f':''} ${ed}" id="bst" data-act="open" style="--c:${f?RK[f].c:'#fff'}" aria-label="${t('open_aria')}">
-    <div class="bhd"><div class="logo">TARPAING FAIM<small>ORIGINAL</small></div></div>
-    <div class="bart" style="background:${Mo.art}"><div class="burst"></div>${orbs}${f?`<div class="rib">${t('guarantee',{r:f})}</div>`:''}
+    <div class="bart" style="background:${Mo.art}"><div class="burst"></div>${orbs}<div class="btop"><span class="tchip" data-act="rates">${I.info} ${t('rates')}</span><span class="nb">N°${String(S.opened+1).padStart(3,'0')}</span></div>
       <div class="plate" id="plate"><span>${esc(src[0])}</span></div>
-      <div class="bttl">${t('mt_'+m)}</div><div class="bsub">${t('place_w')} · ${Mo.must.map(k=>catL(k,m)).join(' · ')}</div><div class="foil"></div></div>
-    <div class="bft"><span class="tchip" data-act="rates">${I.info} ${t('rates')}</span><span class="nb">N°${String(S.opened+1).padStart(3,'0')}</span></div>
+      <div class="bttl">${t('mt_'+m)}</div><div class="bsub">${t('place_w')} · ${Mo.must.map(k=>catL(k,m)).join(' · ')}</div>${f?`<div class="gchip" style="--c:${RK[f].c}">${STAR} ${t('guarantee',{r:f})}</div>`:''}<div class="foil"></div></div>
   </button></div></section>
   <p class="swh"><span>${I.up} ${t('sw_up')}</span><span>${I.lr} ${t('sw_lr')}</span></p>
   <div class="bud"><div class="bstep"><button data-act="bstep" data-v="-1" aria-label="${t('b_less')}">${I.minus}</button><button class="bval" data-act="bsheet"><small>${t('budget_of',{mode:mLow(m)})}</small>${b==null?t('unlimited'):eur(b)}</button><button data-act="bstep" data-v="1" aria-label="${t('b_more')}">${I.plus}</button></div></div>
-  <p class="bhint ${bad?'bad':''}">${bh}</p>
+  <p class="bhint ${bad?'bad':''}">${bh}${skipIds().length?` · <button class="lnk" data-act="rates" style="min-height:0;font-size:12.5px">🚫 ${t('skipped_n',{n:skipIds().length})}</button>`:''}</p>
   <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none?'disabled':''}>${t('open')}</button><button class="btn ghost play4" data-act="open4" aria-label="${t('open4_aria')}"><b>×4</b><small>☕🍽️🍪🌙</small></button></div>
   ${questsHTML()}
   <section class="box"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}`;
@@ -1110,10 +1126,15 @@ function catalog(){
   const PL=S.places.filter(p=>catMode=='all'||inMode(p,catMode));
   if(catFilter!='all'&&!PL.some(p=>p.id==catFilter))catFilter='all';
   const chips=[['all',t('all_p')],...PL.map(p=>[p.id,p.emoji+' '+p.name])].map(([k,l])=>`<button class="${catFilter==k?'on':''}" data-act="filter" data-v="${k}">${esc(l)}</button>`).join('');
-  const list=PL.filter(p=>catFilter=='all'||catFilter==p.id).map(p=>{const its=S.items.filter(i=>i.placeId==p.id&&(catMode=='all'||inMode(i,catMode))).sort((a,b)=>order(a.cat)-order(b.cat)||rv[b.rank]-rv[a.rank]);
-    return `<h3 class="grp">${esc(p.emoji)} ${esc(p.name)}${p.ia?' <span class="aib">IA</span>':''} <span class="rb" style="--c:${RK[p.rank].c}">${p.rank}</span><em>${modeTags(p)} · ${its.length}</em></h3>${its.length?its.map(rowHTML).join(''):`<p class="empty">${t('no_item')}</p>`}`}).join('');
-  return `<div class="vh"><h1>${t('tab_cat')}</h1><button class="btn sm" data-act="add">${t('add')}</button></div><div class="chips">${mchips}</div><div class="chips">${chips}</div>${S.items.some(i=>i.ex)?`<p class="note">${t('ex_note')}</p>`:''}${list||`<p class="empty">${t('no_place')}</p>`}`;
+  return `<div class="vh"><h1>${t('tab_cat')}</h1><button class="btn sm" data-act="add">${t('add')}</button></div><input class="srch" type="search" data-f="q" value="${esc(catQ)}" placeholder="🔎 ${t('search_ph')}"><div class="chips">${mchips}</div><div class="chips">${chips}</div>${S.items.some(i=>i.ex)?`<p class="note">${t('ex_note')}</p>`:''}<div id="catlist">${catList()}</div>`;
 }
+const norm=x=>String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+function catList(){const order=k=>CK.indexOf(k),q=norm(catQ.trim());
+  const PL=S.places.filter(p=>(catMode=='all'||inMode(p,catMode))&&(catFilter=='all'||catFilter==p.id));
+  const html=PL.map(p=>{const its=S.items.filter(i=>i.placeId==p.id&&(catMode=='all'||inMode(i,catMode))&&(!q||norm(i.name).includes(q)||norm(p.name).includes(q))).sort((a,b)=>order(a.cat)-order(b.cat)||rv[b.rank]-rv[a.rank]);
+    if(q&&!its.length)return '';
+    return `<h3 class="grp">${esc(p.emoji)} ${esc(p.name)}${p.ia?' <span class="aib">IA</span>':''} <span class="rb" style="--c:${RK[p.rank].c}">${p.rank}</span><em>${modeTags(p)} · ${its.length}</em></h3>${its.length?its.map(rowHTML).join(''):`<p class="empty">${t('no_item')}</p>`}`}).join('');
+  return html||`<p class="empty">${q?t('no_result'):t('no_place')}</p>`}
 const fdate=x=>new Date(x).toLocaleDateString(loc(),{weekday:'short',day:'numeric',month:'short'});
 function hist(){
   const H=S.history.filter(h=>histMode=='all'||h.mode==histMode),tot=H.reduce((a,h)=>a+total(h),0);
@@ -1122,13 +1143,14 @@ function hist(){
   const mchips=[['all',t('all')],...MO.map(m=>[m,MODES[m].e+' '+mL(m)])].map(([k,l])=>`<button class="${histMode==k?'on':''}" data-act="hmode" data-v="${k}">${esc(l)}</button>`).join('');
   const rows=H.slice(0,histN).map(h=>`<div class="hrow"><div class="hh"><span>${MODES[h.mode||'midi'].e} ${esc(h.place.emoji)} <b>${esc(h.place.name)}</b></span><span class="rb" style="--c:${RK[h.place.rank].c}">${h.place.rank}</span><time>${fdate(h.t)}</time></div><div class="hi">${CK.map(k=>h.slots[k]).filter(Boolean).map(i=>`<span class="tag" style="--c:${RK[i.rank].c}">${icon(i.emoji,imgOf(i.id),'ti')} ${esc(i.name)}</span>`).join('')||`<span class="note">${t('h_nothing')}</span>`}</div><div class="hf">${h.forced?`<span>${t('h_pity',{r:h.forced})}</span>`:''}<b>${eur(total(h))}</b><button class="ib" data-act="share" data-id="${h.id}" aria-label="${t('share_jpg')}">${I.share}</button></div></div>`).join('');
   return `<div class="vh"><h1>${t('tab_hist')}</h1></div><div class="chips">${mchips}</div><div class="stats"><div><b>${H.length}</b><small>${t('h_boost')}</small></div><div><b>${eur(tot)}</b><small>${t('h_spent')}</small></div><div><b>${eur(H.length?tot/H.length:0)}</b><small>${t('h_avg')}</small></div></div>
+  ${(()=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));const W=H.filter(h=>h.t>=+d);return `<p class="wk">📅 ${t('week',{p:eur(W.reduce((s,h)=>s+total(h),0)),n:W.length})}</p>`})()}
   <section class="box"><h2>${t('h_where')}</h2>${bars}<p class="hint2">${histMode=='all'?t('h_hint_all'):t('h_hint')}</p></section>${rows||`<p class="empty">${t('h_empty')}</p>`}${H.length>histN?`<button class="btn ghost sm" data-act="hmore" style="width:100%">${t('more')}</button>`:''}`;
 }
 function placePct(p){return MO.filter(m=>inMode(p,m)).map(m=>{const tw=placesOf(m).reduce((a,x)=>a+(+x.weight||0),0);return `${MODES[m].e} ${+p.weight>0?pct(p.weight,tw):'0 %'}`}).join(' · ')||t('s_nomode')}
 function settings(){
   const s=S.settings,tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0);
   return `<div class="vh"><h1>${t('tab_set')}</h1></div>
-  <section class="box"><h2>${t('s_lang')}</h2><div class="langs">${LANGS.map((l,j)=>`<button class="${j==LI?'on':''}" data-act="lang" data-v="${l[0]}"><span>${l[2]}</span>${l[1]}</button>`).join('')}</div></section>
+  <section class="box"><h2>${t('s_lang')}</h2><div class="langsel"><select data-f="lang" aria-label="${t('s_lang')}">${LANGS.map((l,j)=>`<option value="${l[0]}" ${j==LI?'selected':''}>${l[2]}  ${l[1]}</option>`).join('')}</select></div></section>
   <section class="box"><h2>${t('s_profile')}</h2><div class="prof"><div class="avr" style="--p:${Math.round(lvlInfo(S.game.xp).cur/lvlInfo(S.game.xp).need*100)};width:76px;height:76px;flex:none"><div class="av">${s.avatarImg?`<img src="${esc(s.avatarImg)}" alt="">`:esc(s.avatar)}</div></div><div class="grow"><label class="fld">${t('s_pseudo')}<input data-f="pseudo" value="${esc(s.pseudo)}" maxlength="20"></label><div class="iconrow"><input data-f="avatar" value="${esc(s.avatar)}" maxlength="8" aria-label="${t('s_avatar')}"><label class="btn ghost sm file">${t('s_photo')}<input type="file" id="fAv" accept="image/*" hidden></label>${s.avatarImg?`<button class="lnk" data-act="noav">${t('s_remove')}</button>`:''}</div></div></div></section>
   <section class="box"><h2>${t('s_hours')}</h2><p class="hint2">${t('s_hours_h')}</p><div class="two">${MO.map(m=>`<label class="fld">${t('from',{m:MODES[m].e+' '+mL(m)})}<input type="time" data-f="hour:${m}" value="${esc(s.hours[m])}"></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_sound')}</h2>
@@ -1235,6 +1257,7 @@ function openItem(id){if(!S.places.length)return toast(t('t_needplace'));const i
   draft=it?{...it,modes:[...(it.modes||MO)]}:{id:null,name:'',placeId:pl,cat:MODES[m].main,rank:'B',emoji:'🍽️',img:null,price:'',modes:[m]};pendDel=null;sheet(itemForm());if(!it)setTimeout(()=>$('#fName')&&$('#fName').focus(),300)}
 function ratesSheet(){const s=S.settings,m=curMode(),PL=placesOf(m),tw=PL.reduce((a,p)=>a+(+p.weight||0),0),tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0),pt=PT(m);
   sheet(`<h2>${t('r_title',{mode:MODES[m].e+' '+mL(m)})}</h2><h3 class="sub">${t('est')}</h3>${PL.map(p=>`<div class="kv"><span>${esc(p.emoji)} ${esc(p.name)} <span class="rb" style="--c:${RK[p.rank].c}">${p.rank}</span></span><b>${pct(p.weight,tw)}</b></div>`).join('')||`<p class="hint2">${t('r_none')}</p>`}
+  <h3 class="sub">🚫 ${t('skip_today')}</h3><p class="hint2">${t('skip_h')}</p><div class="skipl">${S.places.filter(p=>inMode(p,m)).map(p=>`<button class="${skipIds().includes(p.id)?'on':''}" data-act="skipp" data-id="${p.id}">${esc(p.emoji+' '+p.name)}</button>`).join('')}</div>
   <h3 class="sub">${t('r_card')}</h3>${RL.map(r=>`<div class="kv"><span style="color:${RK[r].c};font-weight:700">${t('rank',{r})} ${stars(RK[r].stars)}</span><b>${pct(s.rates[r],tr)}</b></div>`).join('')}
   <h3 class="sub">${t('s_pity')}</h3><p class="hint2">${t('r_pity',{a:s.pityA,s:s.pityS,ca:pt.a,cs:pt.s})}</p>
   <div class="sact"><button class="btn ghost sm" data-act="tab" data-v="set">${t('edit')}</button><button class="btn sm" data-act="close">${t('got_it')}</button></div>`)}
@@ -1402,6 +1425,11 @@ const A={
     S.places.push({id,name:p.name,emoji:p.emoji,rank:p.rank,weight:{B:30,A:15,S:5}[p.rank],modes:[m],ia:true});
     p.items.forEach(i=>S.items.push({id:uid(),placeId:id,cat:i.cat,rank:i.rank,emoji:i.emoji,name:i.name,price:i.price||'',img:null,ex:false,ia:true,modes:[m]}));
     S.game.stats.explore++;const a=checkAch();save();SFX.yes();render();toast(a.length?t('new_ach')+' : '+t(a[0].id):t('t_xadded',{p:p.name,n:p.items.length}))},
+  reroll:()=>{const e=seq&&seq.e;if(!e)return;if(rrLeft()<1)return toast(t('t_noreroll'));const g=S.game,k=dayKey();g.rr=g.rr&&g.rr.day==k?g.rr:{day:k,used:0};g.rr.used++;
+    S.history=S.history.filter(h=>h.id!=e.id);if(e.pb)Object.assign(PT(e.mode),e.pb);S.opened=Math.max(0,S.opened-1);
+    if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};if(!S.skip.ids.includes(e.place.id))S.skip.ids.push(e.place.id);
+    const r=drawEntry(e.mode);if(r.err){save();toast(r.err);return A.rewclose()}SFX.open();seq={e:r.e,i:0,best:r.best,steps:stepsFor(e.mode)};ovRender()},
+  skipp:b=>{const k=dayKey(),id=b.dataset.id;if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};const L=S.skip.ids;L.includes(id)?L.splice(L.indexOf(id),1):L.push(id);SFX.soft();save();ratesSheet();if(view=='home')render()},
   next:()=>{SFX.tap();goNext()},
   skip:()=>{SFX.soft();seq.i=seq.steps.length-1;ovRender()},
   ask:b=>{b.dataset.v=='1'?SFX.yes():SFX.soft();const k=seq.steps[seq.i].slice(4);if(b.dataset.v=='1'){const it=pickSlot(seq.e.place.id,k,'B',remOf(seq.e),seq.e.mode);seq.e.slots[k]=snap(it);if(it)bump(it.rank,seq.e.mode);save();seq.steps.splice(seq.i+1,0,k)}seq.i++;ovRender()},
@@ -1440,6 +1468,8 @@ document.addEventListener('pointerout',e=>{const b=e.target.closest&&e.target.cl
 document.addEventListener('input',e=>{
   if(e.target.id=='fEmo'&&draft&&!draft.img){$('#pv').innerHTML=icon(e.target.value,null);return}
   const f=e.target.dataset.f;if(!f)return;const v=e.target.value,s=S.settings;
+  if(f=='q'){catQ=v;const l=$('#catlist');if(l)l.innerHTML=catList();return}
+  if(f=='lang'){S.lang=v;setLang();save();SFX.yes();render();return}
   if(f=='sound'||f=='vibe')s[f]=e.target.checked;else if(f=='volume')s.volume=+v;else if(f=='pseudo')s.pseudo=v;else if(f=='avatar')s.avatar=v||'😋';
   else if(f.startsWith('hour:')){if(v){s.hours[f.slice(5)]=v;applyTheme()}}
   else if(f.startsWith('x:')){s.explore[f.slice(2)]=v;if(f=='x:origin')delete s.explore.coords}
