@@ -910,6 +910,12 @@ adm_copy:["Copier le diagnostic", "Copy diagnostics", "Copy diagnostics", "Copy 
 adm_copied:["Diagnostic copié", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied"],
 adm_reset:["Réinitialiser mes données locales", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data"],
 adm_reset_s:["Sûr ? Ça efface ta progression ici", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here"],
+au_account:["Compte", "Account", "Account", "Account", "Account", "Account", "Account", "Account", "Account", "Account"],
+au_delete:["Supprimer mon compte", "Delete my account", "Delete my account", "Delete my account", "Delete my account", "Delete my account", "Delete my account", "Delete my account", "Delete my account", "Delete my account"],
+au_delete_s:["Sûr ? Appuie encore pour supprimer", "Sure? Tap again to delete", "Sure? Tap again to delete", "Sure? Tap again to delete", "Sure? Tap again to delete", "Sure? Tap again to delete", "Sure? Tap again to delete", "Sure? Tap again to delete", "Sure? Tap again to delete", "Sure? Tap again to delete"],
+au_delete_h:["Supprime ton compte et tes avis envoyés. Ta progression de jeu reste sur cet appareil.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device."],
+au_deleted:["Compte supprimé", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted"],
+au_delete_fail:["Suppression impossible : {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}"],
 new_place:["Nouveau lieu", "New place", "Nuevo lugar", "Neuer Ort", "Nuovo locale", "Novo local", "Новое место", "مكان جديد", "新店铺", "新しいお店"],
 t_delplace:["Ça supprimera aussi {n} aliment(s)", "This also deletes {n} item(s)", "También se borrarán {n} artículo(s)", "Löscht auch {n} Eintrag/Einträge", "Eliminerà anche {n} articolo/i", "Também apaga {n} artigo(s)", "Также удалится позиций: {n}", "سيُحذف أيضًا {n} عنصر", "同时删除{n}个项目", "{n}件のメニューも削除されます"],
 s_rates:["Taux par carte", "Card rates", "Tasas por carta", "Kartenchancen", "Probabilità carte", "Probabilidade das cartas", "Шансы карт", "احتمالات البطاقات", "卡片概率", "カード確率"],
@@ -1637,10 +1643,16 @@ function hist(){
   <section class="box"><h2>${t('h_where')}</h2>${bars}<p class="hint2">${histMode=='all'?t('h_hint_all'):t('h_hint')}</p></section>${rows||`<p class="empty">${t('h_empty')}</p>`}${H.length>histN?`<button class="btn ghost sm" data-act="hmore" style="width:100%">${t('more')}</button>`:''}`;
 }
 function placePct(p){return MO.filter(m=>inMode(p,m)).map(m=>{const tw=placesOf(m).reduce((a,x)=>a+(+x.weight||0),0);return `${MODES[m].e} ${+p.weight>0?pct(p.weight,tw):'0 %'}`}).join(' · ')||t('s_nomode')}
+function accountSection(){if(!AUTH.on||!AUTH.sess)return '';
+  return `<section class="box"><h2>${t('au_account')}</h2><p class="hint2" style="margin-top:0">👤 ${esc(AUTH.sess.user.email||'')} · ${AUTH.role=='admin'?'🛠️ '+t('au_role_admin'):t('au_role_user')}</p><div class="btns"><button class="btn ghost sm" data-act="aulogout">${t('au_out')}</button><button class="btn danger sm" data-act="audel">${AUTH.pendDel?t('au_delete_s'):t('au_delete')}</button></div><p class="hint2" style="margin-bottom:0">${t('au_delete_h')}</p></section>`}
+async function authDelete(){if(!AUTH.pendDel){AUTH.pendDel=true;render();return}
+  try{if(!await authFresh())throw new Error('session');await sb('/rest/v1/rpc/delete_my_account',{method:'POST',body:{}});authClear();AUTH.pendDel=false;AUTH.pw='';AUTH.msg='';toast(t('au_deleted'));render();authRender()}
+  catch(er){AUTH.pendDel=false;toast(t('au_delete_fail',{e:authErr(er)}));render()}}
 function settings(){
   const s=S.settings,tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0);
   return `<div class="vh"><h1>${t('tab_set')}</h1></div>
   <section class="box"><button class="btn ghost sm" data-act="replayob">${t('s_replayonboard')}</button></section>
+  ${accountSection()}
   <section class="box"><h2>${t('s_lang')}</h2><div class="langsel"><select data-f="lang" aria-label="${t('s_lang')}">${LANGS.map((l,j)=>`<option value="${l[0]}" ${j==LI?'selected':''}>${l[2]}  ${l[1]}</option>`).join('')}</select></div></section>
   <section class="box"><h2>${t('cur_label')}</h2><div class="langsel"><select data-f="cur">${CUR.map(c=>`<option value="${c}" ${c==curC()?'selected':''}>${c} · ${curSym(c)}</option>`).join('')}</select></div><p class="hint2" style="margin-bottom:0">${t('cur_h')}</p></section>
   <section class="box"><h2>${t('s_profile')}</h2><div class="prof"><div class="avr" style="--p:${Math.round(lvlInfo(S.game.xp).cur/lvlInfo(S.game.xp).need*100)};width:76px;height:76px;flex:none"><div class="av">${s.avatarImg?`<img src="${esc(s.avatarImg)}" alt="">`:esc(s.avatar)}</div></div><div class="grow"><label class="fld">${t('s_pseudo')}<input data-f="pseudo" value="${esc(s.pseudo)}" maxlength="20"></label><div class="iconrow"><input data-f="avatar" value="${esc(s.avatar)}" maxlength="8" aria-label="${t('s_avatar')}"><label class="btn ghost sm file">${t('s_photo')}<input type="file" id="fAv" accept="image/*" hidden></label>${s.avatarImg?`<button class="lnk" data-act="noav">${t('s_remove')}</button>`:''}</div></div></div></section>
@@ -2106,7 +2118,8 @@ const A={
   aumode:b=>{const e1=$('#au_em'),p1=$('#au_pw');if(e1)AUTH.em=e1.value;if(p1)AUTH.pw=p1.value;AUTH.mode=b.dataset.v;AUTH.msg='';authRender()},
   ausubmit:()=>authSubmit(),aureset:()=>authReset(),
   augoogle:()=>{location.href=CFG.url+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(location.origin+location.pathname)},
-  aulogout:()=>{authClear();closeSheet();AUTH.pw='';AUTH.msg='';authRender()},
+  aulogout:()=>{authClear();closeSheet();AUTH.pw='';AUTH.msg='';authRender();render()},
+  audel:()=>authDelete(),
   fbk:()=>{SFX.soft();fbSheet()},fbrate:b=>{const el=$('#fb_txt');if(el)FB.txt=el.value;FB.rate=+b.dataset.v;fbSheet()},fbsend:()=>fbSend(),
   admin:()=>{SFX.soft();ADM.tab='fb';ADM.pendReset=false;admLoad()},
   admtab:b=>{ADM.tab=b.dataset.v;ADM.pendReset=false;if(ADM.tab=='dev'){admSheet()}else admLoad()},

@@ -67,3 +67,12 @@ insert into public.profiles (id, email)
 
 -- TON COMPTE ADMIN : remplace l'email puis lance cette ligne APRES t'etre inscrit dans l'app.
 -- update public.profiles set role = 'admin' where email = 'ton-email@exemple.com';
+
+-- Suppression de compte par l'utilisateur lui-meme (bouton Reglages > Supprimer mon compte)
+create or replace function public.delete_my_account() returns void
+language plpgsql security definer set search_path = public, auth as $$
+begin
+  delete from auth.users where id = auth.uid();
+end $$;
+revoke all on function public.delete_my_account() from public, anon;
+grant execute on function public.delete_my_account() to authenticated;
