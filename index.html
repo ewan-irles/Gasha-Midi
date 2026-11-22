@@ -560,6 +560,21 @@ img.big{width:62%;aspect-ratio:1;object-fit:contain}
 .accb{padding:4px 12px 14px;animation:fade .25s both}
 .accb .prow{margin-bottom:12px}
 .accb .btn{width:100%;margin-top:2px}
+.clr{margin:26px auto 8px;font-size:13px;opacity:.8}.lnk.dng{color:#d63a3a}
+
+#glc{position:fixed;inset:0;width:100%;height:100%;z-index:98;pointer-events:none}
+.wo{position:fixed;inset:0;z-index:97;background:#fff;pointer-events:none;animation:wo .8s ease-out forwards}
+@keyframes wo{0%{opacity:0}14%{opacity:.8}100%{opacity:0}}
+.fx .beam{position:absolute;left:50%;top:44%;width:150px;height:78vh;transform:translate(-50%,-50%);background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--c) 55%,#fff) 50%,transparent);filter:blur(9px);mix-blend-mode:screen;opacity:0;animation:beam .95s ease-out forwards;pointer-events:none}
+@keyframes beam{0%{opacity:0;transform:translate(-50%,-50%) scaleX(.15)}30%{opacity:.95;transform:translate(-50%,-50%) scaleX(1)}100%{opacity:0;transform:translate(-50%,-50%) scaleX(2.6)}}
+.flip::before{content:"";position:absolute;inset:-55%;background:radial-gradient(circle,color-mix(in srgb,var(--c) 50%,transparent),transparent 58%);opacity:0;transition:opacity .7s .4s;pointer-events:none;z-index:0}
+.flip.on.rA::before,.flip.on.rS::before{opacity:1}
+.flip.on.rS::before{background:radial-gradient(circle,color-mix(in srgb,var(--c) 70%,#fff),color-mix(in srgb,var(--c) 40%,transparent) 30%,transparent 60%)}
+.flip.on.rA .in,.flip.on.rS .in{animation:idle 6s 1.3s ease-in-out infinite}
+@keyframes idle{0%,100%{transform:rotateY(180deg) rotateX(0)}25%{transform:rotateY(175deg) rotateX(2.5deg)}75%{transform:rotateY(185deg) rotateX(-2.5deg)}}
+.flip.tl .in{animation:none!important;transition:transform .12s ease-out!important;transform:rotateY(calc(180deg + var(--ry,0deg))) rotateX(var(--rx,0deg))!important}
+.flip.on.rA .front::before,.flip.on.rS .front::before{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;pointer-events:none;mix-blend-mode:soft-light;background:radial-gradient(circle at var(--mx,50%) var(--my,28%),rgba(255,255,255,.75),transparent 52%)}
+@media (prefers-reduced-motion:reduce){.flip.on.rA .in,.flip.on.rS .in{animation:none}}
 .catbtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
 .modes button{position:relative}.modes button.used{opacity:.75}.modes .tick{position:absolute;top:2px;right:6px;font:900 11px Outfit,system-ui,sans-serif;font-style:normal;color:currentColor}
 .play:disabled{opacity:.6}
@@ -1555,10 +1570,34 @@ function ovRender(){
   <p class="ovsub" id="tip">${t('tap_card')}</p>
   <div class="ovact"><button class="lnk" data-act="skip">${t('skip')}</button><button class="btn" id="nx" data-act="next" disabled>${t('next')}</button></div>`;
 }
+
+/* ---- étoiles scintillantes (canvas additif) : déchirure et révélation des cartes rares ---- */
+const GL={ps:[],raf:0,amb:0};
+function star4(g,x,y,s,r){g.save();g.translate(x,y);g.rotate(r);g.beginPath();g.moveTo(0,-s);g.quadraticCurveTo(s*.1,-s*.1,s,0);g.quadraticCurveTo(s*.1,s*.1,0,s);g.quadraticCurveTo(-s*.1,s*.1,-s,0);g.quadraticCurveTo(-s*.1,-s*.1,0,-s);g.fill();g.restore()}
+function glints(x,y,col,n,o={}){if(reduce)return;let c=$('#glc');if(!c){c=document.createElement('canvas');c.id='glc';document.body.appendChild(c)}
+  const dpr=Math.min(2,devicePixelRatio||1),W=Math.round(innerWidth*dpr),H=Math.round(innerHeight*dpr);if(c.width!=W||c.height!=H){c.width=W;c.height=H}
+  const t0=performance.now(),sp=o.spread||300,box=o.box;
+  for(let i=0;i<n;i++){const a=Math.random()*6.283,v=(o.burst?(.25+Math.random()*.75)*sp:(8+Math.random()*22))/1000;
+    GL.ps.push({x:(box?box[0]+Math.random()*box[2]:x)*dpr,y:(box?box[1]+Math.random()*box[3]:y)*dpr,vx:Math.cos(a)*v*dpr,vy:(Math.sin(a)*v-(o.burst?0:.012))*dpr,
+      s:(o.min||5)+Math.random()*(o.big||11),ph:Math.random()*6.283,rot:Math.random()*1.5,life:(o.life||1400)*(.6+Math.random()*.6),t0:t0+Math.random()*(o.delay||0),col:Math.random()<.35?'#fff':col,g:o.burst?.00004:0})}
+  if(!GL.raf)GL.raf=requestAnimationFrame(glLoop)}
+function glLoop(now){const c=$('#glc');if(!c){GL.raf=0;return}const g=c.getContext('2d'),dpr=Math.min(2,devicePixelRatio||1);g.clearRect(0,0,c.width,c.height);g.globalCompositeOperation='lighter';
+  GL.ps=GL.ps.filter(p=>now-p.t0<p.life);
+  for(const p of GL.ps){const age=now-p.t0;if(age<0)continue;const k=age/p.life,al=Math.sin(Math.PI*Math.min(1,k))*(.65+.35*Math.sin(age*.018+p.ph)),s=p.s*dpr*(1-.35*k);
+    g.globalAlpha=Math.max(0,al);g.fillStyle=p.col;g.shadowColor=p.col;g.shadowBlur=s*2.2;star4(g,p.x+p.vx*age,p.y+p.vy*age+p.g*age*age*dpr,s,p.rot+age*.0009)}
+  g.globalAlpha=1;g.shadowBlur=0;
+  if(GL.ps.length)GL.raf=requestAnimationFrame(glLoop);else{g.clearRect(0,0,c.width,c.height);GL.raf=0}}
+function glAmbient(f,col,n){clearInterval(GL.amb);if(reduce)return;GL.amb=setInterval(()=>{const live=$('#flip.on');if(!live||!document.body.contains(f)){clearInterval(GL.amb);return}
+  const r=f.getBoundingClientRect();glints(0,0,col,n,{box:[r.left-14,r.top-14,r.width+28,r.height+28],min:3,big:8,life:1500})},260)}
+function chime(rk){if(rk!='A'&&rk!='S')return;const ns=rk=='S'?[1319,1568,1976,2637,3136]:[1175,1480,1760];ns.forEach((f,i)=>tone(f,.5,{type:'sine',v:rk=='S'?.07:.05,w:.45+i*.07}))}
+function whiteout(){if(reduce)return;const w=document.createElement('div');w.className='wo';document.body.appendChild(w);setTimeout(()=>w.remove(),900)}
 function flipCard(f){if(f.classList.contains('on'))return;f.classList.add('on');SFX.flip();SFX.reveal((f.className.match(/\br([BAS])\b/)||[])[1]);
   if(!reduce&&!f.classList.contains('rX')){const n=f.classList.contains('rS')?30:f.classList.contains('rA')?18:10;const frag=document.createDocumentFragment();
     for(let i=0;i<n;i++){const p=document.createElement('i');p.className='pt';const a=Math.random()*6.283,d=110+Math.random()*130;p.style.cssText=`--x:${Math.cos(a)*d}px;--y:${Math.sin(a)*d}px;animation-delay:${.45+Math.random()*.25}s`;frag.appendChild(p)}f.appendChild(frag)}
   if(f.classList.contains('rS'))setTimeout(()=>confetti(70),500);
+  {const rk=(f.className.match(/\br([BAS])\b/)||[])[1];if(rk&&!reduce){const col=f.style.getPropertyValue('--c')||'#fff',r=f.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    setTimeout(()=>glints(cx,cy,col,rk=='S'?70:rk=='A'?38:14,{burst:1,spread:rk=='S'?520:380,life:1500,delay:120}),420);
+    if(rk!='B'){chime(rk);if(rk=='S')setTimeout(whiteout,380);setTimeout(()=>glAmbient(f,col,rk=='S'?3:2),900)}}}
   setTimeout(()=>{const nx=$('#nx');if(nx){nx.disabled=false;nx.focus({preventScroll:true})}},reduce?0:700)}
 function goNext(){const f=$('#flip');if(f&&!reduce){f.classList.add('out');SFX.swipe();setTimeout(()=>{seq.i++;ovRender()},260)}else{seq.i++;ovRender()}}
 function startQ(q){seq.q=q;seq.e=seq.list[q];seq.steps=stepsFor(seq.e);seq.i=1;seq.stage='inter';const m=seq.e.mode;
@@ -1566,9 +1605,9 @@ function startQ(q){seq.q=q;seq.e=seq.list[q];seq.steps=stepsFor(seq.e);seq.i=1;s
   setTimeout(()=>{if(!seq||seq.stage!='inter'||seq.q!=q)return;seq.stage='run';ovRender()},reduce?200:1100)}
 function tear(p){if(p.classList.contains('open'))return;p.style.setProperty('--cut',1);p.classList.add('open');SFX.tear(seq.best);
   const fx=document.createElement('div');fx.className='fx';fx.style.setProperty('--c',RK[seq.best].c);const nsp=seq.best=='S'?26:seq.best=='A'?16:9;let spx='';for(let i=0;i<nsp;i++){const an=Math.random()*6.283,d=120+Math.random()*190;spx+=`<i class="sp" style="--x:${Math.cos(an)*d}px;--y:${Math.sin(an)*d}px;animation-delay:${Math.random()*.15}s"></i>`}
-  fx.innerHTML='<i class="streak"></i><i class="flash"></i><i class="ring"></i><i class="ring r2"></i>'+spx;
+  fx.innerHTML='<i class="beam"></i><i class="streak"></i><i class="flash"></i><i class="ring"></i><i class="ring r2"></i>'+spx;
   if(!reduce&&seq.best!='B'){ov.classList.remove('shk');void ov.offsetWidth;setTimeout(()=>ov.classList.add('shk'),450);vib([30,30,60])}
-  setTimeout(()=>ov.appendChild(fx),reduce?0:450);setTimeout(()=>{if(seq.multi)startQ(0);else{seq.i++;ovRender()}},reduce?300:1750)}
+  setTimeout(()=>ov.appendChild(fx),reduce?0:450);if(!reduce){const r=p.getBoundingClientRect();setTimeout(()=>glints(r.left+r.width/2,r.top+r.height*.42,RK[seq.best].c,seq.best=='S'?46:seq.best=='A'?28:12,{burst:1,spread:440,life:1300}),460)}setTimeout(()=>{if(seq.multi)startQ(0);else{seq.i++;ovRender()}},reduce?300:1750)}
 function recapHTML(){const e=seq.e,pt=PT(e.mode),s=S.settings;
   const rm=e.rm||[],keys=['place',...seq.steps.filter(k=>CK.includes(k)&&!rm.includes(k))];
   const rows=keys.map((k,j)=>{const d=cardData(k),c=d.r?RK[d.r].c:'#6b7a70',it=k!='place'&&e.slots[k],nw=it&&!S.game.seen[it.id];return `<div class="rr" style="--i:${j};--c:${c}"><div class="ico">${icon(d.em,d.img)}</div><div class="rm"><b>${esc(d.t)}${nw?` <span class="newb">${t('new_card')}</span>`:''}</b><small>${esc(d.s)}</small></div>${d.r?`<span class="rb">${d.r}</span>`:''}${k!='place'?`<button class="rx" data-act="rmitem" data-k="${k}" aria-label="${t('s_remove')}" title="${t('s_remove')}">✕</button>`:''}</div>`}).join('');
@@ -1634,7 +1673,7 @@ function catalog(){
   const mchips=[['all',t('all_m')],...MO.map(m=>[m,MODES[m].e+' '+mL(m)])].map(([k,l])=>`<button class="${catMode==k?'on':''}" data-act="cmode" data-v="${k}">${esc(l)}</button>`).join('');
   const PL=S.places.filter(p=>catMode=='all'||inMode(p,catMode));
   if(catFilter!='all'&&!PL.some(p=>p.id==catFilter))catFilter='all';
-  return `<div class="vh"><h1>${t('tab_cat')}</h1></div><p class="hint2">${t('cat_hint')}</p><div class="catbtns"><button class="btn ghost sm" data-act="addplace">${t('s_addplace')}</button><button class="btn sm" data-act="add">${t('add_card')}</button></div>${S.places.length?`<button class="btn danger sm" data-act="clearcat" style="margin-bottom:10px">${pendClearCat?t('s_clearcat_s'):t('s_clearcat')}</button>`:''}<input class="srch" type="search" data-f="q" value="${esc(catQ)}" placeholder="🔎 ${t('search_ph')}"><div class="chips">${mchips}</div>${S.items.some(i=>i.ex)?`<p class="note">${t('ex_note')}</p>`:''}<div id="catlist">${catList()}</div>`;
+  return `<div class="vh"><h1>${t('tab_cat')}</h1></div><p class="hint2">${t('cat_hint')}</p><div class="catbtns"><button class="btn ghost sm" data-act="addplace">${t('s_addplace')}</button><button class="btn sm" data-act="add">${t('add_card')}</button></div><input class="srch" type="search" data-f="q" value="${esc(catQ)}" placeholder="🔎 ${t('search_ph')}"><div class="chips">${mchips}</div>${S.items.some(i=>i.ex)?`<p class="note">${t('ex_note')}</p>`:''}<div id="catlist">${catList()}</div>${S.places.length?`<button class="lnk dng clr" data-act="clearcat">${pendClearCat?t('s_clearcat_s'):t('s_clearcat')}</button>`:''}`;
 }
 const norm=x=>String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const catOpen={};
@@ -1691,11 +1730,10 @@ async function authDelete(){if(!AUTH.pendDel){AUTH.pendDel=true;render();return}
 function settings(){
   const s=S.settings,tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0);
   return `<div class="vh"><h1>${t('tab_set')}</h1></div>
-  <section class="box"><button class="btn ghost sm" data-act="replayob">${t('s_replayonboard')}</button></section>
+  <section class="box"><h2>${t('s_profile')}</h2><div class="prof"><div class="avr" style="--p:${Math.round(lvlInfo(S.game.xp).cur/lvlInfo(S.game.xp).need*100)};width:76px;height:76px;flex:none"><div class="av">${s.avatarImg?`<img src="${esc(s.avatarImg)}" alt="">`:esc(s.avatar)}</div></div><div class="grow"><label class="fld">${t('s_pseudo')}<input data-f="pseudo" value="${esc(s.pseudo)}" maxlength="20"></label><div class="iconrow"><input data-f="avatar" value="${esc(s.avatar)}" maxlength="8" aria-label="${t('s_avatar')}"><label class="btn ghost sm file">${t('s_photo')}<input type="file" id="fAv" accept="image/*" hidden></label>${s.avatarImg?`<button class="lnk" data-act="noav">${t('s_remove')}</button>`:''}</div></div></div></section>
   ${accountSection()}
   <section class="box"><h2>${t('s_lang')}</h2><div class="langsel"><select data-f="lang" aria-label="${t('s_lang')}">${LANGS.map((l,j)=>`<option value="${l[0]}" ${j==LI?'selected':''}>${l[2]}  ${l[1]}</option>`).join('')}</select></div></section>
   <section class="box"><h2>${t('cur_label')}</h2><div class="langsel"><select data-f="cur">${CUR.map(c=>`<option value="${c}" ${c==curC()?'selected':''}>${c} · ${curSym(c)}</option>`).join('')}</select></div><p class="hint2" style="margin-bottom:0">${t('cur_h')}</p></section>
-  <section class="box"><h2>${t('s_profile')}</h2><div class="prof"><div class="avr" style="--p:${Math.round(lvlInfo(S.game.xp).cur/lvlInfo(S.game.xp).need*100)};width:76px;height:76px;flex:none"><div class="av">${s.avatarImg?`<img src="${esc(s.avatarImg)}" alt="">`:esc(s.avatar)}</div></div><div class="grow"><label class="fld">${t('s_pseudo')}<input data-f="pseudo" value="${esc(s.pseudo)}" maxlength="20"></label><div class="iconrow"><input data-f="avatar" value="${esc(s.avatar)}" maxlength="8" aria-label="${t('s_avatar')}"><label class="btn ghost sm file">${t('s_photo')}<input type="file" id="fAv" accept="image/*" hidden></label>${s.avatarImg?`<button class="lnk" data-act="noav">${t('s_remove')}</button>`:''}</div></div></div></section>
   <section class="box"><h2>${t('s_hours')}</h2><p class="hint2">${t('s_hours_h')}</p><div class="two">${MO.map(m=>`<label class="fld">${t('from',{m:MODES[m].e+' '+mL(m)})}<input type="time" data-f="hour:${m}" value="${esc(s.hours[m])}"></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_sound')}</h2>
   <label class="sw"><span>${t('s_sfx')}</span><input type="checkbox" data-f="sound" ${s.sound?'checked':''}><i></i></label>
@@ -1705,6 +1743,7 @@ function settings(){
   <section class="box"><h2>${t('s_rates')}</h2><p class="hint2">${t('s_rates_h')}</p><div class="rates">${RL.map(r=>`<label class="rate" style="--c:${RK[r].c}"><span>${t('rank',{r})} ${stars(RK[r].stars)}</span><input type="number" min="0" inputmode="decimal" data-f="rate:${r}" value="${s.rates[r]}"><b data-pct="r:${r}">${pct(s.rates[r],tr)}</b></label>`).join('')}</div></section>
   <section class="box"><h2>${t('s_pity')}</h2><div class="two"><label class="fld">${t('s_pityA')}<input type="number" min="1" max="50" inputmode="numeric" data-f="pityA" value="${s.pityA}"></label><label class="fld">${t('s_pityS')}<input type="number" min="1" max="99" inputmode="numeric" data-f="pityS" value="${s.pityS}"></label></div><p class="hint2">${t('s_pity_h')}</p></section>
   <section class="box"><h2>${t('s_cat_title')}</h2><label class="sw"><span>${t('s_starterpack')}<small>${t('s_starterpack_h')}</small></span><input type="checkbox" data-f="starterPack" ${s.starterPack?'checked':''}><i></i></label></section>
+  <section class="box"><button class="btn ghost sm" data-act="replayob">${t('s_replayonboard')}</button></section>
   <section class="box"><h2>${t('s_data')}</h2><p class="hint2">${t('s_data_h')}</p><div class="btns"><button class="btn sm" data-act="export">${t('s_copy')}</button>${window.claude?'':`<button class="btn ghost sm" data-act="exportfile">${t('s_dl')}</button>`}<label class="btn ghost sm file">${t('s_impf')}<input type="file" id="fImp" accept=".json,.txt,application/json,text/plain" hidden></label></div><textarea id="imp" rows="3" placeholder="${t('s_paste')}"></textarea><div class="btns"><button class="btn ghost sm" data-act="import">${t('s_imp')}</button>${S.items.some(i=>i.ex)?`<button class="btn ghost sm" data-act="clearex">${t('s_clearex')}</button>`:''}<button class="btn ghost sm" data-act="clearhist">${t('s_clearhist')}</button><button class="btn danger sm" data-act="reset">${pendReset?t('s_reset_s'):t('s_reset')}</button></div><p class="pc" style="margin:14px 0 0" translate="no">Tarpin Faim · ${vName()}</p></section>`;
 }
 /* ---------- Explorer ---------- */
@@ -1881,7 +1920,7 @@ function collSheet(){const g=S.game,seen=g.seen||{},n=S.items.filter(i=>seen[i.i
   ${S.places.map(p=>{const its=S.items.filter(i=>i.placeId==p.id);if(!its.length)return'';return `<h3 class="sub">${esc(p.emoji+' '+p.name)} · ${its.filter(i=>seen[i.id]).length}/${its.length}</h3><div class="coll">${its.map(i=>seen[i.id]?`<div class="cc" style="--c:${RK[i.rank].c}"><span>${icon(i.emoji,i.img)}</span><small>${esc(i.name)}</small><i>${i.rank}</i></div>`:`<div class="cc lock"><span>${icon(i.emoji,i.img)}</span><small>???</small></div>`).join('')}</div>`}).join('')}
   <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
 /* ---------- Comptes beta (Supabase, via REST, sans librairie) ---------- */
-const BUILD='4.9.0';
+const BUILD='4.10.0';
 const CFG={url:'https://esdwzdtotlapdkpdljfd.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzZHd6ZHRvdGxhcGRrcGRsamZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUzNTk4OTUsImV4cCI6MjExMDkzNTg5NX0.5R26y7FChhgPDPfXOdLFBQibpoFhXtNnD6L2x7E_Dqw',google:false};
 const AUTH_LS='tf_auth_v1';
 const AUTH={on:!!(CFG.url&&CFG.key),sess:null,role:null,errs:[],mode:'in',busy:false,msg:'',em:'',pw:'',lastSync:0};
@@ -2203,6 +2242,9 @@ document.addEventListener('click',e=>{
 },true);
 /* ---------- Swipe ---------- */
 let drag=null,tiltRAF=0;
+document.addEventListener('pointermove',e=>{if(e.pointerType!='mouse'||drag)return;const f=e.target.closest&&e.target.closest('#flip.on');if(!f)return;const r=f.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;f.classList.add('tl');f.style.setProperty('--ry',((px-.5)*16).toFixed(1)+'deg');f.style.setProperty('--rx',((.5-py)*12).toFixed(1)+'deg');f.style.setProperty('--mx',(px*100).toFixed(0)+'%');f.style.setProperty('--my',(py*100).toFixed(0)+'%')});
+document.addEventListener('pointerout',e=>{const f=e.target.closest&&e.target.closest('#flip.tl');if(f&&!f.contains(e.relatedTarget)){f.classList.remove('tl');f.style.removeProperty('--ry');f.style.removeProperty('--rx')}});
+
 document.addEventListener('pointerdown',e=>{const el=e.target.closest('#pack,#flip,#bst');if(!el||e.button>0)return;if(e.target.closest('.tchip'))return;drag={el,x:e.clientX,y:e.clientY,moved:false,ripLast:0};try{el.setPointerCapture(e.pointerId)}catch(_){}if(el.id=='bst')el.classList.add('drag')});
 document.addEventListener('pointermove',e=>{
   if(!drag){const b=e.pointerType=='mouse'&&e.target.closest&&e.target.closest('#bst');if(!b||reduce||tiltRAF)return;tiltRAF=requestAnimationFrame(()=>{tiltRAF=0;const r=b.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;b.style.setProperty('--ry',(x-.5)*14+'deg');b.style.setProperty('--rx',(.5-y)*14+'deg');b.style.setProperty('--fx',x*100+'%');b.style.setProperty('--fy',y*100+'%')});return}
