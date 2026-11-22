@@ -10,7 +10,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Tarpin Faim">
-<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <title>Tarpin Faim</title>
 <title>Tarpin Faim</title>
@@ -731,6 +732,8 @@ budget_of:["Budget {mode}", "{mode} budget", "Presupuesto {mode}", "Budget: {mod
 unlimited:["Illimité", "Unlimited", "Ilimitado", "Unbegrenzt", "Illimitato", "Ilimitado", "Без лимита", "غير محدودة", "不限", "無制限"],
 b_less:["Baisser le budget", "Lower budget", "Bajar presupuesto", "Budget senken", "Riduci budget", "Baixar orçamento", "Уменьшить бюджет", "خفّض الميزانية", "降低预算", "予算を下げる"],
 b_more:["Augmenter le budget", "Raise budget", "Subir presupuesto", "Budget erhöhen", "Aumenta budget", "Subir orçamento", "Увеличить бюджет", "زِد الميزانية", "提高预算", "予算を上げる"],
+fix_modes:["Étendre mes lieux et cartes à tous les repas", "Make my places and cards available for every meal", "Hacer mis lugares y cartas válidos para todas las comidas", "Orte und Karten für jede Mahlzeit freigeben", "Rendi luoghi e carte validi per ogni pasto", "Tornar locais e cartas válidos para todas as refeições", "Сделать места и карты доступными для всех приёмов пищи", "اجعل أماكني وبطاقاتي متاحة لكل وجبة", "让我的地点和卡片适用于所有餐次", "場所とカードをすべての食事で使えるようにする"],
+t_fixmodes:["{n} éléments étendus à tous les repas", "{n} items now available for every meal", "{n} elementos ahora disponibles para todas las comidas", "{n} Einträge jetzt für jede Mahlzeit verfügbar", "{n} elementi ora disponibili per ogni pasto", "{n} itens agora disponíveis para todas as refeições", "{n} элементов теперь для всех приёмов пищи", "{n} عنصرًا متاحًا الآن لكل الوجبات", "{n} 项现已适用于所有餐次", "{n}件をすべての食事に拡大しました"],
 b_none:["Aucun lieu avec des aliments pour ce moment.", "No place with food for this meal yet.", "Ningún lugar con comida para este momento.", "Noch kein Ort mit Essen für diese Mahlzeit.", "Nessun locale con cibo per questo pasto.", "Nenhum local com comida para esta refeição.", "Нет мест с едой для этого времени.", "لا يوجد مكان بطعام لهذه الوجبة بعد.", "这一餐还没有可选店铺。", "この時間帯のお店がまだありません。"],
 b_unl:["Pas de limite : tous les lieux sont possibles.", "No limit: every place can drop.", "Sin límite: todos los lugares pueden salir.", "Kein Limit: alle Orte möglich.", "Nessun limite: tutti i locali possibili.", "Sem limite: todos os locais possíveis.", "Без лимита: возможны все места.", "بلا حد: كل الأماكن ممكنة.", "不限：所有店铺都可能出现。", "上限なし：全てのお店が出ます。"],
 b_tight:["Trop serré : il faut au moins {p}.", "Too tight: you need at least {p}.", "Muy justo: necesitas al menos {p}.", "Zu knapp: mindestens {p} nötig.", "Troppo poco: servono almeno {p}.", "Muito apertado: precisas de pelo menos {p}.", "Слишком мало: нужно минимум {p}.", "الميزانية قليلة: تحتاج {p} على الأقل.", "预算不足：至少需要{p}。", "足りません：最低{p}必要です。"],
@@ -1661,7 +1664,7 @@ function home(){
   </button></div></section>
   <p class="swh"><span>${I.up} ${t('sw_up')}</span><span>${I.lr} ${t('sw_lr')}</span></p>
   <div class="bud"><div class="bstep"><button data-act="bstep" data-v="-1" aria-label="${t('b_less')}">${I.minus}</button><button class="bval" data-act="bsheet"><small>${t('budget_of',{mode:mLow(m)})}</small>${b==null?t('unlimited'):eur(b)}</button><button data-act="bstep" data-v="1" aria-label="${t('b_more')}">${I.plus}</button></div></div>
-  <p class="bhint ${bad?'bad':''}">${bh}${skipIds().length?` · <button class="lnk" data-act="rates" style="min-height:0;font-size:12.5px">🚫 ${t('skipped_n',{n:skipIds().length})}</button>`:''}</p>
+  <p class="bhint ${bad?'bad':''}">${bh}${bi.none&&S.items.length&&S.places.length?` <button class="lnk" data-act="allmodes" style="min-height:0;font-size:12.5px">${t('fix_modes')}</button>`:''}${skipIds().length?` · <button class="lnk" data-act="rates" style="min-height:0;font-size:12.5px">🚫 ${t('skipped_n',{n:skipIds().length})}</button>`:''}</p>
   <div class="playrow"><button class="btn play" data-act="open" ${bi.tight||bi.none||isUsed(m)?'disabled':''}>${isUsed(m)?`<small>${t('come_back')}</small><b data-cd>${fmtCd()}</b>`:t('open')}</button><button class="btn ghost play4" data-act="open4" ${MO.every(isUsed)?'disabled':''} aria-label="${t('open4_aria')}"><b>×4</b><small>${MO.map(x=>MODES[x].e).join('')}</small></button></div>
   </div><div class="hr">${chestHTML()}${questsHTML()}
   <section class="box pbox"><div class="ph"><h2>${t('pity_t',{mode:Mo.e+' '+mL(m)})}</h2><button class="ib" data-act="rates" aria-label="${t('rates')}">${I.info}</button></div>${pityRow('A',pt.a,s.pityA)}${pityRow('S',pt.s,s.pityS)}</section>${lastRow}</div></div>`;
@@ -1879,7 +1882,7 @@ function itemForm(){const d=draft;return `<h2>${d.id?t('edit_item'):t('new_item'
   <div class="sact">${d.id?`<button class="btn danger sm" data-act="delsheet">${pendDel==d.id?t('confirm'):t('del')}</button>`:''}<button class="btn ghost sm" data-act="close">${t('cancel')}</button><button class="btn sm" data-act="saveitem">${t('save')}</button></div>`}
 function openItem(id){if(!S.places.length)return toast(t('t_needplace'));const it=id&&S.items.find(i=>i.id==id);
   const m=catMode!='all'?catMode:curMode(),pl=catFilter!='all'?catFilter:(placesOf(m)[0]||S.places[0]).id;
-  draft=it?{...it,modes:[...(it.modes||MO)]}:{id:null,name:'',placeId:pl,cat:MODES[m].main,rank:'B',emoji:'🍽️',img:null,price:'',modes:[m]};pendDel=null;sheet(itemForm());if(!it)setTimeout(()=>$('#fName')&&$('#fName').focus(),300)}
+  draft=it?{...it,modes:[...(it.modes||MO)]}:{id:null,name:'',placeId:pl,cat:MODES[m].main,rank:'B',emoji:'🍽️',img:null,price:'',modes:[...MO]};pendDel=null;sheet(itemForm());if(!it)setTimeout(()=>$('#fName')&&$('#fName').focus(),300)}
 function ratesSheet(){const s=S.settings,m=curMode(),PL=placesOf(m),tw=PL.reduce((a,p)=>a+(+p.weight||0),0),tr=RL.reduce((a,r)=>a+(+s.rates[r]||0),0),pt=PT(m);
   sheet(`<h2>${t('r_title',{mode:MODES[m].e+' '+mL(m)})}</h2><h3 class="sub">${t('est')}</h3>${PL.map(p=>`<div class="kv"><span>${esc(p.emoji)} ${esc(p.name)} <span class="rb" style="--c:${RK[p.rank].c}">${p.rank}</span></span><b>${pct(p.weight,tw)}</b></div>`).join('')||`<p class="hint2">${t('r_none')}</p>`}
   <h3 class="sub">🚫 ${t('skip_today')}</h3><p class="hint2">${t('skip_h')}</p><div class="skipl">${S.places.filter(p=>inMode(p,m)).map(p=>`<button class="${skipIds().includes(p.id)?'on':''}" data-act="skipp" data-id="${p.id}">${esc(p.emoji+' '+p.name)}</button>`).join('')}</div>
@@ -1920,7 +1923,7 @@ function collSheet(){const g=S.game,seen=g.seen||{},n=S.items.filter(i=>seen[i.i
   ${S.places.map(p=>{const its=S.items.filter(i=>i.placeId==p.id);if(!its.length)return'';return `<h3 class="sub">${esc(p.emoji+' '+p.name)} · ${its.filter(i=>seen[i.id]).length}/${its.length}</h3><div class="coll">${its.map(i=>seen[i.id]?`<div class="cc" style="--c:${RK[i.rank].c}"><span>${icon(i.emoji,i.img)}</span><small>${esc(i.name)}</small><i>${i.rank}</i></div>`:`<div class="cc lock"><span>${icon(i.emoji,i.img)}</span><small>???</small></div>`).join('')}</div>`}).join('')}
   <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
 /* ---------- Comptes beta (Supabase, via REST, sans librairie) ---------- */
-const BUILD='4.10.0';
+const BUILD='4.10.1';
 const CFG={url:'https://esdwzdtotlapdkpdljfd.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzZHd6ZHRvdGxhcGRrcGRsamZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUzNTk4OTUsImV4cCI6MjExMDkzNTg5NX0.5R26y7FChhgPDPfXOdLFBQibpoFhXtNnD6L2x7E_Dqw',google:false};
 const AUTH_LS='tf_auth_v1';
 const AUTH={on:!!(CFG.url&&CFG.key),sess:null,role:null,errs:[],mode:'in',busy:false,msg:'',em:'',pw:'',lastSync:0};
@@ -2155,7 +2158,8 @@ const A={
     const p=S.places.find(x=>x.id==d.placeId),added=p?d.modes.filter(m=>!inMode(p,m)):[];if(p&&added.length)p.modes=MO.filter(m=>inMode(p,m)||added.includes(m));
     if(d.id){const i=S.items.findIndex(x=>x.id==d.id);d.ex=false;d.ia=false;S.items[i]=d}else S.items.push({...d,id:uid(),ex:false});
     save();closeSheet();render();SFX.yes();toast(added.length?t('t_padded',{p:p.name,m:added.map(mL).join(', ')}):t('t_saved'))},
-  addplace:()=>{const id=uid();S.places.push({id,name:t('new_place'),emoji:'📍',rank:'A',weight:10,modes:[curMode()]});catOpen[id]=true;catQ='';save();render();SFX.soft();setTimeout(()=>{const el=document.querySelector(`[data-f="p:${id}:name"]`);if(el){el.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});el.focus();el.select()}},120)},
+  allmodes:()=>{let n=0;S.items.forEach(i=>{if((i.modes||[]).length<MO.length){i.modes=[...MO];n++}});S.places.forEach(p=>{if((p.modes||[]).length<MO.length){p.modes=[...MO];n++}});save();render();toast(t('t_fixmodes',{n}))},
+  addplace:()=>{const id=uid();S.places.push({id,name:t('new_place'),emoji:'📍',rank:'A',weight:10,modes:[...MO]});catOpen[id]=true;catQ='';save();render();SFX.soft();setTimeout(()=>{const el=document.querySelector(`[data-f="p:${id}:name"]`);if(el){el.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});el.focus();el.select()}},120)},
   tog:b=>{const id=b.dataset.id;catOpen[id]=!catOpen[id];SFX.soft();const y=scrollY;const l=$('#catlist');if(l)l.innerHTML=catList();else render()},
   addin:b=>{catFilter=b.dataset.id;openItem(null);catFilter='all'},
   prank:b=>{const p=S.places.find(x=>x.id==b.dataset.id);if(!p)return;p.rank=b.dataset.v;SFX.soft();save();render()},
