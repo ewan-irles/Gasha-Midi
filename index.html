@@ -1822,7 +1822,7 @@ function collSheet(){const g=S.game,seen=g.seen||{},n=S.items.filter(i=>seen[i.i
   <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
 /* ---------- Comptes beta (Supabase, via REST, sans librairie) ---------- */
 const BUILD='4.8.0';
-const CFG={url:'',key:'',google:false};
+const CFG={url:'https://esdwzdtotlapdkpdljfd.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVzZHd6ZHRvdGxhcGRrcGRsamZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUzNTk4OTUsImV4cCI6MjExMDkzNTg5NX0.5R26y7FChhgPDPfXOdLFBQibpoFhXtNnD6L2x7E_Dqw',google:false};
 const AUTH_LS='tf_auth_v1';
 const AUTH={on:!!(CFG.url&&CFG.key),sess:null,role:null,errs:[],mode:'in',busy:false,msg:'',em:'',pw:'',lastSync:0};
 try{AUTH.sess=JSON.parse(localStorage.getItem(AUTH_LS)||'null');AUTH.role=AUTH.sess&&AUTH.sess.role||null}catch(e){}
