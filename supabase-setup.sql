@@ -88,3 +88,10 @@ grant execute on function public.is_admin() to authenticated;
 -- Suppression de compte : reservee aux connectes (jamais aux anonymes).
 revoke execute on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
+
+-- Donne explicitement a l'app le droit de lire/ecrire ses tables (inoffensif si deja fait)
+grant usage on schema public to anon, authenticated;
+grant select on public.profiles to authenticated;
+grant update (pseudo, level, discovered, opened, app_version, last_seen) on public.profiles to authenticated;
+grant select, insert on public.feedback to authenticated;
+

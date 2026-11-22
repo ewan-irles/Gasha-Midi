@@ -916,6 +916,8 @@ au_delete_s:["Sûr ? Appuie encore pour supprimer", "Sure? Tap again to delete",
 au_delete_h:["Supprime ton compte et tes avis envoyés. Ta progression de jeu reste sur cet appareil.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device.", "Deletes your account and the feedback you sent. Your game progress stays on this device."],
 au_deleted:["Compte supprimé", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted", "Account deleted"],
 au_delete_fail:["Suppression impossible : {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}", "Could not delete: {e}"],
+au_refresh:["Actualiser mon rôle", "Refresh my role", "Refresh my role", "Refresh my role", "Refresh my role", "Refresh my role", "Refresh my role", "Refresh my role", "Refresh my role", "Refresh my role"],
+au_roleerr:["Rôle non lu : {e}", "Role not loaded: {e}", "Role not loaded: {e}", "Role not loaded: {e}", "Role not loaded: {e}", "Role not loaded: {e}", "Role not loaded: {e}", "Role not loaded: {e}", "Role not loaded: {e}", "Role not loaded: {e}"],
 new_place:["Nouveau lieu", "New place", "Nuevo lugar", "Neuer Ort", "Nuovo locale", "Novo local", "Новое место", "مكان جديد", "新店铺", "新しいお店"],
 t_delplace:["Ça supprimera aussi {n} aliment(s)", "This also deletes {n} item(s)", "También se borrarán {n} artículo(s)", "Löscht auch {n} Eintrag/Einträge", "Eliminerà anche {n} articolo/i", "Também apaga {n} artigo(s)", "Также удалится позиций: {n}", "سيُحذف أيضًا {n} عنصر", "同时删除{n}个项目", "{n}件のメニューも削除されます"],
 s_rates:["Taux par carte", "Card rates", "Tasas por carta", "Kartenchancen", "Probabilità carte", "Probabilidade das cartas", "Шансы карт", "احتمالات البطاقات", "卡片概率", "カード確率"],
@@ -1644,7 +1646,7 @@ function hist(){
 }
 function placePct(p){return MO.filter(m=>inMode(p,m)).map(m=>{const tw=placesOf(m).reduce((a,x)=>a+(+x.weight||0),0);return `${MODES[m].e} ${+p.weight>0?pct(p.weight,tw):'0 %'}`}).join(' · ')||t('s_nomode')}
 function accountSection(){if(!AUTH.on||!AUTH.sess)return '';
-  return `<section class="box"><h2>${t('au_account')}</h2><p class="hint2" style="margin-top:0">👤 ${esc(AUTH.sess.user.email||'')} · ${AUTH.role=='admin'?'🛠️ '+t('au_role_admin'):t('au_role_user')}</p><div class="btns"><button class="btn ghost sm" data-act="aulogout">${t('au_out')}</button><button class="btn danger sm" data-act="audel">${AUTH.pendDel?t('au_delete_s'):t('au_delete')}</button></div><p class="hint2" style="margin-bottom:0">${t('au_delete_h')}</p></section>`}
+  return `<section class="box"><h2>${t('au_account')}</h2><p class="hint2" style="margin-top:0">👤 ${esc(AUTH.sess.user.email||'')} · ${AUTH.role=='admin'?'🛠️ '+t('au_role_admin'):t('au_role_user')}</p>${AUTH.roleErr?`<p class="aumsg" style="text-align:left">⚠️ ${esc(t('au_roleerr',{e:AUTH.roleErr}))}</p>`:''}<div class="btns"><button class="btn ghost sm" data-act="aurole">↻ ${t('au_refresh')}</button><button class="btn ghost sm" data-act="aulogout">${t('au_out')}</button><button class="btn danger sm" data-act="audel">${AUTH.pendDel?t('au_delete_s'):t('au_delete')}</button></div><p class="hint2" style="margin-bottom:0">${t('au_delete_h')}</p></section>`}
 async function authDelete(){if(!AUTH.pendDel){AUTH.pendDel=true;render();return}
   try{if(!await authFresh())throw new Error('session');await sb('/rest/v1/rpc/delete_my_account',{method:'POST',body:{}});authClear();AUTH.pendDel=false;AUTH.pw='';AUTH.msg='';toast(t('au_deleted'));render();authRender()}
   catch(er){AUTH.pendDel=false;toast(t('au_delete_fail',{e:authErr(er)}));render()}}
@@ -1850,7 +1852,7 @@ function authClear(){AUTH.sess=null;AUTH.role=null;try{localStorage.removeItem(A
 async function authFresh(){const s=AUTH.sess;if(!s)return false;if(s.expires_at-60>Date.now()/1000)return true;
   try{const j=await sb('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:s.refresh_token},token:CFG.key});authSave({...j,user:j.user||s.user});return true}
   catch(e){if(e.status>=400&&e.status<500){authClear();return false}return true}}
-async function authProfile(){try{const r=await sb('/rest/v1/profiles?id=eq.'+AUTH.sess.user.id+'&select=role');AUTH.role=(r&&r[0]&&r[0].role)||'user';authStore()}catch(e){AUTH.role=AUTH.role||'user'}}
+async function authProfile(){AUTH.roleErr=null;try{if(!await authFresh())return;const r=await sb('/rest/v1/profiles?id=eq.'+AUTH.sess.user.id+'&select=role');if(!r||!r[0]){AUTH.roleErr='profil introuvable';AUTH.role=AUTH.role||'user'}else AUTH.role=r[0].role||'user';authStore()}catch(e){AUTH.roleErr=authErr(e);pushErr('role '+e.message);AUTH.role=AUTH.role||'user'}}
 async function syncProfile(force){if(!AUTH.on||!AUTH.sess)return;if(!force&&Date.now()-AUTH.lastSync<60000)return;AUTH.lastSync=Date.now();
   try{if(!await authFresh())return authRender();const g=S.game,seen=g.seen||{};
     await sb('/rest/v1/profiles?id=eq.'+AUTH.sess.user.id,{method:'PATCH',body:{pseudo:String(S.settings.pseudo||'').slice(0,24),level:lvlInfo(g.xp).l,discovered:S.items.filter(i=>seen[i.id]).length,opened:S.opened||0,app_version:BUILD,last_seen:new Date().toISOString()}})}catch(e){pushErr('sync '+e.message)}}
@@ -2120,6 +2122,7 @@ const A={
   augoogle:()=>{location.href=CFG.url+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(location.origin+location.pathname)},
   aulogout:()=>{authClear();closeSheet();AUTH.pw='';AUTH.msg='';authRender();render()},
   audel:()=>authDelete(),
+  aurole:async()=>{await authProfile();render();toast(AUTH.roleErr?t('au_roleerr',{e:AUTH.roleErr}):(AUTH.role=='admin'?t('au_role_admin'):t('au_role_user')))},
   fbk:()=>{SFX.soft();fbSheet()},fbrate:b=>{const el=$('#fb_txt');if(el)FB.txt=el.value;FB.rate=+b.dataset.v;fbSheet()},fbsend:()=>fbSend(),
   admin:()=>{SFX.soft();ADM.tab='fb';ADM.pendReset=false;admLoad()},
   admtab:b=>{ADM.tab=b.dataset.v;ADM.pendReset=false;if(ADM.tab=='dev'){admSheet()}else admLoad()},
@@ -2210,7 +2213,7 @@ function intro(){if(reduce){setTimeout(whatsNew,300);return}const el=document.cr
 setInterval(()=>{const c=fmtCd();document.querySelectorAll('[data-cd]').forEach(el=>{el.textContent=c});if(msLeft()<1100&&view=='home'&&!seq)setTimeout(render,1200)},1000);
 intro();
 applyTheme();render();
-if(AUTH.on){document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncProfile()});
+if(AUTH.on){document.addEventListener('visibilitychange',()=>{if(!document.hidden){syncProfile();authProfile()}});
   (async()=>{const had=/access_token=/.test(location.hash);if(!had&&!AUTH.sess){authRender();return}
     if(had)await authHash();
     if(!AUTH.sess||!await authFresh()){authRender();return}
