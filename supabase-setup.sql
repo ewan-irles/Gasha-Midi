@@ -76,3 +76,15 @@ begin
 end $$;
 revoke all on function public.delete_my_account() from public, anon;
 grant execute on function public.delete_my_account() to authenticated;
+
+-- Durcissement : ces fonctions ne doivent pas etre appelables par n'importe qui depuis internet.
+-- Le trigger d'inscription n'a besoin d'aucun droit d'appel public : il tourne tout seul.
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
+
+-- is_admin() est utilisee par les regles de securite : seuls les connectes en ont besoin.
+revoke execute on function public.is_admin() from public, anon;
+grant execute on function public.is_admin() to authenticated;
+
+-- Suppression de compte : reservee aux connectes (jamais aux anonymes).
+revoke execute on function public.delete_my_account() from public, anon;
+grant execute on function public.delete_my_account() to authenticated;
