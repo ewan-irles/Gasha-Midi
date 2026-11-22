@@ -203,6 +203,8 @@ input[type=range]{padding:0;background:none;border:0;accent-color:var(--g);heigh
 .prow .num,.rate input{text-align:right}
 .prow .pct{grid-column:1/4;font:600 13px Outfit,system-ui,sans-serif;color:var(--mut)}
 .prow .ib{grid-column:4;justify-self:end}
+.pinfo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin:-6px 0 14px}
+.pinfo .tip{grid-column:1/3}
 .pmodes{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .pmodes button{height:38px;border-radius:10px;border:2px solid var(--line);background:var(--card2);font-size:18px;cursor:pointer;opacity:.4;filter:grayscale(1)}
 .pmodes button.on{opacity:1;filter:none;border-color:var(--g);background:color-mix(in srgb,var(--g) 18%,var(--card2))}
@@ -821,6 +823,17 @@ s_places:["Établissements", "Places", "Lugares", "Orte", "Locali", "Locais", "�
 s_places_h:["Émoji, nom, rang, poids. Coche les moments où le lieu peut tomber. Poids bas = lieu rare.", "Emoji, name, rank, weight. Tick the meals it can drop at. Low weight = rare place.", "Emoji, nombre, rango, peso. Marca los momentos. Peso bajo = lugar raro.", "Emoji, Name, Rang, Gewicht. Hake die Mahlzeiten an. Wenig Gewicht = seltener Ort.", "Emoji, nome, rango, peso. Spunta i pasti. Peso basso = locale raro.", "Emoji, nome, nível, peso. Marca as refeições. Peso baixo = local raro.", "Эмодзи, название, ранг, вес. Отметь время. Малый вес = редкое место.", "إيموجي، اسم، رتبة، وزن. حدّد الوجبات. وزن قليل = مكان نادر.", "表情、名称、等级、权重。勾选可出现的餐次。权重越低越稀有。", "絵文字・名前・ランク・重み。出る時間帯を選択。重みが小さいほどレア。"],
 s_nomode:["Aucun moment coché", "No meal ticked", "Ningún momento marcado", "Keine Mahlzeit angehakt", "Nessun pasto spuntato", "Nenhuma refeição marcada", "Время не выбрано", "لا وجبة محددة", "未勾选餐次", "時間帯なし"],
 s_addplace:["+ Établissement", "+ Place", "+ Lugar", "+ Ort", "+ Locale", "+ Local", "+ Заведение", "+ مكان", "+ 店铺", "+ お店"],
+p_open:["Horaires", "Hours", "Horario", "Öffnungszeiten", "Orari", "Horário", "Часы работы", "ساعات العمل", "营业时间", "営業時間"],
+p_open_ph:["Horaires ex. 11:30-14:00, 18:30-22:00", "Hours e.g. 11:30-14:00, 18:30-22:00", "Horario p. ej. 11:30-14:00", "Zeiten z. B. 11:30-14:00", "Orari es. 11:30-14:00", "Horário ex. 11:30-14:00", "Часы, напр. 11:30-14:00", "مثال 11:30-14:00", "如 11:30-14:00", "例 11:30-14:00"],
+p_vibe:["Ambiance", "Vibe", "Ambiente", "Stimmung", "Atmosfera", "Ambiente", "Атмосфера", "الأجواء", "氛围", "雰囲気"],
+p_tip:["Conseil perso", "Personal tip", "Consejo personal", "Eigener Tipp", "Consiglio personale", "Dica pessoal", "Свой совет", "نصيحة", "小贴士", "ひとこと"],
+p_tip_ph:["Ton conseil (ex. demande la sauce maison)", "Your tip (e.g. ask for the house sauce)", "Tu consejo", "Dein Tipp", "Il tuo consiglio", "Sua dica", "Твой совет", "نصيحتك", "你的小贴士", "おすすめメモ"],
+vibe_none:["Ambiance ?", "Vibe?", "¿Ambiente?", "Stimmung?", "Atmosfera?", "Ambiente?", "Атмосфера?", "الأجواء؟", "氛围?", "雰囲気?"],
+vibe_fast:["Rapide", "Quick", "Rápido", "Schnell", "Veloce", "Rápido", "Быстро", "سريع", "快捷", "早い"],
+vibe_chill:["Posé", "Chill", "Tranquilo", "Entspannt", "Rilassato", "Tranquilo", "Спокойно", "هادئ", "悠闲", "まったり"],
+vibe_stud:["Spot d'étudiants", "Student spot", "Sitio de estudiantes", "Studi-Treff", "Ritrovo studenti", "Ponto de estudantes", "Для студентов", "مكان الطلاب", "学生聚集地", "学生向け"],
+vibe_gourm:["Gourmand", "Foodie", "Goloso", "Genießer", "Goloso", "Gourmet", "Для гурманов", "للمتذوقين", "吃货之选", "グルメ"],
+maybe_closed:["Peut-être fermé", "Maybe closed", "Quizá cerrado", "Evtl. geschlossen", "Forse chiuso", "Talvez fechado", "Возможно закрыто", "قد يكون مغلقًا", "可能已关门", "閉店中かも"],
 new_place:["Nouveau lieu", "New place", "Nuevo lugar", "Neuer Ort", "Nuovo locale", "Novo local", "Новое место", "مكان جديد", "新店铺", "新しいお店"],
 t_delplace:["Ça supprimera aussi {n} aliment(s)", "This also deletes {n} item(s)", "También se borrarán {n} artículo(s)", "Löscht auch {n} Eintrag/Einträge", "Eliminerà anche {n} articolo/i", "Também apaga {n} artigo(s)", "Также удалится позиций: {n}", "سيُحذف أيضًا {n} عنصر", "同时删除{n}个项目", "{n}件のメニューも削除されます"],
 s_rates:["Taux par carte", "Card rates", "Tasas por carta", "Kartenchancen", "Probabilità carte", "Probabilidade das cartas", "Шансы карт", "احتمالات البطاقات", "卡片概率", "カード確率"],
@@ -1396,7 +1409,7 @@ const imgOf=id=>(S.items.find(i=>i.id==id)||{}).img||null;
 const icon=(em,img,cls='')=>img?`<img class="${cls}" src="${esc(img)}" alt="">`:`<span class="${cls}">${esc(em||'🍽️')}</span>`;
 function emojisOf(m){const ps=new Set(placesOf(m).map(p=>p.id));const e=[...new Set(S.items.filter(i=>!i.img&&i.emoji&&inMode(i,m)&&ps.has(i.placeId)).map(i=>i.emoji))];return e.length?e:['🍣','🥖','🍗','🥤','🍜']}
 function floats(m){const src=emojisOf(m);return [[6,4,-14],[72,2,12],[4,74,8],[72,72,-10]].map((p,j)=>`<span class="orb" style="left:${p[0]}%;top:${p[1]}%;font-size:40px;animation-delay:${-j*.8}s">${esc(src[(j*3)%src.length])}</span>`).join('')}
-function cardData(k){const e=seq.e;if(k=='place')return{t:e.place.name,s:t('est'),r:e.place.rank,em:e.place.emoji};
+function cardData(k){const e=seq.e;if(k=='place'){const inf=placeInfo(S.places.find(x=>x.id==e.place.id));return{t:e.place.name,s:t('est')+(inf?' · '+inf:''),r:e.place.rank,em:e.place.emoji}}
   const it=e.slots[k],l=catL(k,e.mode);if(!it)return{t:t('empty_t'),s:t('empty_s',{c:l.toLocaleLowerCase(loc()),p:e.place.name}),r:null,em:'🤷'};
   return{t:it.name,s:l+(it.price?' · '+eur(it.price):''),r:it.rank,em:it.emoji,img:imgOf(it.id)}}
 const ASK={entree:'🥗',dessert:'🍰',boisson:'🥤',plat:'🍽️'};
@@ -1503,7 +1516,14 @@ function catalog(){
 }
 const norm=x=>String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const catOpen={};
-function placeEditor(p){return `<div class="prow"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8"><input data-f="p:${p.id}:name" value="${esc(p.name)}"><select data-f="p:${p.id}:rank">${RL.map(r=>`<option ${p.rank==r?'selected':''}>${r}</option>`).join('')}</select><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}"><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div>`}
+const VIBES=[['','','vibe_none'],['fast','⚡','vibe_fast'],['chill','🛋️','vibe_chill'],['stud','🎒','vibe_stud'],['gourm','😋','vibe_gourm']];
+function openState(p){const s=String(p&&p.open||'').trim();if(!s)return null;const n=new Date(),now=n.getHours()*60+n.getMinutes();let ok=false,any=false;
+  for(const r of s.split(/[,;\/]/)){const m=r.trim().match(/^(\d{1,2})\s*[:h]\s*(\d{0,2})\s*[-–à]\s*(\d{1,2})\s*[:h]\s*(\d{0,2})$/);if(!m)continue;any=true;const a=(+m[1])*60+(+m[2]||0),b=(+m[3])*60+(+m[4]||0);if(a<=b?(now>=a&&now<=b):(now>=a||now<=b))ok=true}
+  return any?ok:null}
+function placeInfo(p){if(!p)return '';const parts=[],v=VIBES.find(x=>x[0]==(p.vibe||''));if(v&&v[0])parts.push(v[1]+' '+t(v[2]));if(p.open)parts.push('🕒 '+p.open);if(p.tip)parts.push('💡 '+p.tip);
+  if(openState(p)===false)parts.unshift('⚠️ '+t('maybe_closed'));return parts.join(' · ')}
+function placeEditor(p){return `<div class="prow"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8"><input data-f="p:${p.id}:name" value="${esc(p.name)}"><select data-f="p:${p.id}:rank">${RL.map(r=>`<option ${p.rank==r?'selected':''}>${r}</option>`).join('')}</select><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}"><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div>
+  <div class="pinfo"><input data-f="p:${p.id}:open" value="${esc(p.open||'')}" placeholder="${t('p_open_ph')}" maxlength="40" aria-label="${t('p_open')}"><select data-f="p:${p.id}:vibe" aria-label="${t('p_vibe')}">${VIBES.map(v=>`<option value="${v[0]}" ${(p.vibe||'')==v[0]?'selected':''}>${v[1]?v[1]+' ':''}${t(v[2])}</option>`).join('')}</select><input class="tip" data-f="p:${p.id}:tip" value="${esc(p.tip||'')}" placeholder="${t('p_tip_ph')}" maxlength="80" aria-label="${t('p_tip')}"></div>`}
 function catList(){const order=k=>CK.indexOf(k),q=norm(catQ.trim());
   const PL=S.places.filter(p=>catMode=='all'||inMode(p,catMode));
   const html=PL.map(p=>{const all=S.items.filter(i=>i.placeId==p.id),its=all.filter(i=>(catMode=='all'||inMode(i,catMode))&&(!q||norm(i.name).includes(q)||norm(p.name).includes(q))).sort((a,b)=>order(a.cat)-order(b.cat)||rv[b.rank]-rv[a.rank]);
@@ -1999,6 +2019,7 @@ function intro(){if(reduce){setTimeout(whatsNew,300);return}const el=document.cr
 setInterval(()=>{const c=fmtCd();document.querySelectorAll('[data-cd]').forEach(el=>{el.textContent=c});if(msLeft()<1100&&view=='home'&&!seq)setTimeout(render,1200)},1000);
 intro();
 applyTheme();render();
+
 }
 </script>
 </body>
