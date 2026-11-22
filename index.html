@@ -220,6 +220,16 @@ input[type=range]{padding:0;background:none;border:0;accent-color:var(--g);heigh
 .ptimes input{min-width:0;padding:10px 6px;text-align:center;font-size:16px}
 .ptimes input::-webkit-calendar-picker-indicator{display:none}
 .pdel{display:flex;justify-content:flex-end}
+#auth{position:fixed;inset:0;z-index:300;overflow:auto;background:radial-gradient(circle at 50% 30%,var(--ov1),var(--ov2) 85%);display:flex;align-items:flex-start;justify-content:center;padding:28px 18px}
+.aup{width:100%;max-width:400px;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:22px 18px;margin:auto 0}
+.aulogo{font:900 34px/1 Outfit,system-ui,sans-serif;text-align:center;color:var(--gInk);letter-spacing:1px;margin-bottom:6px}
+.aumsg{color:var(--gInk);font-weight:700;font-size:14px;margin:0 0 12px;text-align:center}
+.auor{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:13px;margin:14px 0}.auor::before,.auor::after{content:"";flex:1;height:2px;background:var(--line)}
+.lnk{display:block;margin:14px auto 0;background:none;border:0;color:var(--mut);font:700 14px Outfit,system-ui,sans-serif;text-decoration:underline;cursor:pointer}
+.acct{border-top:2px solid var(--line);margin-top:10px;padding-top:10px}.acct>small{display:block;color:var(--mut);font-weight:700;margin-bottom:6px;overflow:hidden;text-overflow:ellipsis}
+.admlist{display:grid;gap:8px;margin-bottom:6px}.admrow{background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:10px 12px}.admrow p{margin:6px 0 0;white-space:pre-wrap;word-break:break-word}
+.admh{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.admh small,.admrow>small{color:var(--mut)}
+.admpre{background:var(--card2);border:2px solid var(--line);border-radius:14px;padding:10px;font-size:12px;white-space:pre-wrap;word-break:break-all;max-height:40vh;overflow:auto}
 .pmodes{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .pmodes button{height:38px;border-radius:10px;border:2px solid var(--line);background:var(--card2);font-size:18px;cursor:pointer;opacity:.4;filter:grayscale(1)}
 .pmodes button.on{opacity:1;filter:none;border-color:var(--g);background:color-mix(in srgb,var(--g) 18%,var(--card2))}
@@ -861,6 +871,45 @@ p_to:["à", "to", "a", "bis", "alle", "às", "до", "إلى", "到", "〜"],
 p_then:["Puis de (optionnel)", "Then from (optional)", "Luego de (opcional)", "Dann von (optional)", "Poi dalle (opzionale)", "Depois das (opcional)", "Затем с (необяз.)", "ثم من (اختياري)", "再从（可选）", "その後（任意）"],
 p_days:["Jours d'ouverture", "Open days", "Días abiertos", "Öffnungstage", "Giorni di apertura", "Dias abertos", "Дни работы", "أيام العمل", "营业日", "営業日"],
 p_days_h:["Aucun jour coché = ouvert tous les jours.", "No day ticked = open every day.", "Ningún día marcado = abierto todos los días.", "Kein Tag gewählt = täglich geöffnet.", "Nessun giorno = aperto ogni giorno.", "Nenhum dia marcado = aberto todos os dias.", "Ничего не выбрано = открыто каждый день.", "بدون تحديد = مفتوح كل يوم.", "未勾选 = 每天营业。", "未選択＝毎日営業。"],
+au_sub:["Connecte-toi pour jouer et envoyer tes retours de bêta.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback.", "Sign in to play and send your beta feedback."],
+au_in:["Connexion", "Sign in", "Sign in", "Sign in", "Sign in", "Sign in", "Sign in", "Sign in", "Sign in", "Sign in"],
+au_up:["Créer un compte", "Create account", "Create account", "Create account", "Create account", "Create account", "Create account", "Create account", "Create account", "Create account"],
+au_email:["Adresse email", "Email address", "Email address", "Email address", "Email address", "Email address", "Email address", "Email address", "Email address", "Email address"],
+au_pw:["Mot de passe (6 caractères min.)", "Password (min. 6 characters)", "Password (min. 6 characters)", "Password (min. 6 characters)", "Password (min. 6 characters)", "Password (min. 6 characters)", "Password (min. 6 characters)", "Password (min. 6 characters)", "Password (min. 6 characters)", "Password (min. 6 characters)"],
+au_fill:["Remplis l'email et le mot de passe.", "Enter your email and password.", "Enter your email and password.", "Enter your email and password.", "Enter your email and password.", "Enter your email and password.", "Enter your email and password.", "Enter your email and password.", "Enter your email and password.", "Enter your email and password."],
+au_short:["Mot de passe trop court (6 caractères min.).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters).", "Password too short (min. 6 characters)."],
+au_bad:["Email ou mot de passe incorrect.", "Wrong email or password.", "Wrong email or password.", "Wrong email or password.", "Wrong email or password.", "Wrong email or password.", "Wrong email or password.", "Wrong email or password.", "Wrong email or password.", "Wrong email or password."],
+au_exists:["Cet email a déjà un compte. Connecte-toi.", "This email already has an account. Sign in.", "This email already has an account. Sign in.", "This email already has an account. Sign in.", "This email already has an account. Sign in.", "This email already has an account. Sign in.", "This email already has an account. Sign in.", "This email already has an account. Sign in.", "This email already has an account. Sign in.", "This email already has an account. Sign in."],
+au_net:["Pas de connexion internet. Réessaie.", "No internet connection. Try again.", "No internet connection. Try again.", "No internet connection. Try again.", "No internet connection. Try again.", "No internet connection. Try again.", "No internet connection. Try again.", "No internet connection. Try again.", "No internet connection. Try again.", "No internet connection. Try again."],
+au_confirm:["Compte créé ! Vérifie ta boîte mail pour confirmer, puis connecte-toi.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in.", "Account created! Check your inbox to confirm, then sign in."],
+au_or:["ou", "or", "or", "or", "or", "or", "or", "or", "or", "or"],
+au_google:["Continuer avec Google", "Continue with Google", "Continue with Google", "Continue with Google", "Continue with Google", "Continue with Google", "Continue with Google", "Continue with Google", "Continue with Google", "Continue with Google"],
+au_forgot:["Mot de passe oublié ?", "Forgot your password?", "Forgot your password?", "Forgot your password?", "Forgot your password?", "Forgot your password?", "Forgot your password?", "Forgot your password?", "Forgot your password?", "Forgot your password?"],
+au_sent:["Email envoyé : suis le lien pour changer ton mot de passe.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password.", "Email sent: follow the link to reset your password."],
+au_need_email:["Entre d'abord ton email.", "Enter your email first.", "Enter your email first.", "Enter your email first.", "Enter your email first.", "Enter your email first.", "Enter your email first.", "Enter your email first.", "Enter your email first.", "Enter your email first."],
+au_out:["Se déconnecter", "Sign out", "Sign out", "Sign out", "Sign out", "Sign out", "Sign out", "Sign out", "Sign out", "Sign out"],
+au_role_admin:["Administrateur", "Administrator", "Administrator", "Administrator", "Administrator", "Administrator", "Administrator", "Administrator", "Administrator", "Administrator"],
+au_role_user:["Bêta-testeur", "Beta tester", "Beta tester", "Beta tester", "Beta tester", "Beta tester", "Beta tester", "Beta tester", "Beta tester", "Beta tester"],
+fb_btn:["Donner mon avis", "Give feedback", "Give feedback", "Give feedback", "Give feedback", "Give feedback", "Give feedback", "Give feedback", "Give feedback", "Give feedback"],
+fb_title:["Ton avis", "Your feedback", "Your feedback", "Your feedback", "Your feedback", "Your feedback", "Your feedback", "Your feedback", "Your feedback", "Your feedback"],
+fb_h:["Une note et quelques mots : bug, idée, ce que tu ne comprends pas…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…", "A rating and a few words: bug, idea, what confuses you…"],
+fb_txt:["Ton message", "Your message", "Your message", "Your message", "Your message", "Your message", "Your message", "Your message", "Your message", "Your message"],
+fb_send:["Envoyer", "Send", "Send", "Send", "Send", "Send", "Send", "Send", "Send", "Send"],
+fb_thanks:["Merci pour ton retour ! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏", "Thanks for your feedback! 🙏"],
+fb_empty:["Mets une note ou écris un message.", "Add a rating or write a message.", "Add a rating or write a message.", "Add a rating or write a message.", "Add a rating or write a message.", "Add a rating or write a message.", "Add a rating or write a message.", "Add a rating or write a message.", "Add a rating or write a message.", "Add a rating or write a message."],
+adm_title:["Admin", "Admin", "Admin", "Admin", "Admin", "Admin", "Admin", "Admin", "Admin", "Admin"],
+adm_fb:["Retours", "Feedback", "Feedback", "Feedback", "Feedback", "Feedback", "Feedback", "Feedback", "Feedback", "Feedback"],
+adm_users:["Testeurs", "Testers", "Testers", "Testers", "Testers", "Testers", "Testers", "Testers", "Testers", "Testers"],
+adm_dev:["Dev", "Dev", "Dev", "Dev", "Dev", "Dev", "Dev", "Dev", "Dev", "Dev"],
+adm_none:["Rien pour l'instant.", "Nothing yet.", "Nothing yet.", "Nothing yet.", "Nothing yet.", "Nothing yet.", "Nothing yet.", "Nothing yet.", "Nothing yet.", "Nothing yet."],
+adm_load:["Chargement…", "Loading…", "Loading…", "Loading…", "Loading…", "Loading…", "Loading…", "Loading…", "Loading…", "Loading…"],
+adm_err:["Impossible de charger : {e}", "Could not load: {e}", "Could not load: {e}", "Could not load: {e}", "Could not load: {e}", "Could not load: {e}", "Could not load: {e}", "Could not load: {e}", "Could not load: {e}", "Could not load: {e}"],
+adm_cards:["{n} cartes", "{n} cards", "{n} cards", "{n} cards", "{n} cards", "{n} cards", "{n} cards", "{n} cards", "{n} cards", "{n} cards"],
+adm_draws:["{n} tirages", "{n} draws", "{n} draws", "{n} draws", "{n} draws", "{n} draws", "{n} draws", "{n} draws", "{n} draws", "{n} draws"],
+adm_copy:["Copier le diagnostic", "Copy diagnostics", "Copy diagnostics", "Copy diagnostics", "Copy diagnostics", "Copy diagnostics", "Copy diagnostics", "Copy diagnostics", "Copy diagnostics", "Copy diagnostics"],
+adm_copied:["Diagnostic copié", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied", "Diagnostics copied"],
+adm_reset:["Réinitialiser mes données locales", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data", "Reset my local data"],
+adm_reset_s:["Sûr ? Ça efface ta progression ici", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here", "Sure? This erases your progress here"],
 new_place:["Nouveau lieu", "New place", "Nuevo lugar", "Neuer Ort", "Nuovo locale", "Novo local", "Новое место", "مكان جديد", "新店铺", "新しいお店"],
 t_delplace:["Ça supprimera aussi {n} aliment(s)", "This also deletes {n} item(s)", "También se borrarán {n} artículo(s)", "Löscht auch {n} Eintrag/Einträge", "Eliminerà anche {n} articolo/i", "Também apaga {n} artigo(s)", "Также удалится позиций: {n}", "سيُحذف أيضًا {n} عنصر", "同时删除{n}个项目", "{n}件のメニューも削除されます"],
 s_rates:["Taux par carte", "Card rates", "Tasas por carta", "Kartenchancen", "Probabilità carte", "Probabilidade das cartas", "Шансы карт", "احتمالات البطاقات", "卡片概率", "カード確率"],
@@ -1756,6 +1805,7 @@ function profileSheet(){const g=S.game,L=lvlInfo(g.xp);
   <div class="stats"><div><b>🔥 ${g.streak.n}</b><small>${t('cur_streak')}</small></div><div><b>🏆 ${g.streak.best}</b><small>${t('best_streak')}</small></div><div><b>🪙 ${g.coins||0}</b><small>${t('coins')}</small></div></div>
   <div class="btns" style="margin-bottom:6px"><button class="btn ghost sm" data-act="coll">📚 ${t('collection')} · ${Object.keys(g.seen||{}).filter(id=>S.items.some(i=>i.id==id)).length}/${S.items.length}</button><button class="btn ghost sm" data-act="shop">🛒 ${t('shop')}</button><button class="btn ghost sm" data-act="leaders">🏆 ${t('leaders')}</button></div>
   <h3 class="sub">${t('achs')} · ${Object.keys(g.ach).length}/${ACH.length}</h3><div class="achs">${ACH.map(([id,e])=>`<div class="ach ${g.ach[id]?'got':'lock'}"><span>${e}</span><b>${t(id)}</b><small>${t(id+'_d')}</small></div>`).join('')}</div>
+  ${acctBlock()}
   <div class="sact"><button class="btn ghost sm" data-act="tab" data-v="set">${t('edit_prof')}</button><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
 
 const SHOP=[['freeze','🧊',60,'sh_freeze','n'],['rr','🔁',40,'sh_reroll','n'],['boost','🚀',80,'sh_boost','n'],['pity','✨',120,'sh_pity','n'],['gold','🥇',150,'sh_gold','f'],['rain','🌈',300,'sh_rain','f']];
@@ -1770,6 +1820,79 @@ function collSheet(){const g=S.game,seen=g.seen||{},n=S.items.filter(i=>seen[i.i
   sheet(`<h2>📚 ${t('collection')}</h2><div class="xpline"><span>${n}</span><div class="xpb"><i style="width:${S.items.length?n/S.items.length*100:0}%"></i></div><span>${S.items.length}</span></div><p class="pc" style="text-align:center;margin:4px 0 10px">${t('col_prog',{n,m:S.items.length})}</p>
   ${S.places.map(p=>{const its=S.items.filter(i=>i.placeId==p.id);if(!its.length)return'';return `<h3 class="sub">${esc(p.emoji+' '+p.name)} · ${its.filter(i=>seen[i.id]).length}/${its.length}</h3><div class="coll">${its.map(i=>seen[i.id]?`<div class="cc" style="--c:${RK[i.rank].c}"><span>${icon(i.emoji,i.img)}</span><small>${esc(i.name)}</small><i>${i.rank}</i></div>`:`<div class="cc lock"><span>${icon(i.emoji,i.img)}</span><small>???</small></div>`).join('')}</div>`}).join('')}
   <div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
+/* ---------- Comptes beta (Supabase, via REST, sans librairie) ---------- */
+const BUILD='4.8.0';
+const CFG={url:'',key:'',google:false};
+const AUTH_LS='tf_auth_v1';
+const AUTH={on:!!(CFG.url&&CFG.key),sess:null,role:null,errs:[],mode:'in',busy:false,msg:'',em:'',pw:'',lastSync:0};
+try{AUTH.sess=JSON.parse(localStorage.getItem(AUTH_LS)||'null');AUTH.role=AUTH.sess&&AUTH.sess.role||null}catch(e){}
+const pushErr=m=>{AUTH.errs.push(new Date().toTimeString().slice(0,8)+' '+String(m).slice(0,140));if(AUTH.errs.length>20)AUTH.errs.shift()};
+addEventListener('error',e=>pushErr((e.message||'?')+(e.lineno?' @'+e.lineno:'')));
+addEventListener('unhandledrejection',e=>pushErr('promise: '+((e.reason&&e.reason.message)||e.reason)));
+async function sb(path,o={}){const h={apikey:CFG.key,'Content-Type':'application/json'};h.Authorization='Bearer '+(o.token||(AUTH.sess&&AUTH.sess.access_token)||CFG.key);if(o.prefer)h.Prefer=o.prefer;
+  const r=await fetch(CFG.url+path,{method:o.method||'GET',headers:h,body:o.body?JSON.stringify(o.body):undefined});const tx=await r.text();let j=null;try{j=tx?JSON.parse(tx):null}catch(e){}
+  if(!r.ok){const er=new Error((j&&(j.msg||j.error_description||j.message||j.error))||('HTTP '+r.status));er.status=r.status;throw er}return j}
+function authStore(){try{localStorage.setItem(AUTH_LS,JSON.stringify({...AUTH.sess,role:AUTH.role}))}catch(e){}}
+function authSave(tk){AUTH.sess={access_token:tk.access_token,refresh_token:tk.refresh_token,expires_at:Math.floor(Date.now()/1000)+(+tk.expires_in||3600),user:{id:tk.user&&tk.user.id,email:tk.user&&tk.user.email}};authStore()}
+function authClear(){AUTH.sess=null;AUTH.role=null;try{localStorage.removeItem(AUTH_LS)}catch(e){}}
+async function authFresh(){const s=AUTH.sess;if(!s)return false;if(s.expires_at-60>Date.now()/1000)return true;
+  try{const j=await sb('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:s.refresh_token},token:CFG.key});authSave({...j,user:j.user||s.user});return true}
+  catch(e){if(e.status>=400&&e.status<500){authClear();return false}return true}}
+async function authProfile(){try{const r=await sb('/rest/v1/profiles?id=eq.'+AUTH.sess.user.id+'&select=role');AUTH.role=(r&&r[0]&&r[0].role)||'user';authStore()}catch(e){AUTH.role=AUTH.role||'user'}}
+async function syncProfile(force){if(!AUTH.on||!AUTH.sess)return;if(!force&&Date.now()-AUTH.lastSync<60000)return;AUTH.lastSync=Date.now();
+  try{if(!await authFresh())return authRender();const g=S.game,seen=g.seen||{};
+    await sb('/rest/v1/profiles?id=eq.'+AUTH.sess.user.id,{method:'PATCH',body:{pseudo:String(S.settings.pseudo||'').slice(0,24),level:lvlInfo(g.xp).l,discovered:S.items.filter(i=>seen[i.id]).length,opened:S.opened||0,app_version:BUILD,last_seen:new Date().toISOString()}})}catch(e){pushErr('sync '+e.message)}}
+async function authReady(){await authProfile();const el=$('#auth');if(el)el.remove();document.body.style.overflow='';syncProfile(true)}
+async function authHash(){if(!/access_token=/.test(location.hash))return false;const q=new URLSearchParams(location.hash.slice(1));history.replaceState(null,'',location.pathname+location.search);
+  try{const tk={access_token:q.get('access_token'),refresh_token:q.get('refresh_token'),expires_in:q.get('expires_in')};const u=await sb('/auth/v1/user',{token:tk.access_token});tk.user={id:u.id,email:u.email};authSave(tk);return true}catch(e){return false}}
+function authErr(e){const m=String(e&&e.message||'');if(e instanceof TypeError)return t('au_net');if(/invalid login/i.test(m))return t('au_bad');if(/already registered/i.test(m))return t('au_exists');return m}
+function authRender(){let el=$('#auth');if(!el){el=document.createElement('div');el.id='auth';el.setAttribute('translate','no');document.body.appendChild(el);document.body.style.overflow='hidden'}
+  const e1=$('#au_em'),p1=$('#au_pw');if(e1)AUTH.em=e1.value;if(p1)AUTH.pw=p1.value;
+  el.innerHTML=`<div class="aup"><div class="aulogo">TARPIN<br>FAIM</div><p class="hint2" style="text-align:center">${t('au_sub')}</p>
+  <div class="seg" style="margin-bottom:14px"><button type="button" class="${AUTH.mode=='in'?'on':''}" data-act="aumode" data-v="in">${t('au_in')}</button><button type="button" class="${AUTH.mode=='up'?'on':''}" data-act="aumode" data-v="up">${t('au_up')}</button></div>
+  <label class="fld">${t('au_email')}<input id="au_em" type="email" autocomplete="email" inputmode="email" value="${esc(AUTH.em)}"></label>
+  <label class="fld">${t('au_pw')}<input id="au_pw" type="password" autocomplete="${AUTH.mode=='up'?'new-password':'current-password'}" value="${esc(AUTH.pw)}"></label>
+  ${AUTH.msg?`<p class="aumsg" role="alert">${esc(AUTH.msg)}</p>`:''}
+  <button class="btn" style="width:100%" data-act="ausubmit" ${AUTH.busy?'disabled':''}>${AUTH.busy?'…':AUTH.mode=='in'?t('au_in'):t('au_up')}</button>
+  ${CFG.google?`<div class="auor"><span>${t('au_or')}</span></div><button class="btn ghost" style="width:100%" data-act="augoogle"><b style="font-size:18px">G</b>&nbsp; ${t('au_google')}</button>`:''}
+  ${AUTH.mode=='in'?`<button class="lnk" data-act="aureset">${t('au_forgot')}</button>`:''}</div>`}
+async function authSubmit(){const e1=$('#au_em'),p1=$('#au_pw');if(!e1)return;AUTH.em=e1.value.trim();AUTH.pw=p1.value;
+  if(!AUTH.em||!AUTH.pw){AUTH.msg=t('au_fill');return authRender()}
+  if(AUTH.mode=='up'&&AUTH.pw.length<6){AUTH.msg=t('au_short');return authRender()}
+  AUTH.busy=true;AUTH.msg='';authRender();
+  try{if(AUTH.mode=='up'){const j=await sb('/auth/v1/signup',{method:'POST',body:{email:AUTH.em,password:AUTH.pw},token:CFG.key});
+      if(j&&j.access_token){authSave(j);AUTH.busy=false;return authReady()}AUTH.busy=false;AUTH.mode='in';AUTH.msg=t('au_confirm');return authRender()}
+    const j=await sb('/auth/v1/token?grant_type=password',{method:'POST',body:{email:AUTH.em,password:AUTH.pw},token:CFG.key});authSave(j);AUTH.busy=false;AUTH.pw='';return authReady()}
+  catch(er){AUTH.msg=authErr(er)}
+  AUTH.busy=false;authRender()}
+async function authReset(){const e1=$('#au_em');AUTH.em=e1?e1.value.trim():AUTH.em;if(!AUTH.em){AUTH.msg=t('au_need_email');return authRender()}
+  try{await sb('/auth/v1/recover',{method:'POST',body:{email:AUTH.em},token:CFG.key});AUTH.msg=t('au_sent')}catch(er){AUTH.msg=authErr(er)}authRender()}
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.closest&&e.target.closest('#auth'))authSubmit()});
+const acctBlock=()=>AUTH.on&&AUTH.sess?`<div class="acct"><small>👤 ${esc(AUTH.sess.user.email||'')} · ${AUTH.role=='admin'?'🛠️ '+t('au_role_admin'):t('au_role_user')}</small><div class="btns"><button class="btn ghost sm" data-act="fbk">💬 ${t('fb_btn')}</button>${AUTH.role=='admin'?`<button class="btn ghost sm" data-act="admin">🛠️ ${t('adm_title')}</button>`:''}<button class="btn ghost sm" data-act="aulogout">${t('au_out')}</button></div></div>`:'';
+let FB={rate:0,txt:'',busy:false,msg:''};
+function fbSheet(){sheet(`<h2>💬 ${t('fb_title')}</h2><p class="hint2">${t('fb_h')}</p><div class="seg">${[1,2,3,4,5].map(n=>`<button type="button" class="${FB.rate==n?'on':''}" data-act="fbrate" data-v="${n}" style="font-size:22px">${['😞','😕','😐','🙂','😍'][n-1]}</button>`).join('')}</div>
+  <label class="fld" style="margin-top:12px">${t('fb_txt')}<textarea id="fb_txt" rows="5" maxlength="1000" style="height:auto;padding:12px">${esc(FB.txt)}</textarea></label>${FB.msg?`<p class="hint2">${esc(FB.msg)}</p>`:''}
+  <div class="sact"><button class="btn ghost sm" data-act="close">${t('close')}</button><button class="btn sm" data-act="fbsend" ${FB.busy?'disabled':''}>${t('fb_send')}</button></div>`)}
+async function fbSend(){const el=$('#fb_txt');if(el)FB.txt=el.value.trim();if(!FB.rate&&!FB.txt){FB.msg=t('fb_empty');return fbSheet()}
+  FB.busy=true;FB.msg='';fbSheet();
+  try{if(!await authFresh())throw new Error('session');await sb('/rest/v1/feedback',{method:'POST',body:{user_id:AUTH.sess.user.id,email:AUTH.sess.user.email,rating:FB.rate||null,message:FB.txt,app_version:BUILD},prefer:'return=minimal'});
+    FB={rate:0,txt:'',busy:false,msg:''};closeSheet();toast(t('fb_thanks'));return}
+  catch(er){FB.msg=authErr(er)}FB.busy=false;fbSheet()}
+let ADM={tab:'fb',rows:null,busy:false,err:null,pendReset:false};
+async function admLoad(){ADM.busy=true;ADM.err=null;ADM.rows=null;admSheet();
+  try{if(!await authFresh())throw new Error('session');ADM.rows=await sb(ADM.tab=='fb'?'/rest/v1/feedback?select=*&order=created_at.desc&limit=50':'/rest/v1/profiles?select=*&order=last_seen.desc.nullslast&limit=100')}catch(er){ADM.err=authErr(er)}
+  ADM.busy=false;if(!sh.hidden)admSheet()}
+function admDiag(){const g=S.game;return `Tarpin Faim v${BUILD}\nuser: ${AUTH.sess&&AUTH.sess.user.id}\nemail: ${AUTH.sess&&AUTH.sess.user.email}\nrole: ${AUTH.role}\nlang: ${S.lang}\nplaces: ${S.places.length} · cartes: ${S.items.length} · tirages: ${S.opened||0} · xp: ${g.xp||0}\nUA: ${navigator.userAgent}\nerreurs:\n${AUTH.errs.join('\n')||'-'}`}
+function admSheet(){if(AUTH.role!='admin')return;
+  const tabs=[['fb','adm_fb'],['us','adm_users'],['dev','adm_dev']].map(([k,l])=>`<button type="button" class="${ADM.tab==k?'on':''}" data-act="admtab" data-v="${k}">${t(l)}</button>`).join('');
+  let body;
+  if(ADM.tab=='dev')body=`<pre class="admpre">${esc(admDiag())}</pre><div class="btns"><button class="btn ghost sm" data-act="admcopy">📋 ${t('adm_copy')}</button><button class="btn danger sm" data-act="admreset">${ADM.pendReset?t('adm_reset_s'):t('adm_reset')}</button></div>`;
+  else if(ADM.busy)body=`<p class="pc" style="text-align:center;padding:20px 0">${t('adm_load')}</p>`;
+  else if(ADM.err)body=`<p class="hint2">${esc(t('adm_err',{e:ADM.err}))}</p>`;
+  else if(!ADM.rows||!ADM.rows.length)body=`<p class="hint2" style="text-align:center">${t('adm_none')}</p>`;
+  else if(ADM.tab=='fb')body=`<div class="admlist">${ADM.rows.map(r=>`<div class="admrow"><div class="admh"><b>${r.rating?['😞','😕','😐','🙂','😍'][r.rating-1]:'💬'} ${esc(r.email||'?')}</b><small>${new Date(r.created_at).toLocaleString(loc(),{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})} · v${esc(r.app_version||'?')}</small></div>${r.message?`<p>${esc(r.message)}</p>`:''}</div>`).join('')}</div>`;
+  else body=`<div class="admlist">${ADM.rows.map(r=>`<div class="admrow"><div class="admh"><b>${r.role=='admin'?'🛠️ ':''}${esc(r.pseudo||r.email||'?')}</b><small>${r.last_seen?new Date(r.last_seen).toLocaleString(loc(),{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—'}</small></div><small>${esc(r.email||'')} · Lv.${r.level||1} · ${t('adm_cards',{n:r.discovered||0})} · ${t('adm_draws',{n:r.opened||0})} · v${esc(r.app_version||'?')}</small></div>`).join('')}</div>`;
+  sheet(`<h2>🛠️ ${t('adm_title')}</h2><div class="seg" style="margin-bottom:12px">${tabs}</div>${body}<div class="sact"><button class="btn sm" data-act="close">${t('close')}</button></div>`)}
 let LB_CACHE=null;
 async function leaderSheet(refresh){
   if(!LB_CACHE||refresh){
@@ -1980,6 +2103,15 @@ const A={
   skipp:b=>{const k=dayKey(),id=b.dataset.id;if(!S.skip||S.skip.day!=k)S.skip={day:k,ids:[]};const L=S.skip.ids;L.includes(id)?L.splice(L.indexOf(id),1):L.push(id);SFX.soft();save();ratesSheet();if(view=='home')render()},
   shop:()=>{SFX.soft();shopSheet()},
   coll:()=>{SFX.soft();collSheet()},
+  aumode:b=>{const e1=$('#au_em'),p1=$('#au_pw');if(e1)AUTH.em=e1.value;if(p1)AUTH.pw=p1.value;AUTH.mode=b.dataset.v;AUTH.msg='';authRender()},
+  ausubmit:()=>authSubmit(),aureset:()=>authReset(),
+  augoogle:()=>{location.href=CFG.url+'/auth/v1/authorize?provider=google&redirect_to='+encodeURIComponent(location.origin+location.pathname)},
+  aulogout:()=>{authClear();closeSheet();AUTH.pw='';AUTH.msg='';authRender()},
+  fbk:()=>{SFX.soft();fbSheet()},fbrate:b=>{const el=$('#fb_txt');if(el)FB.txt=el.value;FB.rate=+b.dataset.v;fbSheet()},fbsend:()=>fbSend(),
+  admin:()=>{SFX.soft();ADM.tab='fb';ADM.pendReset=false;admLoad()},
+  admtab:b=>{ADM.tab=b.dataset.v;ADM.pendReset=false;if(ADM.tab=='dev'){admSheet()}else admLoad()},
+  admcopy:()=>{try{navigator.clipboard.writeText(admDiag());toast(t('adm_copied'))}catch(e){}},
+  admreset:()=>{if(!ADM.pendReset){ADM.pendReset=true;admSheet();return}try{localStorage.removeItem(LS)}catch(e){}location.reload()},
   leaders:()=>{SFX.soft();leaderSheet()},
   leaderrefresh:()=>{leaderSheet(true)},
   chest:()=>openChest(),
@@ -2065,6 +2197,11 @@ function intro(){if(reduce){setTimeout(whatsNew,300);return}const el=document.cr
 setInterval(()=>{const c=fmtCd();document.querySelectorAll('[data-cd]').forEach(el=>{el.textContent=c});if(msLeft()<1100&&view=='home'&&!seq)setTimeout(render,1200)},1000);
 intro();
 applyTheme();render();
+if(AUTH.on){document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncProfile()});
+  (async()=>{const had=/access_token=/.test(location.hash);if(!had&&!AUTH.sess){authRender();return}
+    if(had)await authHash();
+    if(!AUTH.sess||!await authFresh()){authRender();return}
+    await authProfile();syncProfile(true)})()}
 
 }
 </script>
