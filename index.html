@@ -205,6 +205,21 @@ input[type=range]{padding:0;background:none;border:0;accent-color:var(--g);heigh
 .prow .ib{grid-column:4;justify-self:end}
 .pinfo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;margin:-6px 0 14px}
 .pinfo .tip{grid-column:1/3}
+.pcard{display:grid;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:2px solid var(--line)}
+.pf{display:grid;gap:6px}
+.plab{font:800 13px Outfit,system-ui,sans-serif;color:var(--mut);text-transform:none}
+.pnm{display:grid;grid-template-columns:52px minmax(0,1fr);gap:6px}
+.pcard .em{text-align:center;font-size:22px;padding:0}
+.pcard .pw{display:grid;grid-template-columns:84px minmax(0,1fr);gap:10px;align-items:center}
+.pcard .pw .hint2{margin:0}
+.pcard .pct{font:600 13px Outfit,system-ui,sans-serif;color:var(--mut)}
+.pdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.pdays button{min-height:40px;border-radius:10px;border:2px solid var(--line);background:var(--card2);color:var(--mut);font:700 12px Outfit,system-ui,sans-serif;cursor:pointer;padding:0}
+.pdays button.on{border-color:var(--g);background:color-mix(in srgb,var(--g) 20%,var(--card2));color:var(--ink)}
+.ptimes{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr);gap:6px 8px;align-items:center;font:600 13px Outfit,system-ui,sans-serif;color:var(--mut)}
+.ptimes input{min-width:0;padding:10px 6px;text-align:center;font-size:16px}
+.ptimes input::-webkit-calendar-picker-indicator{display:none}
+.pdel{display:flex;justify-content:flex-end}
 .pmodes{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .pmodes button{height:38px;border-radius:10px;border:2px solid var(--line);background:var(--card2);font-size:18px;cursor:pointer;opacity:.4;filter:grayscale(1)}
 .pmodes button.on{opacity:1;filter:none;border-color:var(--g);background:color-mix(in srgb,var(--g) 18%,var(--card2))}
@@ -825,17 +840,27 @@ s_nomode:["Aucun moment coché", "No meal ticked", "Ningún momento marcado", "K
 s_addplace:["+ Lieu", "+ Place", "+ Lugar", "+ Ort", "+ Locale", "+ Local", "+ Заведение", "+ مكان", "+ 店铺", "+ お店"],
 p_open:["Horaires", "Hours", "Horario", "Öffnungszeiten", "Orari", "Horário", "Часы работы", "ساعات العمل", "营业时间", "営業時間"],
 p_open_ph:["Horaires ex. 11:30-14:00, 18:30-22:00", "Hours e.g. 11:30-14:00, 18:30-22:00", "Horario p. ej. 11:30-14:00", "Zeiten z. B. 11:30-14:00", "Orari es. 11:30-14:00", "Horário ex. 11:30-14:00", "Часы, напр. 11:30-14:00", "مثال 11:30-14:00", "如 11:30-14:00", "例 11:30-14:00"],
-p_vibe:["Ambiance", "Vibe", "Ambiente", "Stimmung", "Atmosfera", "Ambiente", "Атмосфера", "الأجواء", "氛围", "雰囲気"],
-p_tip:["Conseil perso", "Personal tip", "Consejo personal", "Eigener Tipp", "Consiglio personale", "Dica pessoal", "Свой совет", "نصيحة", "小贴士", "ひとこと"],
-p_tip_ph:["Ton conseil (ex. demande la sauce maison)", "Your tip (e.g. ask for the house sauce)", "Tu consejo", "Dein Tipp", "Il tuo consiglio", "Sua dica", "Твой совет", "نصيحتك", "你的小贴士", "おすすめメモ"],
-vibe_none:["Ambiance ?", "Vibe?", "¿Ambiente?", "Stimmung?", "Atmosfera?", "Ambiente?", "Атмосфера?", "الأجواء؟", "氛围?", "雰囲気?"],
-vibe_fast:["Rapide", "Quick", "Rápido", "Schnell", "Veloce", "Rápido", "Быстро", "سريع", "快捷", "早い"],
-vibe_chill:["Posé", "Chill", "Tranquilo", "Entspannt", "Rilassato", "Tranquilo", "Спокойно", "هادئ", "悠闲", "まったり"],
-vibe_stud:["Spot d'étudiants", "Student spot", "Sitio de estudiantes", "Studi-Treff", "Ritrovo studenti", "Ponto de estudantes", "Для студентов", "مكان الطلاب", "学生聚集地", "学生向け"],
-vibe_gourm:["Gourmand", "Foodie", "Goloso", "Genießer", "Goloso", "Gourmet", "Для гурманов", "للمتذوقين", "吃货之选", "グルメ"],
+p_vibe:["Idéal pour", "Great for", "Ideal para", "Ideal für", "Ideale per", "Ideal para", "Подходит для", "مثالي لـ", "适合", "おすすめ"],
+p_tip:["Note", "Note", "Nota", "Notiz", "Nota", "Nota", "Заметка", "ملاحظة", "备注", "メモ"],
+p_tip_ph:["Ex. demande la sauce maison", "e.g. ask for the house sauce", "p. ej. pide la salsa de la casa", "z. B. nach der Hausspezialsoße fragen", "es. chiedi la salsa della casa", "ex.: peça o molho da casa", "напр. попроси фирменный соус", "مثال: اطلب الصلصة الخاصة", "如：问问招牌酱", "例：特製ソースを頼む"],
+vibe_none:["— Pas précisé —", "— Not set —", "— Sin definir —", "— Nicht angegeben —", "— Non indicato —", "— Não definido —", "— Не указано —", "— غير محدد —", "— 未设置 —", "— 未設定 —"],
+vibe_fast:["Manger vite", "A quick bite", "Comer rápido", "Schnell essen", "Mangiare veloce", "Comer rápido", "Быстро перекусить", "أكل سريع", "快速吃一顿", "さっと食べる"],
+vibe_chill:["Prendre son temps", "Taking your time", "Sin prisa", "In Ruhe essen", "Con calma", "Com calma", "Не спеша", "على مهل", "慢慢享用", "ゆっくり"],
+vibe_stud:["Entre étudiants", "With students", "Entre estudiantes", "Unter Studis", "Tra studenti", "Entre estudantes", "Со студентами", "بين الطلاب", "和同学", "学生同士で"],
+vibe_gourm:["Se faire plaisir", "A treat", "Darse un capricho", "Sich was gönnen", "Concedersi uno sfizio", "Se dar um mimo", "Побаловать себя", "دلّع نفسك", "犒劳自己", "ご褒美に"],
 maybe_closed:["Peut-être fermé", "Maybe closed", "Quizá cerrado", "Evtl. geschlossen", "Forse chiuso", "Talvez fechado", "Возможно закрыто", "قد يكون مغلقًا", "可能已关门", "閉店中かも"],
 add_card:["+ Carte", "+ Card", "+ Carta", "+ Karte", "+ Carta", "+ Carta", "+ Карта", "+ بطاقة", "+ 卡片", "+ カード"],
 cat_hint:["📍 Un lieu, c'est où tu manges. 🃏 Une carte, c'est ce que tu peux y tirer (plat, boisson, dessert…). Ouvre un lieu pour gérer ses cartes.", "📍 A place is where you eat. 🃏 A card is what you can draw there (main, drink, dessert…). Open a place to manage its cards.", "📍 Un lugar es donde comes. 🃏 Una carta es lo que puedes sacar allí (plato, bebida, postre…). Abre un lugar para gestionar sus cartas.", "📍 Ein Ort ist, wo du isst. 🃏 Eine Karte ist, was du dort ziehen kannst (Hauptgericht, Getränk, Dessert…). Öffne einen Ort, um seine Karten zu verwalten.", "📍 Un locale è dove mangi. 🃏 Una carta è ciò che puoi pescare lì (piatto, bevanda, dolce…). Apri un locale per gestire le sue carte.", "📍 Um local é onde você come. 🃏 Uma carta é o que você pode tirar lá (prato, bebida, sobremesa…). Abra um local para gerir as cartas dele.", "📍 Место — где ты ешь. 🃏 Карта — то, что можно там вытянуть (блюдо, напиток, десерт…). Открой место, чтобы управлять его картами.", "📍 المكان هو أين تأكل. 🃏 البطاقة هي ما يمكنك سحبه هناك (طبق، مشروب، حلوى…). افتح مكانًا لإدارة بطاقاته.", "📍 店铺是你吃饭的地方。🃏 卡片是你能在那里抽到的东西（主食、饮品、甜点……）。打开店铺即可管理它的卡片。", "📍 お店は食べる場所。🃏 カードはそこで引けるもの（メイン、ドリンク、デザート…）。お店を開いてカードを管理しよう。"],
+p_name:["Nom du lieu", "Place name", "Nombre del lugar", "Name des Ortes", "Nome del locale", "Nome do local", "Название места", "اسم المكان", "店铺名称", "お店の名前"],
+p_weight:["Chances de tirage", "Draw chances", "Probabilidad de salir", "Ziehchance", "Probabilità di uscita", "Chance de sair", "Шанс выпадения", "فرصة الظهور", "出现几率", "出る確率"],
+p_weight_h:["Plus le nombre est grand, plus ce lieu sort souvent.", "The higher the number, the more often this place comes up.", "Cuanto mayor el número, más sale este lugar.", "Je höher die Zahl, desto öfter kommt dieser Ort.", "Più alto è il numero, più spesso esce.", "Quanto maior o número, mais vezes sai.", "Чем больше число, тем чаще выпадает.", "كلما زاد الرقم ظهر المكان أكثر.", "数字越大，越常出现。", "数字が大きいほど出やすい。"],
+p_moments:["Moments où ce lieu peut sortir", "Meals this place can come up for", "Momentos en que puede salir", "Mahlzeiten, bei denen er vorkommt", "Pasti in cui può uscire", "Refeições em que pode sair", "Когда это место может выпасть", "الوجبات التي يظهر فيها", "可能出现的餐段", "出る時間帯"],
+p_hours:["Horaires d'ouverture", "Opening hours", "Horario de apertura", "Öffnungszeiten", "Orari di apertura", "Horário de funcionamento", "Часы работы", "ساعات العمل", "营业时间", "営業時間"],
+p_from:["Ouvert de", "Open from", "Abierto de", "Geöffnet von", "Aperto dalle", "Aberto das", "Открыто с", "مفتوح من", "营业从", "営業"],
+p_to:["à", "to", "a", "bis", "alle", "às", "до", "إلى", "到", "〜"],
+p_then:["Puis de (optionnel)", "Then from (optional)", "Luego de (opcional)", "Dann von (optional)", "Poi dalle (opzionale)", "Depois das (opcional)", "Затем с (необяз.)", "ثم من (اختياري)", "再从（可选）", "その後（任意）"],
+p_days:["Jours d'ouverture", "Open days", "Días abiertos", "Öffnungstage", "Giorni di apertura", "Dias abertos", "Дни работы", "أيام العمل", "营业日", "営業日"],
+p_days_h:["Aucun jour coché = ouvert tous les jours.", "No day ticked = open every day.", "Ningún día marcado = abierto todos los días.", "Kein Tag gewählt = täglich geöffnet.", "Nessun giorno = aperto ogni giorno.", "Nenhum dia marcado = aberto todos os dias.", "Ничего не выбрано = открыто каждый день.", "بدون تحديد = مفتوح كل يوم.", "未勾选 = 每天营业。", "未選択＝毎日営業。"],
 new_place:["Nouveau lieu", "New place", "Nuevo lugar", "Neuer Ort", "Nuovo locale", "Novo local", "Новое место", "مكان جديد", "新店铺", "新しいお店"],
 t_delplace:["Ça supprimera aussi {n} aliment(s)", "This also deletes {n} item(s)", "También se borrarán {n} artículo(s)", "Löscht auch {n} Eintrag/Einträge", "Eliminerà anche {n} articolo/i", "Também apaga {n} artigo(s)", "Также удалится позиций: {n}", "سيُحذف أيضًا {n} عنصر", "同时删除{n}个项目", "{n}件のメニューも削除されます"],
 s_rates:["Taux par carte", "Card rates", "Tasas por carta", "Kartenchancen", "Probabilità carte", "Probabilidade das cartas", "Шансы карт", "احتمالات البطاقات", "卡片概率", "カード確率"],
@@ -1519,13 +1544,31 @@ function catalog(){
 const norm=x=>String(x).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const catOpen={};
 const VIBES=[['','','vibe_none'],['fast','⚡','vibe_fast'],['chill','🛋️','vibe_chill'],['stud','🎒','vibe_stud'],['gourm','😋','vibe_gourm']];
-function openState(p){const s=String(p&&p.open||'').trim();if(!s)return null;const n=new Date(),now=n.getHours()*60+n.getMinutes();let ok=false,any=false;
-  for(const r of s.split(/[,;\/]/)){const m=r.trim().match(/^(\d{1,2})\s*[:h]\s*(\d{0,2})\s*[-–à]\s*(\d{1,2})\s*[:h]\s*(\d{0,2})$/);if(!m)continue;any=true;const a=(+m[1])*60+(+m[2]||0),b=(+m[3])*60+(+m[4]||0);if(a<=b?(now>=a&&now<=b):(now>=a||now<=b))ok=true}
-  return any?ok:null}
-function placeInfo(p){if(!p)return '';const parts=[],v=VIBES.find(x=>x[0]==(p.vibe||''));if(v&&v[0])parts.push(v[1]+' '+t(v[2]));if(p.open)parts.push('🕒 '+p.open);if(p.tip)parts.push('💡 '+p.tip);
-  if(openState(p)===false)parts.unshift('⚠️ '+t('maybe_closed'));return parts.join(' · ')}
-function placeEditor(p){return `<div class="prow"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8"><input data-f="p:${p.id}:name" value="${esc(p.name)}"><select data-f="p:${p.id}:rank">${RL.map(r=>`<option ${p.rank==r?'selected':''}>${r}</option>`).join('')}</select><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}"><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div>
-  <div class="pinfo"><input data-f="p:${p.id}:open" value="${esc(p.open||'')}" placeholder="${t('p_open_ph')}" maxlength="40" aria-label="${t('p_open')}"><select data-f="p:${p.id}:vibe" aria-label="${t('p_vibe')}">${VIBES.map(v=>`<option value="${v[0]}" ${(p.vibe||'')==v[0]?'selected':''}>${v[1]?v[1]+' ':''}${t(v[2])}</option>`).join('')}</select><input class="tip" data-f="p:${p.id}:tip" value="${esc(p.tip||'')}" placeholder="${t('p_tip_ph')}" maxlength="80" aria-label="${t('p_tip')}"></div>`}
+const wdName=i=>new Date(2024,0,1+i).toLocaleDateString(loc(),{weekday:'short'});
+function placeRanges(p){const r=[];for(const [x,y] of [['a1','b1'],['a2','b2']])if(p[x]&&p[y])r.push([toMin(p[x]),toMin(p[y]),p[x]+'–'+p[y]]);
+  if(!r.length&&p.open)for(const q of String(p.open).split(/[,;\/]/)){const m=q.trim().match(/^(\d{1,2})\s*[:h]\s*(\d{0,2})\s*[-–à]\s*(\d{1,2})\s*[:h]\s*(\d{0,2})$/);if(m)r.push([(+m[1])*60+(+m[2]||0),(+m[3])*60+(+m[4]||0),q.trim()])}
+  return r}
+function openState(p){if(!p)return null;const days=p.days||[],rg=placeRanges(p);if(!days.length&&!rg.length)return null;
+  const n=new Date(),now=n.getHours()*60+n.getMinutes();if(days.length&&!days.includes((n.getDay()+6)%7))return false;
+  if(!rg.length)return true;return rg.some(([a,b])=>a<=b?(now>=a&&now<=b):(now>=a||now<=b))}
+function placeInfo(p){if(!p)return '';const parts=[],v=VIBES.find(x=>x[0]==(p.vibe||'')),rg=placeRanges(p),days=p.days||[];
+  if(openState(p)===false)parts.push('⚠️ '+t('maybe_closed'));
+  if(v&&v[0])parts.push(v[1]+' '+t(v[2]));
+  if(rg.length)parts.push('🕒 '+rg.map(r=>r[2]).join(' · '));
+  if(days.length&&days.length<7)parts.push('📅 '+[...days].sort((x,y)=>x-y).map(wdName).join(' '));
+  if(p.tip)parts.push('📝 '+p.tip);
+  return parts.join(' · ')}
+function placeEditor(p){const days=p.days||[];
+  return `<div class="pcard">
+  <div class="pf"><span class="plab">${t('p_name')}</span><div class="pnm"><input class="em" data-f="p:${p.id}:emoji" value="${esc(p.emoji)}" maxlength="8" aria-label="${t('f_icon')}"><input data-f="p:${p.id}:name" value="${esc(p.name)}" aria-label="${t('p_name')}"></div></div>
+  <div class="pf"><span class="plab">${t('f_rarity')}</span><div class="seg">${RL.map(r=>`<button type="button" class="rk ${p.rank==r?'on':''}" style="--c:${RK[r].c}" data-act="prank" data-id="${p.id}" data-v="${r}">${t('rank',{r})}<small>${stars(RK[r].stars)}</small></button>`).join('')}</div></div>
+  <div class="pf"><span class="plab">${t('p_weight')}</span><div class="pw"><input class="num" type="number" min="0" inputmode="numeric" data-f="p:${p.id}:weight" value="${p.weight}" aria-label="${t('p_weight')}"><small class="hint2">${t('p_weight_h')}</small></div></div>
+  <div class="pf"><span class="plab">${t('p_moments')}</span><div class="pmodes">${MO.map(m=>`<button class="${inMode(p,m)?'on':''}" data-act="pmode" data-id="${p.id}" data-v="${m}" aria-pressed="${inMode(p,m)}" title="${mL(m)}">${MODES[m].e}</button>`).join('')}</div><span class="pct" data-pct="p:${p.id}">${placePct(p)}</span></div>
+  <div class="pf"><span class="plab">${t('p_days')}</span><div class="pdays">${[0,1,2,3,4,5,6].map(i=>`<button type="button" class="${days.includes(i)?'on':''}" data-act="pday" data-id="${p.id}" data-v="${i}" aria-pressed="${days.includes(i)}">${esc(wdName(i))}</button>`).join('')}</div><small class="hint2">${t('p_days_h')}</small></div>
+  <div class="pf"><span class="plab">${t('p_hours')}</span><div class="ptimes"><span>${t('p_from')}</span><input type="time" data-f="p:${p.id}:a1" value="${esc(p.a1||'')}"><span>${t('p_to')}</span><input type="time" data-f="p:${p.id}:b1" value="${esc(p.b1||'')}"><span>${t('p_then')}</span><input type="time" data-f="p:${p.id}:a2" value="${esc(p.a2||'')}"><span>${t('p_to')}</span><input type="time" data-f="p:${p.id}:b2" value="${esc(p.b2||'')}"></div></div>
+  <div class="pf"><span class="plab">${t('p_vibe')}</span><select data-f="p:${p.id}:vibe" aria-label="${t('p_vibe')}">${VIBES.map(v=>`<option value="${v[0]}" ${(p.vibe||'')==v[0]?'selected':''}>${v[1]?v[1]+' ':''}${t(v[2])}</option>`).join('')}</select></div>
+  <div class="pf"><span class="plab">${t('p_tip')}</span><input data-f="p:${p.id}:tip" value="${esc(p.tip||'')}" placeholder="${t('p_tip_ph')}" maxlength="80" aria-label="${t('p_tip')}"></div>
+  <div class="pdel"><button class="ib ${pendDel==p.id?'warn':''}" data-act="delplace" data-id="${p.id}" aria-label="${t('del')}">${pendDel==p.id?t('sure'):I.trash}</button></div></div>`}
 function catList(){const order=k=>CK.indexOf(k),q=norm(catQ.trim());
   const PL=S.places.filter(p=>catMode=='all'||inMode(p,catMode));
   const html=PL.map(p=>{const all=S.items.filter(i=>i.placeId==p.id),its=all.filter(i=>(catMode=='all'||inMode(i,catMode))&&(!q||norm(i.name).includes(q)||norm(p.name).includes(q))).sort((a,b)=>order(a.cat)-order(b.cat)||rv[b.rank]-rv[a.rank]);
@@ -1894,6 +1937,8 @@ const A={
   addplace:()=>{const id=uid();S.places.push({id,name:t('new_place'),emoji:'📍',rank:'A',weight:10,modes:[curMode()]});catOpen[id]=true;catQ='';save();render();SFX.soft();setTimeout(()=>{const el=document.querySelector(`[data-f="p:${id}:name"]`);if(el){el.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'});el.focus();el.select()}},120)},
   tog:b=>{const id=b.dataset.id;catOpen[id]=!catOpen[id];SFX.soft();const y=scrollY;const l=$('#catlist');if(l)l.innerHTML=catList();else render()},
   addin:b=>{catFilter=b.dataset.id;openItem(null);catFilter='all'},
+  prank:b=>{const p=S.places.find(x=>x.id==b.dataset.id);if(!p)return;p.rank=b.dataset.v;SFX.soft();save();render()},
+  pday:b=>{const p=S.places.find(x=>x.id==b.dataset.id);if(!p)return;const d=+b.dataset.v,ds=p.days||[];p.days=ds.includes(d)?ds.filter(x=>x!=d):[...ds,d];SFX.soft();save();render()},
   pmode:b=>{const p=S.places.find(x=>x.id==b.dataset.id);if(!p)return;const v=b.dataset.v,ms=MO.filter(m=>inMode(p,m));p.modes=ms.includes(v)?ms.filter(m=>m!=v):MO.filter(m=>ms.includes(m)||m==v);SFX.soft();save();render()},
   delplace:b=>{const id=b.dataset.id;if(pendDel!=id){armDel(id);render();const n=S.items.filter(i=>i.placeId==id).length;if(n)toast(t('t_delplace',{n}));return}S.places=S.places.filter(p=>p.id!=id);S.items=S.items.filter(i=>i.placeId!=id);if(catFilter==id)catFilter='all';pendDel=null;save();render()},
   noav:()=>{S.settings.avatarImg=null;save();render()},
