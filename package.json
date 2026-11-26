@@ -1,6 +1,6 @@
 {
   "name": "tarpin-faim",
-  "version": "4.10.3",
+  "version": "4.11.0",
   "private": true,
   "description": "Tarpin Faim : gacha pour tirer au sort ses repas",
   "scripts": { "start": "node server.js", "lan": "node server.js --lan" },
